@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   New Life — design tokens
+   Two institutions, one campus: a warm, editorial neutral system with
+   two accent temperatures — candlelight gold for the church, meadow
+   green for the school — plus a shared ink/paper base that keeps both
+   feeling like the same family.
+--------------------------------------------------------------------- */
+
+@theme inline {
+  /* neutrals */
+  --color-ink: #1b2733;
+  --color-ink-soft: #2c3a48;
+  --color-paper: #f7f4ee;
+  --color-paper-dim: #efeade;
+  --color-stone: #e4ddcd;
+  --color-line: #d9d2c0;
+  --color-slate: #5c6672;
+
+  /* church — candlelight */
+  --color-church: #bf8a3d;
+  --color-church-deep: #8a5f24;
+  --color-church-tint: #f3e6cd;
+
+  /* school — meadow */
+  --color-school: #3d6b52;
+  --color-school-deep: #294a38;
+  --color-school-tint: #dbe8de;
+
+  /* type — self-hosted variable fonts via @fontsource-variable, see layout.tsx */
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 1.02;
+  --text-display-lg: 3.25rem;
+  --text-display-lg--line-height: 1.05;
+  --text-display-md: 2.375rem;
+  --text-display-md--line-height: 1.1;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* thin architectural rule used as a section divider — stands in for the
+   hairline-broadsheet default, but only ever appears once per section */
+.rule {
+  height: 1px;
+  background: linear-gradient(to right, var(--color-line), transparent);
+}
