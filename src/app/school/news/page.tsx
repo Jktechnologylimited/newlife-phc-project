@@ -14,7 +14,7 @@ export default function SchoolNewsPage() {
         Stay up to date with what&apos;s happening at our school.
       </p>
 
-      <div className="mt-10 divide-y divide-line border-y border-line">
+      <div className="mt-10 divide-y divide-line">
         {schoolNews.map((n, i) => (
           <Reveal key={n.slug} delay={i * 0.05}>
             <Link href={`/school/news/${n.slug}`} className="group flex items-start justify-between gap-6 py-5">

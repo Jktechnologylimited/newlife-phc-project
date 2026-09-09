@@ -11,10 +11,10 @@ export default function ResourcesPage() {
       <p className="text-sm font-medium text-school-deep">Resources</p>
       <h1 className="mt-2 font-display text-4xl">Helpful downloads & guides</h1>
       <p className="mt-3 max-w-lg text-[1.05rem] leading-relaxed text-slate">
-        Everything a New Life family might need, in one place.
+        Everything a Newlife family might need, in one place.
       </p>
 
-      <div className="mt-10 divide-y divide-line border-y border-line">
+      <div className="mt-10 divide-y divide-line">
         {resources.map((r, i) => (
           <Reveal key={r.name} delay={i * 0.05}>
             <div className="flex items-center gap-4 py-4">

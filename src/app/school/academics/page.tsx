@@ -9,7 +9,7 @@ function CurriculumTab() {
   return (
     <div className="grid gap-4 sm:grid-cols-3">
       {curriculumLevels.map((l) => (
-        <div key={l.level} className="rounded-xl border border-line p-5">
+        <div key={l.level} className="rounded-xl p-5">
           <p className="font-display text-lg">{l.level}</p>
           <p className="mt-1 text-xs text-slate">{l.ages}</p>
           <p className="mt-2 text-sm leading-relaxed text-slate">{l.desc}</p>
@@ -23,7 +23,7 @@ function DepartmentsTab() {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       {departments.map((d) => (
-        <div key={d.name} className="rounded-xl border border-line p-5">
+        <div key={d.name} className="rounded-xl p-5">
           <p className="font-display text-lg">{d.name}</p>
           <p className="mt-1 text-sm text-slate">{d.lead}</p>
           <ul className="mt-3 space-y-1 text-sm text-ink/75">
@@ -39,7 +39,7 @@ function DepartmentsTab() {
 
 function CalendarTab() {
   return (
-    <div className="max-w-md divide-y divide-line rounded-xl border border-line">
+    <div className="max-w-md divide-y divide-line rounded-xl">
       {academicCalendar.map((c) => (
         <div key={c.event} className="flex items-center gap-3 px-4 py-3">
           <CalendarDays className="h-4 w-4 shrink-0 text-school-deep" />

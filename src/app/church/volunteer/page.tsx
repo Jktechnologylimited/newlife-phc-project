@@ -18,7 +18,7 @@ export default function VolunteerPage() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         {volunteerOpportunities.map((v, i) => (
           <Reveal key={v.name} delay={i * 0.06}>
-            <div className="flex items-center justify-between gap-4 rounded-xl border border-line p-5">
+            <div className="flex items-center justify-between gap-4 rounded-xl p-5">
               <div>
                 <p className="font-display text-lg">{v.name}</p>
                 <p className="mt-1 text-sm text-slate">{v.desc}</p>

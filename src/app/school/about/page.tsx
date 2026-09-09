@@ -27,16 +27,15 @@ export default function SchoolAboutPage() {
         <Reveal>
           <p className="font-display text-lg">Our story</p>
           <p className="mt-3 text-[1.05rem] leading-relaxed text-slate">
-            New Life Christian Academy opened its doors in 2005 with a
-            simple mission: give every child an excellent, Christ-centered
-            education. We started with 45 students in a single building
-            shared with the church next door.
+            Newlife Baptist Church School opened its doors in 2005 as a
+            ministry of Newlife Baptist Church — one mission: give every
+            child an excellent, Christ-centered education. We started with
+            45 students, right there on the church&apos;s own campus.
           </p>
           <p className="mt-4 text-[1.05rem] leading-relaxed text-slate">
             Over 20 years later, we&apos;ve expanded to a full campus
-            serving Nursery through Year 13 — but the mission, and the
-            close relationship with the church that founded us, hasn&apos;t
-            changed.
+            serving Nursery through Year 13 — but the mission, and our
+            place within the church family, hasn&apos;t changed.
           </p>
         </Reveal>
         <Reveal delay={0.1}>
@@ -49,7 +48,7 @@ export default function SchoolAboutPage() {
           <div className="grid gap-4 sm:grid-cols-3">
             {values.map(({ Icon, title, desc }, i) => (
               <Reveal key={title} delay={i * 0.06}>
-                <div className="rounded-xl border border-line bg-paper p-5">
+                <div className="rounded-xl bg-paper p-5">
                   <Icon className="h-5 w-5 text-school-deep" />
                   <p className="mt-4 font-display text-lg">{title}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-slate">{desc}</p>

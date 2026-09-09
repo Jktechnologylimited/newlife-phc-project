@@ -19,7 +19,7 @@ export default function MinistriesPage() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ministries.map((m, i) => (
           <Reveal key={m.slug} delay={i * 0.05}>
-            <div className="flex h-full flex-col rounded-xl border border-line p-5">
+            <div className="flex h-full flex-col rounded-xl p-5">
               <p className="text-xs text-slate">{m.audience}</p>
               <p className="mt-1.5 font-display text-lg">{m.name}</p>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-slate">{m.desc}</p>

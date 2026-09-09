@@ -10,7 +10,7 @@ export default function LeadershipPage() {
     <div className="mx-auto max-w-4xl px-5 py-16 lg:px-8">
       <Image
         src="/newlife-logo-256.png"
-        alt="New Life Baptist Church crest"
+        alt="Newlife Baptist Church crest"
         width={64}
         height={64}
         className="mb-5"
@@ -25,7 +25,7 @@ export default function LeadershipPage() {
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
         {leadership.map((p, i) => (
           <Reveal key={p.name} delay={i * 0.06}>
-            <div className="flex items-center gap-4 rounded-xl border border-line p-5">
+            <div className="flex items-center gap-4 rounded-xl p-5">
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-church-tint font-display text-lg text-church-deep">
                 {p.initials}
               </span>

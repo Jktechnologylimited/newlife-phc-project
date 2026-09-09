@@ -9,29 +9,28 @@ import {
   CalendarHeart,
 } from "lucide-react";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
-import { Photo } from "@/components/media/photo";
+import { PhotoHero } from "@/components/patterns/photo-hero";
 import { photoUrl, photoAlt } from "@/lib/photos";
 
 const facts = [
   { Icon: Clock, label: "Sunday services at 9 & 11 AM" },
   { Icon: GraduationCap, label: "Nursery through Grade 12" },
   { Icon: DoorOpen, label: "One campus, two front doors" },
-  { Icon: CalendarHeart, label: "Serving Riverside since 1962" },
+  { Icon: CalendarHeart, label: "Serving Port Harcourt since 1985" },
 ];
 
 export default function GatewayPage() {
   return (
     <div>
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pt-14 lg:px-8 lg:pt-20">
-        <Stagger className="mx-auto max-w-2xl text-center">
+      <PhotoHero src={photoUrl("churchExterior")} alt={photoAlt("churchExterior")}>
+        <Stagger className="max-w-xl">
           <StaggerItem>
-            <p className="text-sm text-slate">
-              Founded 1962 · Riverside, California
+            <p className="text-sm text-paper/80">
+              Founded 1985 · Port Harcourt, Nigeria
             </p>
           </StaggerItem>
           <StaggerItem>
-            <h1 className="mt-5 font-display text-display-md text-ink sm:text-display-lg">
+            <h1 className="mt-4 font-display text-display-md leading-[1.05] text-paper sm:text-display-lg">
               Church on Sunday.
               <br />
               School on Monday.
@@ -40,29 +39,20 @@ export default function GatewayPage() {
             </h1>
           </StaggerItem>
           <StaggerItem>
-            <p className="mx-auto mt-6 max-w-lg text-balance text-[1.05rem] leading-relaxed text-slate">
-              New Life Baptist Church and New Life Christian Academy share a
+            <p className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-paper/85">
+              Newlife Baptist Church and Newlife Baptist Church School share a
               campus, a congregation, and a conviction: faith and learning
               grow best in the same room.
             </p>
           </StaggerItem>
         </Stagger>
-
-        <Reveal delay={0.2} className="mx-auto mt-10 max-w-3xl">
-          <Photo
-            src={photoUrl("churchExterior")}
-            alt={photoAlt("churchExterior")}
-            className="aspect-[16/9] rounded-2xl"
-            priority
-          />
-        </Reveal>
-      </section>
+      </PhotoHero>
 
       {/* Two doors */}
       <section className="mx-auto max-w-6xl px-5 pb-6 pt-4 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2">
           <Reveal>
-            <div className="flex h-full flex-col rounded-2xl border border-line border-l-[3px] border-l-church bg-church-tint/40 p-7">
+            <div className="flex h-full flex-col rounded-2xl border-l-[3px] border-l-church bg-church-tint/40 p-7">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-church text-ink">
                 <Church className="h-5 w-5" />
               </span>
@@ -88,11 +78,11 @@ export default function GatewayPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="flex h-full flex-col rounded-2xl border border-line border-l-[3px] border-l-school bg-school-tint/40 p-7">
+            <div className="flex h-full flex-col rounded-2xl border-l-[3px] border-l-school bg-school-tint/40 p-7">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-school text-paper">
                 <BookOpen className="h-5 w-5" />
               </span>
-              <h2 className="mt-5 font-display text-2xl">The Academy</h2>
+              <h2 className="mt-5 font-display text-2xl">The School</h2>
               <p className="mt-2 text-[0.95rem] leading-relaxed text-slate">
                 A Christ-centered education from nursery through graduation,
                 built around small classes and big character.

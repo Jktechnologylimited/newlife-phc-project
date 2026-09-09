@@ -11,7 +11,7 @@ function ClubsTab() {
   return (
     <div className="grid gap-3 sm:grid-cols-3">
       {clubs.map((c) => (
-        <div key={c.name} className="rounded-xl border border-line p-4">
+        <div key={c.name} className="rounded-xl p-4">
           <p className="font-display text-base">{c.name}</p>
           <p className="mt-1 text-xs text-slate">{c.category}</p>
         </div>
@@ -36,7 +36,7 @@ function ArtsTab() {
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {artsList.map((a) => (
-        <div key={a.name} className="rounded-xl border border-line p-4">
+        <div key={a.name} className="rounded-xl p-4">
           <p className="font-display text-base">{a.name}</p>
           <p className="mt-1 text-sm text-slate">{a.desc}</p>
         </div>
@@ -49,7 +49,7 @@ function LeadershipTab() {
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {studentLeadership.map((l) => (
-        <div key={l} className="flex items-center gap-3 rounded-xl border border-line p-4">
+        <div key={l} className="flex items-center gap-3 rounded-xl p-4">
           <Trophy className="h-4 w-4 text-school-deep" />
           <p className="text-sm font-medium">{l}</p>
         </div>

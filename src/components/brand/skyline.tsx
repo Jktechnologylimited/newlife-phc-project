@@ -45,7 +45,7 @@ function Path({ i, draw, ...rest }: PathAttrs & { i: number; draw: boolean }) {
  * a chapel with a spire on the left, a schoolhouse with a flag on the
  * right, joined by one path. This is the site's one deliberately bold
  * visual element — it recurs (in different accent tones) everywhere a
- * hero needs an image, so New Life never needs stock photography to
+ * hero needs an image, so Newlife never needs stock photography to
  * feel finished.
  */
 export function Skyline({

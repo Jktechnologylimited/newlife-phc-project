@@ -23,7 +23,7 @@ export default function PrayerPage() {
           <div className="space-y-3">
             {prayerRequestsSample.map((r) => (
               <Reveal key={r.request}>
-                <div className="flex items-center justify-between gap-4 rounded-xl border border-line p-4">
+                <div className="flex items-center justify-between gap-4 rounded-xl p-4">
                   <div>
                     <p className="text-sm font-medium">{r.request}</p>
                     <p className="mt-0.5 text-xs text-slate">

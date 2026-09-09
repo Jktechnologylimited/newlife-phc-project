@@ -57,7 +57,7 @@ export async function registerForEvent(
       from: FROM_EMAIL,
       to: data.email,
       subject: `You're registered — ${data.eventTitle}`,
-      text: `Hi ${data.fullName},\n\nYou're confirmed for ${data.eventTitle} (${data.attendeeCount} attending). We'll send any updates to this address.\n\n— New Life`,
+      text: `Hi ${data.fullName},\n\nYou're confirmed for ${data.eventTitle} (${data.attendeeCount} attending). We'll send any updates to this address.\n\n— Newlife Baptist Church`,
     });
     await resend.emails.send({
       from: FROM_EMAIL,
@@ -181,7 +181,7 @@ export async function submitAdmissionsInquiry(
   }
 
   const data = parsed.data;
-  const reference = `NLCA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+  const reference = `NBCS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
   // Phase 2: persist this inquiry to Neon (an `admissions_inquiries` table)
   // so the admin dashboard can track and follow up on it. For now it's
@@ -215,8 +215,8 @@ export async function submitAdmissionsInquiry(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: data.email,
-      subject: "We received your inquiry — New Life Christian Academy",
-      text: `Hi ${data.parentName},\n\nThanks for reaching out about ${data.studentName}'s education. Your reference number is ${reference}. Our admissions team will follow up within two business days.\n\n— New Life Christian Academy`,
+      subject: "We received your inquiry — Newlife Baptist Church School",
+      text: `Hi ${data.parentName},\n\nThanks for reaching out about ${data.studentName}'s education. Your reference number is ${reference}. Our admissions team will follow up within two business days.\n\n— Newlife Baptist Church School`,
     });
     return {
       status: "success",
@@ -251,7 +251,7 @@ export async function subscribeNewsletter(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
-      subject: "You're subscribed to New Life updates",
+      subject: "You're subscribed to Newlife Baptist Church updates",
       text: "Thanks for subscribing! You'll hear from the church and school office with news, events, and updates.",
     });
     await resend.emails.send({

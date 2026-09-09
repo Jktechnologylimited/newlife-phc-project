@@ -38,7 +38,7 @@ export default function GivePage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {ways.map(({ Icon, title, desc }, i) => (
             <Reveal key={title} delay={i * 0.06}>
-              <div className="rounded-xl border border-line p-5">
+              <div className="rounded-xl p-5">
                 <Icon className="h-5 w-5 text-church-deep" />
                 <p className="mt-4 font-display text-lg">{title}</p>
                 <p className="mt-1 text-sm text-slate">{desc}</p>

@@ -19,21 +19,21 @@ export default function ChurchContactPage() {
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-church-deep" />
             <div>
               <p className="text-sm font-medium">Visit us</p>
-              <p className="text-sm text-slate">123 Community Drive, Riverside, CA 92501</p>
+              <p className="text-sm text-slate">Port Harcourt, Rivers State, Nigeria</p>
             </div>
           </div>
           <div className="flex gap-3">
             <Phone className="mt-0.5 h-4 w-4 shrink-0 text-church-deep" />
             <div>
               <p className="text-sm font-medium">Call us</p>
-              <p className="text-sm text-slate">(555) 123-4567</p>
+              <p className="text-sm text-slate">+234 803 123 4567</p>
             </div>
           </div>
           <div className="flex gap-3">
             <Mail className="mt-0.5 h-4 w-4 shrink-0 text-church-deep" />
             <div>
               <p className="text-sm font-medium">Email us</p>
-              <p className="text-sm text-slate">office@newlife.church</p>
+              <p className="text-sm text-slate">office@newlifebaptistchurch.org</p>
             </div>
           </div>
           <div className="flex gap-3">

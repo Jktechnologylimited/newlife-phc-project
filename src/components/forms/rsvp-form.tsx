@@ -24,7 +24,7 @@ export function RsvpForm({
   const accentBtn = accent === "church" ? "bg-church text-ink" : "bg-school text-paper";
 
   return (
-    <div className="rounded-2xl border border-line bg-paper p-6">
+    <div className="rounded-2xl bg-paper-dim p-6">
       <AnimatePresence mode="wait">
         {state.status === "success" ? (
           <motion.div key="success" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="py-4 text-center">

@@ -14,7 +14,7 @@ export default function SchoolEventsPage() {
         Join us for exciting events, workshops, and special occasions.
       </p>
 
-      <div className="mt-10 divide-y divide-line border-y border-line">
+      <div className="mt-10 divide-y divide-line">
         {schoolEvents.map((e, i) => (
           <Reveal key={e.slug} delay={i * 0.05}>
             <div className="flex items-center gap-6 py-5">

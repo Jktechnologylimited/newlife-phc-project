@@ -15,7 +15,7 @@ export default function ChurchEventsPage() {
         for every stage of life.
       </p>
 
-      <div className="mt-10 divide-y divide-line border-y border-line">
+      <div className="mt-10 divide-y divide-line">
         {churchEvents.map((e, i) => (
           <Reveal key={e.title} delay={i * 0.05}>
             <div className="flex items-center gap-6 py-5">

@@ -15,5 +15,5 @@ export function isEmailConfigured() {
   return Boolean(process.env.RESEND_API_KEY);
 }
 
-export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "New Life <hello@newlife.church>";
-export const OFFICE_EMAIL = process.env.OFFICE_EMAIL ?? "office@newlife.church";
+export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "Newlife Baptist Church <hello@newlifebaptistchurch.org>";
+export const OFFICE_EMAIL = process.env.OFFICE_EMAIL ?? "office@newlifebaptistchurch.org";

@@ -215,7 +215,7 @@ export const churchEvents = [
     date: "APR 18",
     title: "Women's Conference",
     time: "9:00 AM – 4:00 PM",
-    location: "Riverside Fellowship Hall",
+    location: "Newlife Fellowship Hall",
     description: "A day of teaching, worship, and connection for women of every age and season of life.",
   },
   {
@@ -223,7 +223,7 @@ export const churchEvents = [
     date: "APR 26",
     title: "Youth Retreat",
     time: "All day",
-    location: "Camp Riverside",
+    location: "Newlife Retreat Camp",
     description: "A weekend away for grades 6–12 — games, worship, and small group discussion in the mountains.",
   },
 ];
@@ -251,6 +251,6 @@ export const schoolEvents = [
     title: "Arts Festival",
     time: "10:00 AM – 3:00 PM",
     location: "Arts Centre",
-    description: "Student art, music, and drama on display for the whole New Life community.",
+    description: "Student art, music, and drama on display for the whole Newlife community.",
   },
 ];

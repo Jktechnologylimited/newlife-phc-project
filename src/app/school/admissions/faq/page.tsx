@@ -14,7 +14,7 @@ export default function AdmissionsFaqPage() {
         Still have a question? Reach out to the admissions office any time.
       </p>
 
-      <div className="mt-10 divide-y divide-line border-y border-line">
+      <div className="mt-10 divide-y divide-line">
         {admissionsFaq.map((f) => (
           <details key={f.q} className="group py-4">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4">

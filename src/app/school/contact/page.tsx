@@ -19,21 +19,21 @@ export default function SchoolContactPage() {
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
             <div>
               <p className="text-sm font-medium">Visit us</p>
-              <p className="text-sm text-slate">123 Community Drive, Riverside, CA 92501</p>
+              <p className="text-sm text-slate">Port Harcourt, Rivers State, Nigeria</p>
             </div>
           </div>
           <div className="flex gap-3">
             <Phone className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
             <div>
               <p className="text-sm font-medium">Call us</p>
-              <p className="text-sm text-slate">(555) 123-4580</p>
+              <p className="text-sm text-slate">+234 803 123 4580</p>
             </div>
           </div>
           <div className="flex gap-3">
             <Mail className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
             <div>
               <p className="text-sm font-medium">Email us</p>
-              <p className="text-sm text-slate">admissions@newlifeacademy.edu</p>
+              <p className="text-sm text-slate">admissions@newlifebaptistchurch.org</p>
             </div>
           </div>
           <div className="flex gap-3">

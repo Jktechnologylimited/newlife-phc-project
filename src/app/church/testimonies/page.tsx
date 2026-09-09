@@ -16,7 +16,7 @@ export default function TestimoniesPage() {
       <div className="mt-10 space-y-4">
         {testimonies.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.06}>
-            <div className="rounded-xl border border-line p-6">
+            <div className="rounded-xl p-6">
               <p className="font-display text-lg leading-snug text-ink">&ldquo;{t.quote}&rdquo;</p>
               <p className="mt-3 text-sm text-slate">
                 {t.name} · {t.since}

@@ -27,7 +27,7 @@ export function ExperienceSwitcher({
     {
       key: "school" as const,
       href: "/school",
-      label: "Academy",
+      label: "School",
       blurb: "Learn, grow, lead",
       Icon: BookOpen,
       tint: "group-hover:bg-school-tint",
@@ -51,7 +51,7 @@ export function ExperienceSwitcher({
             role="dialog"
             aria-modal="true"
             aria-label="Switch between experiences"
-            className="fixed left-1/2 top-24 z-50 w-[92vw] max-w-md -translate-x-1/2 rounded-2xl border border-line bg-paper p-2 shadow-xl"
+            className="fixed left-1/2 top-24 z-50 w-[92vw] max-w-md -translate-x-1/2 rounded-2xl bg-paper p-2 shadow-xl"
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -74,7 +74,7 @@ export function ExperienceSwitcher({
                   href={opt.href}
                   onClick={onClose}
                   className={cn(
-                    "group flex items-center justify-between rounded-xl border border-transparent px-3 py-3 transition-colors hover:border-line",
+                    "group flex items-center justify-between rounded-xl px-3 py-3 transition-colors hover:bg-stone/50",
                   )}
                 >
                   <span className="flex items-center gap-3">

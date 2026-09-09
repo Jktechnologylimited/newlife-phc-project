@@ -1,9 +1,9 @@
-# New Life — Church & Academy
+# Newlife Baptist Church & School
 
-A two-in-one website for New Life Baptist Church and New Life Christian
-Academy, living under one domain (`/church/*` and `/school/*`), sharing a
-header, footer, search, and design system while each keeps its own accent
-color and nav.
+A two-in-one website for Newlife Baptist Church and Newlife Baptist
+Church School, Port Harcourt — living under one domain (`/church/*` and
+`/school/*`), sharing a header, footer, search, and design system while
+each keeps its own accent color and nav.
 
 **Stack:** Next.js 16 (App Router, Turbopack) · React 19 · Tailwind CSS v4 ·
 Framer Motion · Drizzle ORM + Neon (Postgres) · Resend · Zod

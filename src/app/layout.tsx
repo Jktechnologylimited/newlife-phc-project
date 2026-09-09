@@ -7,11 +7,11 @@ import { SiteFooter } from "@/components/layout/site-footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "New Life Baptist Church & Academy",
-    template: "%s · New Life",
+    default: "Newlife Baptist Church & School",
+    template: "%s · Newlife Baptist Church",
   },
   description:
-    "New Life Baptist Church and New Life Christian Academy share one campus, one family, and one website — worship, sermons, events, admissions, and academics all in one place.",
+    "Newlife Baptist Church and Newlife Baptist Church School, Port Harcourt — share one campus, one family, and one website: worship, sermons, events, admissions, and academics all in one place.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

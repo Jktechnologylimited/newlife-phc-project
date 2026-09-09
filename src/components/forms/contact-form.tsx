@@ -17,7 +17,7 @@ export function ContactForm({ site }: { site: "church" | "school" }) {
   const accent = site === "church" ? "bg-church text-ink" : "bg-school text-paper";
 
   return (
-    <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+    <div className="rounded-2xl bg-paper-dim p-6 sm:p-8">
       <AnimatePresence mode="wait">
         {state.status === "success" ? (
           <motion.div key="success" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="py-6 text-center">

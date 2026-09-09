@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Clock, Users, CalendarDays, HandCoins, Play, ArrowRight } from "lucide-react";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
-import { Photo } from "@/components/media/photo";
+import { PhotoHero } from "@/components/patterns/photo-hero";
 import { photoUrl, photoAlt } from "@/lib/photos";
 import { sermons } from "@/lib/sample-data";
 
@@ -18,25 +18,25 @@ const quickInfo = [
 export default function ChurchHome() {
   return (
     <div>
-      <section className="mx-auto grid max-w-6xl gap-10 px-5 pt-14 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:px-8 lg:pt-20">
-        <Stagger className="max-w-xl">
+      <PhotoHero src={photoUrl("gathering")} alt={photoAlt("gathering")}>
+        <Stagger>
           <StaggerItem>
-            <p className="text-sm font-medium text-church-deep">New Life Baptist Church</p>
+            <p className="text-sm font-medium text-church-tint">Newlife Baptist Church</p>
           </StaggerItem>
           <StaggerItem>
-            <h1 className="mt-4 text-balance font-display text-display-md text-ink sm:text-display-lg">
+            <h1 className="mt-3 max-w-xl text-balance font-display text-display-md leading-[1.05] text-paper sm:text-display-lg">
               You don&apos;t have to have it figured out to belong here.
             </h1>
           </StaggerItem>
           <StaggerItem>
-            <p className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-slate">
+            <p className="mt-4 max-w-md text-[1.05rem] leading-relaxed text-paper/85">
               We&apos;re a congregation of ordinary people, gathering twice
               every Sunday to worship, ask honest questions, and figure out
               this life of faith together.
             </p>
           </StaggerItem>
           <StaggerItem>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/church/new-here"
                 className="rounded-full bg-church px-5 py-2.5 text-sm font-medium text-ink transition-transform hover:-translate-y-0.5"
@@ -45,17 +45,14 @@ export default function ChurchHome() {
               </Link>
               <Link
                 href="/church/sermons"
-                className="rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink"
+                className="rounded-full border border-paper/40 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-paper/10"
               >
                 Watch latest sermon
               </Link>
             </div>
           </StaggerItem>
         </Stagger>
-        <Reveal delay={0.15}>
-          <Photo src={photoUrl("gathering")} alt={photoAlt("gathering")} className="aspect-[4/3] rounded-2xl" priority />
-        </Reveal>
-      </section>
+      </PhotoHero>
 
       {/* quick info */}
       <section id="service-times" className="mx-auto max-w-6xl px-5 py-12 lg:px-8">
@@ -64,7 +61,7 @@ export default function ChurchHome() {
             <Reveal key={title} delay={i * 0.06}>
               <Link
                 href={href}
-                className="group flex h-full flex-col rounded-xl border border-line p-5 transition-colors hover:border-church"
+                className="group flex h-full flex-col rounded-xl p-5 transition-colors hover:bg-church-tint/40"
               >
                 <Icon className="h-5 w-5 text-church-deep" />
                 <p className="mt-4 font-display text-lg">{title}</p>

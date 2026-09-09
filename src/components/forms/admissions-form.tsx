@@ -15,7 +15,7 @@ export function AdmissionsForm() {
   const [state, formAction, pending] = useActionState(submitAdmissionsInquiry, initialState);
 
   return (
-    <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+    <div className="rounded-2xl bg-paper-dim p-6 sm:p-8">
       <AnimatePresence mode="wait">
         {state.status === "success" ? (
           <motion.div
@@ -57,7 +57,7 @@ export function AdmissionsForm() {
               </div>
               <div>
                 <label htmlFor="phone" className={labelCls}>Phone number</label>
-                <input id="phone" name="phone" required className={fieldCls} placeholder="(555) 123-4567" />
+                <input id="phone" name="phone" required className={fieldCls} placeholder="0803 123 4567" />
               </div>
               <div>
                 <label htmlFor="reason" className={labelCls}>I&apos;m looking to</label>

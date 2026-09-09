@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Church, BookOpen, Search, X } from "lucide-react";
+import { Church, BookOpen, Search, X, ArrowRightLeft } from "lucide-react";
 import { churchNav, schoolNav } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { Wordmark } from "@/components/brand/mark";
@@ -19,14 +18,12 @@ export function MobileNav({
   onSearch: () => void;
   current: "church" | "school" | null;
 }) {
-  const [expanded, setExpanded] = useState<"church" | "school">(
-    current === "school" ? "school" : "church",
-  );
-
-  const sections = [
-    { key: "church" as const, label: "Church", Icon: Church, links: churchNav, accent: "text-church" },
-    { key: "school" as const, label: "School", Icon: BookOpen, links: schoolNav, accent: "text-school" },
-  ];
+  const otherExperience = current === "church" ? "school" : "church";
+  const links = current === "church" ? churchNav : current === "school" ? schoolNav : [];
+  const OtherIcon = otherExperience === "church" ? Church : BookOpen;
+  const otherLabel = otherExperience === "church" ? "Church" : "School";
+  const otherAccent = otherExperience === "church" ? "text-church" : "text-school";
+  const otherAccentBg = otherExperience === "church" ? "bg-church-tint" : "bg-school-tint";
 
   return (
     <AnimatePresence>
@@ -44,7 +41,7 @@ export function MobileNav({
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-y-0 right-0 z-50 flex w-[86vw] max-w-sm flex-col border-l border-line bg-paper"
+            className="fixed inset-y-0 right-0 z-50 flex w-[86vw] max-w-sm flex-col bg-paper shadow-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -62,51 +59,67 @@ export function MobileNav({
             </div>
 
             <div className="flex-1 overflow-y-auto px-3 py-3">
-              {sections.map((section) => {
-                const isOpen = expanded === section.key;
-                return (
-                  <div key={section.key} className="mb-2 overflow-hidden rounded-xl border border-line">
-                    <button
-                      onClick={() => setExpanded(section.key)}
-                      className="flex w-full items-center justify-between px-4 py-3.5"
-                    >
-                      <span className="flex items-center gap-2.5 font-display text-base">
-                        <section.Icon className={cn("h-4 w-4", section.accent)} />
-                        {section.label}
-                      </span>
-                      <ChevronDown
-                        className={cn(
-                          "h-4 w-4 text-slate transition-transform",
-                          isOpen && "rotate-180",
-                        )}
-                      />
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.ul
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden border-t border-line"
+              {current === null ? (
+                // On the gateway (or another neutral page) there's no
+                // "current" section to show links for — offer both.
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/church"
+                    onClick={onClose}
+                    className="flex items-center gap-3 rounded-xl bg-church-tint/40 p-4 transition-colors hover:bg-church-tint/70"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-church-tint text-church">
+                      <Church className="h-4 w-4" />
+                    </span>
+                    <span className="font-display text-base">Church</span>
+                  </Link>
+                  <Link
+                    href="/school"
+                    onClick={onClose}
+                    className="flex items-center gap-3 rounded-xl bg-school-tint/40 p-4 transition-colors hover:bg-school-tint/70"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-school-tint text-school">
+                      <BookOpen className="h-4 w-4" />
+                    </span>
+                    <span className="font-display text-base">School</span>
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <ul className="mb-4">
+                    {links.map((link, i) => (
+                      <li key={link.href} className={cn(i !== 0 && "border-t border-line")}>
+                        <Link
+                          href={link.href}
+                          onClick={onClose}
+                          className="block px-4 py-3 text-[0.95rem] text-ink/85 transition-colors hover:bg-stone/60 hover:text-ink"
                         >
-                          {section.links.map((link) => (
-                            <li key={link.href}>
-                              <Link
-                                href={link.href}
-                                onClick={onClose}
-                                className="block px-5 py-2.5 text-[0.95rem] text-ink/80 transition-colors hover:bg-stone/60 hover:text-ink"
-                              >
-                                {link.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </motion.ul>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* The only way to reach the other experience from here
+                      — no cross-listed nav items, just the switch itself. */}
+                  <Link
+                    href={`/${otherExperience}`}
+                    onClick={onClose}
+                    className="flex items-center gap-3 rounded-xl bg-stone/50 p-4 transition-colors hover:bg-stone/70"
+                  >
+                    <span className={cn("flex h-9 w-9 items-center justify-center rounded-full", otherAccentBg, otherAccent)}>
+                      <OtherIcon className="h-4 w-4" />
+                    </span>
+                    <span>
+                      <span className="flex items-center gap-1.5 text-sm text-slate">
+                        <ArrowRightLeft className="h-3 w-3" />
+                        Switch to
+                      </span>
+                      <span className="font-display text-base">{otherLabel}</span>
+                    </span>
+                  </Link>
+                </>
+              )}
             </div>
 
             <div className="border-t border-line p-3">

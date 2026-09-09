@@ -2,21 +2,40 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { churchFooterNav, schoolFooterNav } from "@/lib/nav";
 import { subscribeNewsletter, type FormState } from "@/lib/actions";
 import { Wordmark } from "@/components/brand/mark";
+import { cn } from "@/lib/utils";
 import { FacebookGlyph, InstagramGlyph, YoutubeGlyph, LinkedinGlyph } from "@/components/icons/social";
 
 const initialState: FormState = { status: "idle", message: "" };
 
 export function SiteFooter() {
   const [state, formAction, pending] = useActionState(subscribeNewsletter, initialState);
+  const pathname = usePathname();
+  const experience: "church" | "school" | null = pathname.startsWith("/church")
+    ? "church"
+    : pathname.startsWith("/school")
+      ? "school"
+      : null;
+
+  const contactEmail =
+    experience === "school" ? "admissions@newlifebaptistchurch.org" : "office@newlifebaptistchurch.org";
 
   return (
     <footer className="border-t border-line bg-paper-dim">
       <div className="mx-auto max-w-6xl px-5 py-14 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
+        <div
+          className={cn(
+            "grid gap-12",
+            // On a section page, the footer only carries that section's
+            // own links — the navbar switcher is how people move between
+            // Church and School, so the footer doesn't need to repeat it.
+            experience === null ? "lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]" : "lg:grid-cols-[1.3fr_1fr_1.2fr]",
+          )}
+        >
           <div>
             <Wordmark size={44} />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate">
@@ -39,46 +58,50 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div>
-            <p className="mb-3 font-display text-[0.95rem]">Church</p>
-            <ul className="space-y-2.5 text-sm text-slate">
-              {churchFooterNav.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="transition-colors hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {(experience === "church" || experience === null) && (
+            <div>
+              <p className="mb-3 font-display text-[0.95rem]">Church</p>
+              <ul className="space-y-2.5 text-sm text-slate">
+                {churchFooterNav.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="transition-colors hover:text-ink">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          <div>
-            <p className="mb-3 font-display text-[0.95rem]">School</p>
-            <ul className="space-y-2.5 text-sm text-slate">
-              {schoolFooterNav.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="transition-colors hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {(experience === "school" || experience === null) && (
+            <div>
+              <p className="mb-3 font-display text-[0.95rem]">School</p>
+              <ul className="space-y-2.5 text-sm text-slate">
+                {schoolFooterNav.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="transition-colors hover:text-ink">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div>
             <p className="mb-3 font-display text-[0.95rem]">Stay connected</p>
             <ul className="mb-5 space-y-2.5 text-sm text-slate">
               <li className="flex gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                123 Community Drive, Riverside, CA 92501
+                Port Harcourt, Rivers State, Nigeria
               </li>
               <li className="flex gap-2.5">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0" />
-                (555) 123-4567
+                +234 803 123 4567
               </li>
               <li className="flex gap-2.5">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" />
-                office@newlife.church
+                {contactEmail}
               </li>
             </ul>
 
@@ -113,7 +136,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-xs text-slate sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} New Life Baptist Church &amp; Academy. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Newlife Baptist Church &amp; School. All rights reserved.</p>
           <div className="flex gap-5">
             <Link href="/privacy" className="hover:text-ink">Privacy</Link>
             <Link href="/terms" className="hover:text-ink">Terms</Link>

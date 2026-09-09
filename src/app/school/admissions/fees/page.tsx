@@ -14,7 +14,7 @@ export default function FeesPage() {
         to make quality education accessible.
       </p>
 
-      <div className="mt-10 overflow-hidden rounded-xl border border-line">
+      <div className="mt-10 overflow-hidden rounded-xl">
         <table className="w-full text-left text-sm">
           <thead className="bg-paper-dim">
             <tr>
@@ -33,7 +33,7 @@ export default function FeesPage() {
         </table>
       </div>
 
-      <div className="mt-10 rounded-xl border border-line p-6">
+      <div className="mt-10 rounded-xl p-6">
         <p className="font-display text-lg">Scholarships & financial aid</p>
         <p className="mt-2 text-sm leading-relaxed text-slate">
           Academic excellence, leadership, and community-service

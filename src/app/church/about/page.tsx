@@ -22,7 +22,7 @@ export default function ChurchAboutPage() {
         <div className="flex items-start gap-5">
           <Image
             src="/newlife-logo-256.png"
-            alt="New Life Baptist Church crest"
+            alt="Newlife Baptist Church crest"
             width={72}
             height={72}
             className="mt-1 hidden shrink-0 sm:block"
@@ -40,9 +40,9 @@ export default function ChurchAboutPage() {
         <Reveal>
           <p className="font-display text-lg">Our story</p>
           <p className="mt-3 text-[1.05rem] leading-relaxed text-slate">
-            New Life Baptist Church began in 1962 with a handful of families
-            meeting in a living room, convinced that Riverside needed a
-            church where anyone could belong. Over sixty years later, that
+            Newlife Baptist Church began in 1985 with a handful of families
+            meeting in a living room, convinced that Port Harcourt needed a
+            church where anyone could belong. Over four decades later, that
             conviction hasn&apos;t changed — even as the congregation, the
             building, and eventually a school grew up around it.
           </p>
@@ -75,7 +75,7 @@ export default function ChurchAboutPage() {
             <Reveal delay={0.06}>
               <p className="font-display text-lg">Our vision</p>
               <p className="mt-2 text-sm leading-relaxed text-slate">
-                A Riverside where every household knows a church family that
+                A Port Harcourt where every household knows a church family that
                 will show up for them — in celebration and in crisis alike.
               </p>
             </Reveal>
@@ -94,7 +94,7 @@ export default function ChurchAboutPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pillars.map(({ Icon, title, desc }, i) => (
             <Reveal key={title} delay={i * 0.06}>
-              <div className="rounded-xl border border-line p-5">
+              <div className="rounded-xl p-5">
                 <Icon className="h-5 w-5 text-church-deep" />
                 <p className="mt-4 font-display text-lg">{title}</p>
                 <p className="mt-1 text-sm text-slate">{desc}</p>

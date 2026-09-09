@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Baby, BookOpen, GraduationCap, Building2, CheckCircle2, ArrowRight } from "lucide-react";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
-import { Photo } from "@/components/media/photo";
+import { PhotoHero } from "@/components/patterns/photo-hero";
 import { photoUrl, photoAlt } from "@/lib/photos";
 import { schoolEvents } from "@/lib/sample-data";
 
@@ -25,25 +25,25 @@ const reasons = [
 export default function SchoolHome() {
   return (
     <div>
-      <section className="mx-auto grid max-w-6xl gap-10 px-5 pt-14 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:px-8 lg:pt-20">
-        <Stagger className="max-w-xl">
+      <PhotoHero src={photoUrl("schoolExterior")} alt={photoAlt("schoolExterior")}>
+        <Stagger>
           <StaggerItem>
-            <p className="text-sm font-medium text-school-deep">New Life Christian Academy</p>
+            <p className="text-sm font-medium text-school-tint">Newlife Baptist Church School</p>
           </StaggerItem>
           <StaggerItem>
-            <h1 className="mt-4 text-balance font-display text-display-md text-ink sm:text-display-lg">
+            <h1 className="mt-3 max-w-xl font-display text-display-md leading-[1.05] text-paper sm:text-display-lg">
               Small classes. Big character.
             </h1>
           </StaggerItem>
           <StaggerItem>
-            <p className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-slate">
+            <p className="mt-4 max-w-md text-[1.05rem] leading-relaxed text-paper/85">
               A Christ-centered education that nurtures the whole child —
               academically, socially, and spiritually — from nursery through
               graduation.
             </p>
           </StaggerItem>
           <StaggerItem>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/school/admissions"
                 className="rounded-full bg-school px-5 py-2.5 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5"
@@ -52,24 +52,21 @@ export default function SchoolHome() {
               </Link>
               <Link
                 href="/school/admissions#tour"
-                className="rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink"
+                className="rounded-full border border-paper/40 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-paper/10"
               >
                 Schedule a tour
               </Link>
             </div>
           </StaggerItem>
         </Stagger>
-        <Reveal delay={0.15}>
-          <Photo src={photoUrl("schoolExterior")} alt={photoAlt("schoolExterior")} className="aspect-[4/3] rounded-2xl" priority />
-        </Reveal>
-      </section>
+      </PhotoHero>
 
       {/* stages */}
       <section className="mx-auto max-w-6xl px-5 py-12 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stages.map(({ Icon, label, sub }, i) => (
             <Reveal key={label} delay={i * 0.06}>
-              <div className="flex h-full flex-col rounded-xl border border-line p-5">
+              <div className="flex h-full flex-col rounded-xl p-5">
                 <Icon className="h-5 w-5 text-school-deep" />
                 <p className="mt-4 font-display text-lg">{label}</p>
                 <p className="mt-1 text-sm text-slate">{sub}</p>
@@ -104,7 +101,7 @@ export default function SchoolHome() {
             </Link>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="rounded-2xl border border-line bg-paper p-7">
+            <div className="rounded-2xl bg-paper p-7">
               <p className="font-display text-lg">Upcoming events</p>
               <div className="mt-4 divide-y divide-line">
                 {schoolEvents.map((e) => (
@@ -131,8 +128,8 @@ export default function SchoolHome() {
           <div>
             <h3 className="font-display text-2xl">Join our school community</h3>
             <p className="mt-1.5 max-w-md text-sm leading-relaxed text-paper/75">
-              Explore academics, meet our faculty, and see if New Life
-              Christian Academy is the right fit for your family.
+              Explore academics, meet our faculty, and see if Newlife
+              Baptist Church School is the right fit for your family.
             </p>
           </div>
           <Link
