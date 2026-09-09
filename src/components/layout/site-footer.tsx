@@ -18,7 +18,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-5 py-14 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
           <div>
-            <Wordmark />
+            <Wordmark size={44} />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate">
               One campus, two front doors — a congregation and a school
               raising kids and grown-ups in the same direction.

@@ -18,15 +18,19 @@
   --color-line: #d9d2c0;
   --color-slate: #5c6672;
 
-  /* church — candlelight */
-  --color-church: #bf8a3d;
-  --color-church-deep: #8a5f24;
-  --color-church-tint: #f3e6cd;
+  /* church — from the real crest: deep pine green */
+  --color-church: #2f6b52;
+  --color-church-deep: #1d4a37;
+  --color-church-tint: #e1ece5;
 
-  /* school — meadow */
-  --color-school: #3d6b52;
-  --color-school-deep: #294a38;
-  --color-school-tint: #dbe8de;
+  /* school — from the crest's crown: warm gold */
+  --color-school: #d99a2e;
+  --color-school-deep: #a8721f;
+  --color-school-tint: #faf0da;
+
+  /* ember — from the crest's flame, used sparingly as a warm highlight */
+  --color-ember: #e2762f;
+  --color-ember-deep: #c94a1e;
 
   /* type — self-hosted variable fonts via @fontsource-variable, see layout.tsx */
   --font-display: "Fraunces Variable", ui-serif, Georgia, serif;

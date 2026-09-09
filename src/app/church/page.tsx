@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Clock, Users, CalendarDays, HandCoins, Play, ArrowRight } from "lucide-react";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
+import { Photo } from "@/components/media/photo";
+import { photoUrl, photoAlt } from "@/lib/photos";
 import { sermons } from "@/lib/sample-data";
 
 export const metadata: Metadata = { title: "Church" };
@@ -16,7 +18,7 @@ const quickInfo = [
 export default function ChurchHome() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-5 pt-14 lg:px-8 lg:pt-20">
+      <section className="mx-auto grid max-w-6xl gap-10 px-5 pt-14 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:px-8 lg:pt-20">
         <Stagger className="max-w-xl">
           <StaggerItem>
             <p className="text-sm font-medium text-church-deep">New Life Baptist Church</p>
@@ -50,6 +52,9 @@ export default function ChurchHome() {
             </div>
           </StaggerItem>
         </Stagger>
+        <Reveal delay={0.15}>
+          <Photo src={photoUrl("gathering")} alt={photoAlt("gathering")} className="aspect-[4/3] rounded-2xl" priority />
+        </Reveal>
       </section>
 
       {/* quick info */}

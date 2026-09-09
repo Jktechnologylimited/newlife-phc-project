@@ -8,8 +8,9 @@ import {
   DoorOpen,
   CalendarHeart,
 } from "lucide-react";
-import { Skyline } from "@/components/brand/skyline";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
+import { Photo } from "@/components/media/photo";
+import { photoUrl, photoAlt } from "@/lib/photos";
 
 const facts = [
   { Icon: Clock, label: "Sunday services at 9 & 11 AM" },
@@ -47,8 +48,13 @@ export default function GatewayPage() {
           </StaggerItem>
         </Stagger>
 
-        <Reveal delay={0.2} className="mx-auto mt-10 max-w-3xl text-ink">
-          <Skyline className="h-auto w-full" accentClassName="text-church" />
+        <Reveal delay={0.2} className="mx-auto mt-10 max-w-3xl">
+          <Photo
+            src={photoUrl("churchExterior")}
+            alt={photoAlt("churchExterior")}
+            className="aspect-[16/9] rounded-2xl"
+            priority
+          />
         </Reveal>
       </section>
 

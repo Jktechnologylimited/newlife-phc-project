@@ -2,7 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Baby, BookOpen, GraduationCap, Building2, CheckCircle2, ArrowRight } from "lucide-react";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
-import { Skyline } from "@/components/brand/skyline";
+import { Photo } from "@/components/media/photo";
+import { photoUrl, photoAlt } from "@/lib/photos";
 import { schoolEvents } from "@/lib/sample-data";
 
 export const metadata: Metadata = { title: "School" };
@@ -24,7 +25,7 @@ const reasons = [
 export default function SchoolHome() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-5 pt-14 lg:px-8 lg:pt-20">
+      <section className="mx-auto grid max-w-6xl gap-10 px-5 pt-14 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:px-8 lg:pt-20">
         <Stagger className="max-w-xl">
           <StaggerItem>
             <p className="text-sm font-medium text-school-deep">New Life Christian Academy</p>
@@ -58,9 +59,8 @@ export default function SchoolHome() {
             </div>
           </StaggerItem>
         </Stagger>
-
-        <Reveal delay={0.2} className="mx-auto mt-10 max-w-3xl">
-          <Skyline className="h-auto w-full" accentClassName="text-school" />
+        <Reveal delay={0.15}>
+          <Photo src={photoUrl("schoolExterior")} alt={photoAlt("schoolExterior")} className="aspect-[4/3] rounded-2xl" priority />
         </Reveal>
       </section>
 

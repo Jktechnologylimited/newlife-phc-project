@@ -1,38 +1,34 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-export function BrandMark({ className }: { className?: string }) {
+/** The real New Life Baptist Church crest — used as the site's universal
+ * mark in the header, footer, and anywhere else the brand needs to show
+ * up as an actual seal rather than a color swatch. */
+export function BrandMark({ className, size = 36 }: { className?: string; size?: number }) {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      className={cn("h-7 w-7", className)}
-      fill="none"
-      aria-hidden="true"
-    >
-      <path d="M2 27h28" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" />
-      <path
-        d="M6 27V16h9v11"
-        stroke="currentColor"
-        strokeWidth={1.6}
-        strokeLinejoin="round"
-      />
-      <path d="M6 16 10.5 6 15 16Z" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" />
-      <path d="M10.5 6V3" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" />
-      <path d="M18 27v-8h9v8" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" />
-      <path d="M18 19l4.5-3 4.5 3" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" />
-    </svg>
+    <Image
+      src="/newlife-logo-256.png"
+      alt="New Life Baptist Church crest"
+      width={size}
+      height={size}
+      className={cn("shrink-0 object-contain", className)}
+      priority
+    />
   );
 }
 
 export function Wordmark({
   className,
   tagline = true,
+  size = 36,
 }: {
   className?: string;
   tagline?: boolean;
+  size?: number;
 }) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
-      <BrandMark className="shrink-0" />
+      <BrandMark size={size} />
       <span className="flex flex-col leading-none">
         <span className="font-display text-[1.05rem] tracking-tight">New Life</span>
         {tagline && (

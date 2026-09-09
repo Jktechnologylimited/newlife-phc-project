@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Home, Sprout, HandHeart, Globe2, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
@@ -18,10 +19,21 @@ export default function ChurchAboutPage() {
   return (
     <div>
       <section className="mx-auto max-w-6xl px-5 pt-14 lg:px-8 lg:pt-20">
-        <p className="text-sm font-medium text-church-deep">About the church</p>
-        <h1 className="mt-2 max-w-xl font-display text-display-md text-ink sm:text-display-lg">
-          Our story, mission, and what we believe
-        </h1>
+        <div className="flex items-start gap-5">
+          <Image
+            src="/newlife-logo-256.png"
+            alt="New Life Baptist Church crest"
+            width={72}
+            height={72}
+            className="mt-1 hidden shrink-0 sm:block"
+          />
+          <div>
+            <p className="text-sm font-medium text-church-deep">About the church</p>
+            <h1 className="mt-2 max-w-xl font-display text-display-md text-ink sm:text-display-lg">
+              Our story, mission, and what we believe
+            </h1>
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-12 px-5 py-14 md:grid-cols-2 md:items-center lg:px-8">

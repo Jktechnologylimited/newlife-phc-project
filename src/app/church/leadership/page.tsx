@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Reveal } from "@/components/motion/reveal";
 import { leadership } from "@/lib/sample-data";
@@ -7,6 +8,13 @@ export const metadata: Metadata = { title: "Leadership" };
 export default function LeadershipPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-16 lg:px-8">
+      <Image
+        src="/newlife-logo-256.png"
+        alt="New Life Baptist Church crest"
+        width={64}
+        height={64}
+        className="mb-5"
+      />
       <p className="text-sm font-medium text-church-deep">Leadership</p>
       <h1 className="mt-2 font-display text-4xl">Our leadership</h1>
       <p className="mt-3 max-w-lg text-[1.05rem] leading-relaxed text-slate">
