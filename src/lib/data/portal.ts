@@ -95,7 +95,7 @@ export async function getStudentDashboard(userId: number) {
       attendance: await attendancePercent(db, profile.profileId),
     };
   } catch (err) {
-    console.error("[getStudentDashboard] falling back to sample data:", err);
+    console.error("[getStudentDashboard] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleStudent;
   }
 }
@@ -155,7 +155,7 @@ export async function getParentDashboard(userId: number) {
 
     return { name: parentRows[0].name, children, recentUpdates };
   } catch (err) {
-    console.error("[getParentDashboard] falling back to sample data:", err);
+    console.error("[getParentDashboard] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleParent;
   }
 }
@@ -188,7 +188,7 @@ export async function getStaffDashboard(userId: number) {
       todaySchedule: withSlots(classRows.map((c) => c.name)),
     };
   } catch (err) {
-    console.error("[getStaffDashboard] falling back to sample data:", err);
+    console.error("[getStaffDashboard] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleStaff;
   }
 }
@@ -245,7 +245,7 @@ export async function getAdminDashboard() {
       recentActivity: recentActivity.length > 0 ? recentActivity : sampleAdmin.recentActivity,
     };
   } catch (err) {
-    console.error("[getAdminDashboard] falling back to sample data:", err);
+    console.error("[getAdminDashboard] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleAdmin;
   }
 }

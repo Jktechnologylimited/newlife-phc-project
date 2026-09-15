@@ -69,7 +69,7 @@ export async function getSermons(): Promise<SermonSummary[]> {
     `) as SermonRow[];
     return rows.map(toSermonSummary);
   } catch (err) {
-    console.error("[getSermons] falling back to sample data:", err);
+    console.error("[getSermons] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleSermons;
   }
 }
@@ -88,7 +88,7 @@ export async function getSermonBySlug(slug: string): Promise<SermonSummary | nul
     `) as SermonRow[];
     return rows[0] ? toSermonSummary(rows[0]) : null;
   } catch (err) {
-    console.error("[getSermonBySlug] falling back to sample data:", err);
+    console.error("[getSermonBySlug] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleSermons.find((s) => s.slug === slug) ?? null;
   }
 }
@@ -130,7 +130,7 @@ export async function getEvents(site: "church" | "school"): Promise<EventSummary
     `) as EventRow[];
     return rows.map(toEventSummary);
   } catch (err) {
-    console.error("[getEvents] falling back to sample data:", err);
+    console.error("[getEvents] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return fallback;
   }
 }
@@ -149,7 +149,7 @@ export async function getEventBySlug(site: "church" | "school", slug: string): P
     `) as EventRow[];
     return rows[0] ? toEventSummary(rows[0]) : null;
   } catch (err) {
-    console.error("[getEventBySlug] falling back to sample data:", err);
+    console.error("[getEventBySlug] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return fallback();
   }
 }
@@ -165,7 +165,7 @@ export async function getEventId(site: "church" | "school", slug: string): Promi
     const rows = (await db`SELECT id FROM events WHERE site = ${site} AND slug = ${slug}`) as { id: number }[];
     return rows[0]?.id ?? null;
   } catch (err) {
-    console.error("[getEventId] returning null:", err);
+    console.error("[getEventId] returning null. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return null;
   }
 }
@@ -196,7 +196,7 @@ export async function getHymns(): Promise<Hymn[]> {
     `) as Hymn[];
     return rows;
   } catch (err) {
-    console.error("[getHymns] falling back to sample data:", err);
+    console.error("[getHymns] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleHymns;
   }
 }
@@ -215,7 +215,7 @@ export async function getHymnBySlug(slug: string): Promise<Hymn | null> {
     `) as Hymn[];
     return rows[0] ?? null;
   } catch (err) {
-    console.error("[getHymnBySlug] falling back to sample data:", err);
+    console.error("[getHymnBySlug] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleHymns.find((h) => h.slug === slug) ?? null;
   }
 }
@@ -229,6 +229,8 @@ export type Bulletin = {
   scripture: string | null;
   sermonTitle: string | null;
   sermonSpeaker: string | null;
+  pdfUrl: string | null;
+  pdfFilename: string | null;
   orderOfService: BulletinItem[];
   hymnSlugs: string[];
   announcements: BulletinItem[];
@@ -240,6 +242,8 @@ const BULLETIN_COLUMNS = `
   scripture_reference AS "scripture",
   sermon_title AS "sermonTitle",
   sermon_speaker AS "sermonSpeaker",
+  pdf_url AS "pdfUrl",
+  pdf_filename AS "pdfFilename",
   order_of_service AS "orderOfService",
   hymn_slugs AS "hymnSlugs",
   announcements
@@ -247,6 +251,17 @@ const BULLETIN_COLUMNS = `
 
 /** The next upcoming Sunday's bulletin, or the most recent one if none
  * is scheduled ahead. */
+/** The Postgres driver parses DATE columns into JS Date objects, not
+ * strings — but every consumer of `serviceDate` (the public bulletin
+ * page, the admin upload form) expects a plain "YYYY-MM-DD" string, same
+ * as the sample data. Normalize once, here, rather than trusting every
+ * call site to guess which type it received. */
+function normalizeServiceDate(row: Bulletin): Bulletin {
+  const raw: unknown = row.serviceDate;
+  const serviceDate = raw instanceof Date ? raw.toISOString().slice(0, 10) : String(raw).slice(0, 10);
+  return { ...row, serviceDate };
+}
+
 export async function getBulletin(): Promise<Bulletin | null> {
   const db = getDb();
   if (!db) return sampleBulletin;
@@ -254,12 +269,12 @@ export async function getBulletin(): Promise<Bulletin | null> {
     const upcoming = (await db.query(
       `SELECT ${BULLETIN_COLUMNS} FROM bulletins WHERE service_date >= CURRENT_DATE ORDER BY service_date ASC LIMIT 1`,
     )) as Bulletin[];
-    if (upcoming[0]) return upcoming[0];
+    if (upcoming[0]) return normalizeServiceDate(upcoming[0]);
 
     const past = (await db.query(`SELECT ${BULLETIN_COLUMNS} FROM bulletins ORDER BY service_date DESC LIMIT 1`)) as Bulletin[];
-    return past[0] ?? null;
+    return past[0] ? normalizeServiceDate(past[0]) : null;
   } catch (err) {
-    console.error("[getBulletin] falling back to sample data:", err);
+    console.error("[getBulletin] falling back to sample data. This usually means the schema is out of date — run `npm run db:migrate`.", err);
     return sampleBulletin;
   }
 }

@@ -44,6 +44,49 @@ export const photos = {
     alt: "Rows of bookshelves in a school library",
     credit: "Priscilla Du Preez",
   },
+  // Leadership headshots — free stock placeholders standing in for the
+  // real pastors/elders/deacons. Swap these for real staff photos before
+  // launch; see the Leadership page and the WhatsApp chat widget.
+  pastorBriggs: {
+    id: "1696603865152-74514c198a07",
+    alt: "Portrait of a man in a suit and glasses smiling",
+    credit: "Allen Taylor",
+  },
+  pastorWokoma: {
+    id: "1598956066123-a6f006500ca4",
+    alt: "Portrait of a woman smiling",
+    credit: "Micheal Awala",
+  },
+  elderAmadi: {
+    id: "1522529599102-193c0d76b5b6",
+    alt: "Portrait of a man smiling",
+    credit: "Elizeu Dias",
+  },
+  elderPepple: {
+    id: "1525103691634-22b8f578a199",
+    alt: "Portrait of a woman smiling",
+    credit: "Pam Sharpe",
+  },
+  deaconNwosu: {
+    id: "1569996564220-34f05ccf7cd0",
+    alt: "Portrait of a man indoors",
+    credit: "Colin Maclean",
+  },
+  deaconAmachree: {
+    id: "1594318223885-20dc4b889f9e",
+    alt: "Portrait of a woman smiling",
+    credit: "Marlon Soares",
+  },
+  deaconSokari: {
+    id: "1485921040253-3601b55d50aa",
+    alt: "Portrait of a man wearing glasses",
+    credit: "Caleb George",
+  },
+  deaconWokocha: {
+    id: "1698171975871-48f2e4b8dfca",
+    alt: "Portrait of a woman smiling",
+    credit: "Nupo Deyon Daniel",
+  },
 } as const;
 
 export type PhotoKey = keyof typeof photos;

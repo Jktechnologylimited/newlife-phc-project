@@ -4,28 +4,29 @@ import { Reveal } from "@/components/motion/reveal";
 import { pastors, elders, deacons } from "@/lib/sample-data";
 import { whatsappLink } from "@/lib/whatsapp";
 import { WhatsappGlyph } from "@/components/icons/social";
+import { photoUrl, photoAlt, type PhotoKey } from "@/lib/photos";
 
 export const metadata: Metadata = { title: "Leadership" };
 
 function PersonCard({
   name,
   role,
-  initials,
+  photoKey,
   whatsapp,
   delay,
 }: {
   name: string;
   role: string;
-  initials: string;
+  photoKey: PhotoKey;
   whatsapp?: string;
   delay: number;
 }) {
   return (
     <Reveal delay={delay}>
       <div className="flex items-center gap-4 rounded-xl p-5">
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-church-tint font-display text-lg text-church-deep">
-          {initials}
-        </span>
+        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-stone">
+          <Image src={photoUrl(photoKey, 200)} alt={photoAlt(photoKey)} fill className="object-cover" />
+        </div>
         <div className="min-w-0 flex-1">
           <p className="font-display text-lg leading-tight">{name}</p>
           <p className="mt-0.5 text-sm text-slate">{role}</p>

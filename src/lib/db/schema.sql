@@ -201,3 +201,11 @@ CREATE TABLE IF NOT EXISTS bulletins (
   announcements JSONB NOT NULL DEFAULT '[]', -- array of {title, detail}
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Added after the initial bulletins table shipped — CREATE TABLE IF NOT
+-- EXISTS above is a no-op on a DB that already has this table, so these
+-- ADD COLUMN IF NOT EXISTS statements are what actually bring an
+-- existing deployment up to date. Same pattern applies any time a column
+-- is added to an existing table later.
+ALTER TABLE bulletins ADD COLUMN IF NOT EXISTS pdf_url TEXT;
+ALTER TABLE bulletins ADD COLUMN IF NOT EXISTS pdf_filename TEXT;

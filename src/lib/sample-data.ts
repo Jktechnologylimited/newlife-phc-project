@@ -68,26 +68,28 @@ export const pastors = [
     name: "Pastor Emmanuel Briggs",
     role: "Senior Pastor",
     initials: "EB",
+    photoKey: "pastorBriggs" as const,
     whatsapp: "2348031234567",
   },
   {
     name: "Pastor Joy Wokoma",
     role: "Associate Pastor",
     initials: "JW",
+    photoKey: "pastorWokoma" as const,
     whatsapp: "2348031234568",
   },
 ];
 
 export const elders = [
-  { name: "Elder Samuel Amadi", role: "Elder", initials: "SA" },
-  { name: "Elder Comfort Pepple", role: "Elder", initials: "CP" },
+  { name: "Elder Samuel Amadi", role: "Elder", initials: "SA", photoKey: "elderAmadi" as const },
+  { name: "Elder Comfort Pepple", role: "Elder", initials: "CP", photoKey: "elderPepple" as const },
 ];
 
 export const deacons = [
-  { name: "Deacon Friday Nwosu", role: "Deacon", initials: "FN" },
-  { name: "Deacon Blessing Amachree", role: "Deacon", initials: "BA" },
-  { name: "Deacon Ibrahim Sokari", role: "Deacon", initials: "IS" },
-  { name: "Deacon Patience Wokocha", role: "Deacon", initials: "PW" },
+  { name: "Deacon Friday Nwosu", role: "Deacon", initials: "FN", photoKey: "deaconNwosu" as const },
+  { name: "Deacon Blessing Amachree", role: "Deacon", initials: "BA", photoKey: "deaconAmachree" as const },
+  { name: "Deacon Ibrahim Sokari", role: "Deacon", initials: "IS", photoKey: "deaconSokari" as const },
+  { name: "Deacon Patience Wokocha", role: "Deacon", initials: "PW", photoKey: "deaconWokocha" as const },
 ];
 
 // Public-domain hymns only (pre-1900, well outside copyright) — a real
@@ -154,6 +156,8 @@ export const bulletin = {
   serviceDate: "2026-09-20",
   theme: "A Life of Prayer",
   scripture: "Philippians 4:6-7",
+  pdfUrl: null as string | null,
+  pdfFilename: null as string | null,
   sermonTitle: "The Power of Prayer",
   sermonSpeaker: "Pastor Emmanuel Briggs",
   orderOfService: [

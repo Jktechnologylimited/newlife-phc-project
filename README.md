@@ -31,6 +31,7 @@ empty `.env.local` — see **Demo mode** below.
 | `RESEND_FROM_EMAIL` | Sending real email | Must be on a domain you've verified in Resend. |
 | `OFFICE_EMAIL` | Sending real email | Where admissions/contact notifications land. |
 | `NEXT_PUBLIC_SITE_URL` | Metadata/links | Your production URL once deployed. |
+| `BLOB_READ_WRITE_TOKEN` | Bulletin PDF uploads | Auto-provided on Vercel with Blob storage enabled. For local dev, create a token at Vercel's dashboard → Storage → Blob. Without it, the admin upload form shows a "not connected yet" message. |
 
 ### Demo mode
 
@@ -149,26 +150,40 @@ intentionally simple — no AI, no API key, no server call:
 
 **On the church section only**, a second floating button opens a
 WhatsApp popover styled like a live-chat "agent available" card — each
-pastor gets an avatar with an online indicator and "Available — start a
-conversation," not just a plain list (`src/lib/sample-data.ts` →
-`pastors`, each with a `whatsapp` number). Both buttons show a one-time
-greeting bubble a couple of seconds after the page loads, dismissed
-automatically once used or ignored for a while. Add real pastor names
-and WhatsApp numbers there before launch — the current ones are
-placeholders.
+pastor gets a real photo with an online indicator and "Available — start
+a conversation," not just a plain list (`src/lib/sample-data.ts` →
+`pastors`, each with a `whatsapp` number and a `photoKey`). Both buttons
+show a one-time greeting bubble a couple of seconds after the page
+loads, dismissed automatically once used or ignored for a while. Add
+real pastor names, photos, and WhatsApp numbers there before launch —
+the current ones are placeholders (see **Photography** below for the
+photo sourcing/licensing notes, which apply to leadership photos too).
 
 ### Sunday bulletin & hymns
 
-`/church/bulletin` shows the next upcoming Sunday (or the most recent
-one, if none is scheduled ahead): theme, scripture reading, sermon info,
-a numbered order of service, the hymns being sung (each linking to its
-lyrics), and announcements. Backed by the `bulletins` table — `getBulletin()`
-in `src/lib/data/content.ts` picks whichever service_date is soonest.
+The bulletin is a real uploaded PDF, not manually-entered data. An admin
+signs in, goes to **Content** in the admin portal
+(`/portal/admin/content`), and uploads this week's bulletin (the same
+PDF the church already produces for print) along with the service date
+and optional theme/scripture/sermon fields. That:
 
-`/church/hymns` is a searchable hymnal — `/church/hymns/[slug]` shows
-full lyrics sized for actually singing along from a phone, with the
-chorus (if any) correctly repeated after each verse. Backed by the
-`hymns` table.
+1. Uploads the file to Vercel Blob (`BLOB_READ_WRITE_TOKEN`)
+2. Upserts the `bulletins` row for that date (one row per Sunday —
+   uploading again for the same date replaces it)
+3. Goes live on `/church/bulletin` immediately via `revalidatePath` —
+   no waiting for the 60-second ISR window, no redeploy
+
+`/church/bulletin` embeds the PDF directly (with a download button) and,
+if the optional structured fields are filled in, also shows a numbered
+order of service, the hymns being sung (each linking to its lyrics), and
+announcements underneath — the PDF is the primary source of truth, the
+structured fields are a progressive enhancement. `getBulletin()` in
+`src/lib/data/content.ts` picks whichever `service_date` is soonest.
+
+`/church/hymns` is a searchable hymnal (also wired into the header's
+global search) — `/church/hymns/[slug]` shows full lyrics sized for
+actually singing along from a phone, with the chorus (if any) correctly
+repeated after each verse. Backed by the `hymns` table.
 
 **Copyright note:** the four sample hymns (Amazing Grace, It Is Well
 with My Soul, Holy Holy Holy, What a Friend We Have in Jesus) are all
@@ -204,6 +219,7 @@ src/
     data/                    content.ts (sermons/events/hymns/bulletin) + portal.ts (dashboards) — real queries with sample-data fallback
     format.ts                 timestamp -> display-string helpers used by lib/data
     auth/                    session (jose), get-session, login/signup/logout actions
+    admin/                   admin-only server actions (bulletin PDF upload, role-checked)
     actions.ts                server actions (newsletter, admissions, RSVP, contact, prayer)
     resend.ts                Resend client
     social.ts, whatsapp.ts    social profile links + WhatsApp click-to-chat helper
@@ -243,6 +259,12 @@ in a comment for reference. To swap in real campus/congregation photos
 later, just change the `id` for any entry — every page that uses it
 updates automatically.
 
+This includes the 8 Leadership photos (2 pastors, 2 elders, 4 deacons,
+in `src/lib/photos.ts` and referenced by `photoKey` in `sample-data.ts`)
+— these are stand-ins for the real pastors/elders/deacons and should be
+swapped for actual staff photos before launch, the same as any other
+placeholder photo on the site.
+
 > **Note on previewing in a sandboxed environment:** if `images.unsplash.com`
 > is unreachable (e.g. a locked-down network), Next's image optimizer will
 > fail to load these with a 403. This is a network/firewall restriction,
@@ -279,19 +301,28 @@ all validated with Zod, all with a graceful demo-mode fallback when
 `RESEND_API_KEY` isn't set.
 
 **Leadership, social, and the chat widget:** the Leadership page shows
-Pastors, Elders, and the Diaconate as distinct groups, with a real
-WhatsApp click-to-chat button on each pastor. Footer social links point
-to real (placeholder-handle) URLs, and Sermons links out to YouTube. The
-floating "Newlife Assistant" is a simple keyword-matched FAQ bot — no
-AI, no API key, no server call, see **The "Newlife Assistant" chat
-widget** above. A second floating button, church-section-only, opens a
-WhatsApp popover styled like a live-chat "agent available" card. Also
+Pastors, Elders, and the Diaconate as distinct groups, each with a real
+photo (see **Photography**), and a real WhatsApp click-to-chat button on
+each pastor. Footer social links point to real (placeholder-handle)
+URLs, and Sermons links out to YouTube. The floating "Newlife Assistant"
+is a simple keyword-matched FAQ bot — no AI, no API key, no server call,
+see **The "Newlife Assistant" chat widget** above. A second floating
+button, church-section-only, opens a WhatsApp popover styled like a
+live-chat "agent available" card, with real photos there too. Also
 fixed while building this: the tuition table was priced in USD while the
 parent portal already showed Naira — now consistently Naira throughout.
 
-**Sunday bulletin & hymns (this phase):** `/church/bulletin` and
-`/church/hymns` — see **Sunday bulletin & hymns** above. Not part of
-the original wireframe batches; added on request.
+**Sunday bulletin & hymns:** `/church/bulletin` and `/church/hymns` —
+see **Sunday bulletin & hymns** above. Not part of the original
+wireframe batches; added on request. The bulletin is a real uploaded
+PDF (admin uploads it at `/portal/admin/content`), not manually-entered
+data — this is also the first genuinely functional piece of the
+otherwise-still-stubbed Admin CMS.
+
+**Real site search:** the header's search modal (previously decorative
+— static "popular"/"recent" suggestions only) now actually filters
+hymns, sermons, and both sites' events as you type, with results linking
+straight to the right page.
 
 **Intentionally simplified for this phase:** there's no dedicated
 class-schedule table yet, so "upcoming classes" / "today's schedule" on
@@ -313,9 +344,6 @@ behind them is still a stub.
 
 ## Roadmap
 
-- [ ] **Weekly bulletin management** — right now updating the bulletin
-      means an INSERT into `bulletins`; once the Admin CMS (below)
-      exists, this should be a simple weekly form
 - [ ] **Persist remaining form submissions** — admissions, prayer, and
       contact messages are still email-only; wire them to their tables
       (already defined in `schema.sql`) the same way RSVP now is

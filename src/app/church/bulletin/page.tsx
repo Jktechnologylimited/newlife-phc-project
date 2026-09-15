@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BookOpen, Music, Megaphone } from "lucide-react";
+import { BookOpen, Music, Megaphone, FileText, Download } from "lucide-react";
 import { getBulletin, getHymns } from "@/lib/data/content";
 import { Reveal } from "@/components/motion/reveal";
 
@@ -31,6 +31,32 @@ export default async function BulletinPage() {
       <p className="text-sm font-medium text-church-deep">Sunday bulletin</p>
       <h1 className="mt-2 font-display text-4xl">{formattedDate}</h1>
       {bulletin.theme && <p className="mt-2 text-[1.05rem] text-slate">{bulletin.theme}</p>}
+
+      {bulletin.pdfUrl && (
+        <Reveal className="mt-8">
+          <div className="flex items-center justify-between gap-4 rounded-t-2xl bg-ink px-5 py-4 text-paper">
+            <span className="flex items-center gap-2.5 text-sm">
+              <FileText className="h-4 w-4 shrink-0" />
+              {bulletin.pdfFilename || "This week's bulletin"}
+            </span>
+            <a
+              href={bulletin.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-church px-4 py-2 text-xs font-medium text-ink transition-opacity hover:opacity-90"
+            >
+              <Download className="h-3.5 w-3.5" />
+              Download
+            </a>
+          </div>
+          <iframe
+            src={bulletin.pdfUrl}
+            title="Sunday bulletin PDF"
+            className="h-[75vh] w-full rounded-b-2xl border border-t-0 border-line"
+          />
+        </Reveal>
+      )}
 
       {(bulletin.sermonTitle || bulletin.scripture) && (
         <Reveal className="mt-8 rounded-2xl bg-church-tint/40 p-6">

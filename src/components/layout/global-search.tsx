@@ -1,16 +1,52 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, X, Clock, ChevronRight } from "lucide-react";
+import { Search, X, Clock, ChevronRight, Music, Play, CalendarDays } from "lucide-react";
 import { popularSearches } from "@/lib/nav";
+import { hymns, sermons, churchEvents, schoolEvents } from "@/lib/sample-data";
 
 const recentSearches = [
   { label: "Sunday service", href: "/church#service-times" },
   { label: "Admissions process", href: "/school/admissions" },
   { label: "Youth ministry", href: "/church/ministries" },
 ];
+
+type SearchResult = { label: string; sublabel: string; href: string; type: "Hymn" | "Sermon" | "Event" };
+
+// A simple client-side search index. Hymns/sermons/events are small,
+// slow-changing lists, so searching the sample data directly (rather
+// than plumbing live DB data down to this client component) keeps this
+// fast and simple — same fallback-friendly spirit as the rest of the site.
+const searchIndex: SearchResult[] = [
+  ...hymns.map((h) => ({
+    label: h.title,
+    sublabel: h.hymnNumber ? `Hymn No. ${h.hymnNumber}` : "Hymn",
+    href: `/church/hymns/${h.slug}`,
+    type: "Hymn" as const,
+  })),
+  ...sermons.map((s) => ({
+    label: s.title,
+    sublabel: `Sermon · ${s.speaker}`,
+    href: `/church/sermons/${s.slug}`,
+    type: "Sermon" as const,
+  })),
+  ...churchEvents.map((e) => ({
+    label: e.title,
+    sublabel: "Church event",
+    href: `/church/events/${e.slug}`,
+    type: "Event" as const,
+  })),
+  ...schoolEvents.map((e) => ({
+    label: e.title,
+    sublabel: "School event",
+    href: `/school/events/${e.slug}`,
+    type: "Event" as const,
+  })),
+];
+
+const typeIcon = { Hymn: Music, Sermon: Play, Event: CalendarDays };
 
 export function GlobalSearch({
   open,
@@ -45,6 +81,12 @@ export function GlobalSearch({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  const results = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return searchIndex.filter((r) => r.label.toLowerCase().includes(q)).slice(0, 8);
+  }, [query]);
+
   return (
     <AnimatePresence>
       {open && (
@@ -73,7 +115,7 @@ export function GlobalSearch({
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search sermons, events, admissions, and more…"
+                placeholder="Search hymns, sermons, events, and more…"
                 className="w-full bg-transparent text-[0.95rem] text-ink placeholder:text-slate focus:outline-none"
               />
               <button
@@ -86,38 +128,70 @@ export function GlobalSearch({
             </div>
 
             <div className="max-h-[60vh] overflow-y-auto px-4 py-4">
-              <p className="mb-2 text-sm text-slate">Popular</p>
-              <div className="mb-5 flex flex-wrap gap-2">
-                {popularSearches.map((s) => (
-                  <Link
-                    key={s.label}
-                    href={s.href}
-                    onClick={onClose}
-                    className="rounded-full border border-line px-3 py-1.5 text-sm text-ink transition-colors hover:border-ink"
-                  >
-                    {s.label}
-                  </Link>
-                ))}
-              </div>
+              {query.trim() ? (
+                results.length > 0 ? (
+                  <ul>
+                    {results.map((r) => {
+                      const Icon = typeIcon[r.type];
+                      return (
+                        <li key={r.href}>
+                          <Link
+                            href={r.href}
+                            onClick={onClose}
+                            className="flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 text-[0.95rem] transition-colors hover:bg-stone/60"
+                          >
+                            <span className="flex items-center gap-2.5 text-ink">
+                              <Icon className="h-3.5 w-3.5 shrink-0 text-church-deep" />
+                              <span>
+                                <span className="block leading-tight">{r.label}</span>
+                                <span className="text-xs text-slate">{r.sublabel}</span>
+                              </span>
+                            </span>
+                            <ChevronRight className="h-4 w-4 shrink-0 text-slate" />
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p className="px-2 py-6 text-center text-sm text-slate">No results for &ldquo;{query}&rdquo;.</p>
+                )
+              ) : (
+                <>
+                  <p className="mb-2 text-sm text-slate">Popular</p>
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    {popularSearches.map((s) => (
+                      <Link
+                        key={s.label}
+                        href={s.href}
+                        onClick={onClose}
+                        className="rounded-full border border-line px-3 py-1.5 text-sm text-ink transition-colors hover:border-ink"
+                      >
+                        {s.label}
+                      </Link>
+                    ))}
+                  </div>
 
-              <p className="mb-1 text-sm text-slate">Recent</p>
-              <ul>
-                {recentSearches.map((r) => (
-                  <li key={r.label}>
-                    <Link
-                      href={r.href}
-                      onClick={onClose}
-                      className="flex items-center justify-between rounded-lg px-2 py-2.5 text-[0.95rem] transition-colors hover:bg-stone/60"
-                    >
-                      <span className="flex items-center gap-2.5 text-ink">
-                        <Clock className="h-3.5 w-3.5 text-slate" />
-                        {r.label}
-                      </span>
-                      <ChevronRight className="h-4 w-4 text-slate" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                  <p className="mb-1 text-sm text-slate">Recent</p>
+                  <ul>
+                    {recentSearches.map((r) => (
+                      <li key={r.label}>
+                        <Link
+                          href={r.href}
+                          onClick={onClose}
+                          className="flex items-center justify-between rounded-lg px-2 py-2.5 text-[0.95rem] transition-colors hover:bg-stone/60"
+                        >
+                          <span className="flex items-center gap-2.5 text-ink">
+                            <Clock className="h-3.5 w-3.5 text-slate" />
+                            {r.label}
+                          </span>
+                          <ChevronRight className="h-4 w-4 text-slate" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
           </motion.div>
         </>

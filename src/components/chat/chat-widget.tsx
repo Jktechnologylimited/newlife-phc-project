@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
@@ -8,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { pastors } from "@/lib/sample-data";
 import { whatsappLink } from "@/lib/whatsapp";
 import { WhatsappGlyph } from "@/components/icons/social";
+import { photoUrl, photoAlt } from "@/lib/photos";
 import { faqEntries, matchFaq } from "@/lib/faq";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
@@ -185,8 +187,8 @@ export function ChatWidget() {
                   className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors hover:bg-paper-dim"
                 >
                   <span className="relative shrink-0">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-church-tint font-display text-sm text-church-deep">
-                      {p.initials}
+                    <span className="relative flex h-11 w-11 overflow-hidden rounded-full bg-stone">
+                      <Image src={photoUrl(p.photoKey, 150)} alt={photoAlt(p.photoKey)} fill className="object-cover" />
                     </span>
                     <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full bg-[#25D366] ring-2 ring-paper" />
                   </span>
