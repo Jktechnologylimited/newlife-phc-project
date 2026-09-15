@@ -22,6 +22,8 @@ export const schoolNav: NavLink[] = [
 // purpose, but the footer is where people expect to find everything.
 export const churchFooterNav: NavLink[] = [
   ...churchNav,
+  { label: "Bulletin", href: "/church/bulletin" },
+  { label: "Hymns", href: "/church/hymns" },
   { label: "Leadership", href: "/church/leadership" },
   { label: "Small Groups", href: "/church/small-groups" },
   { label: "Volunteer", href: "/church/volunteer" },

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Clock, Users, CalendarDays, HandCoins, Play, ArrowRight } from "lucide-react";
+import { Clock, Users, CalendarDays, HandCoins, Play, ArrowRight, BookOpen, Music } from "lucide-react";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
 import { PhotoHero } from "@/components/patterns/photo-hero";
 import { photoUrl, photoAlt } from "@/lib/photos";
-import { sermons } from "@/lib/sample-data";
+import { getSermons, getBulletin } from "@/lib/data/content";
+
+export const revalidate = 60; // re-fetch DB content at most once a minute
 
 export const metadata: Metadata = { title: "Church" };
 
@@ -15,7 +17,10 @@ const quickInfo = [
   { Icon: HandCoins, title: "Give", desc: "Support the mission", href: "/church/give" },
 ];
 
-export default function ChurchHome() {
+export default async function ChurchHome() {
+  const [allSermons, bulletin] = await Promise.all([getSermons(), getBulletin()]);
+  const sermons = allSermons.slice(0, 3);
+
   return (
     <div>
       <PhotoHero src={photoUrl("gathering")} alt={photoAlt("gathering")}>
@@ -71,6 +76,40 @@ export default function ChurchHome() {
           ))}
         </div>
       </section>
+
+      {/* this sunday */}
+      {bulletin && (
+        <section className="mx-auto max-w-6xl px-5 pb-12 lg:px-8">
+          <Reveal className="flex flex-col justify-between gap-6 rounded-2xl bg-ink px-8 py-8 text-paper sm:flex-row sm:items-center">
+            <div>
+              <p className="text-sm font-medium text-church-tint">This Sunday</p>
+              <h2 className="mt-1.5 font-display text-2xl">{bulletin.theme || "Join us this Sunday"}</h2>
+              {bulletin.sermonTitle && (
+                <p className="mt-1.5 text-sm text-paper/75">
+                  {bulletin.sermonTitle}
+                  {bulletin.sermonSpeaker ? ` — ${bulletin.sermonSpeaker}` : ""}
+                </p>
+              )}
+            </div>
+            <div className="flex shrink-0 gap-3">
+              <Link
+                href="/church/bulletin"
+                className="flex items-center gap-1.5 rounded-full bg-church px-5 py-2.5 text-sm font-medium text-ink transition-opacity hover:opacity-90"
+              >
+                <BookOpen className="h-3.5 w-3.5" />
+                View bulletin
+              </Link>
+              <Link
+                href="/church/hymns"
+                className="flex items-center gap-1.5 rounded-full border border-paper/30 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-paper/10"
+              >
+                <Music className="h-3.5 w-3.5" />
+                Hymns
+              </Link>
+            </div>
+          </Reveal>
+        </section>
+      )}
 
       {/* belong */}
       <section className="border-y border-line bg-paper-dim">

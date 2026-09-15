@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { churchFooterNav, schoolFooterNav } from "@/lib/nav";
+import { socialLinks } from "@/lib/social";
 import { subscribeNewsletter, type FormState } from "@/lib/actions";
 import { Wordmark } from "@/components/brand/mark";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,13 @@ export function SiteFooter() {
 
   const contactEmail =
     experience === "school" ? "admissions@newlifebaptistchurch.org" : "office@newlifebaptistchurch.org";
+
+  const isBareRoute =
+    pathname.startsWith("/portal") ||
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/forgot-password";
+  if (isBareRoute) return null;
 
   return (
     <footer className="border-t border-line bg-paper-dim">
@@ -43,16 +51,40 @@ export function SiteFooter() {
               raising kids and grown-ups in the same direction.
             </p>
             <div className="mt-5 flex gap-3 text-ink/70">
-              <a href="#" aria-label="Facebook" className="rounded-full p-1.5 hover:bg-stone hover:text-ink">
+              <a
+                href={socialLinks.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="rounded-full p-1.5 hover:bg-stone hover:text-ink"
+              >
                 <FacebookGlyph className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="Instagram" className="rounded-full p-1.5 hover:bg-stone hover:text-ink">
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="rounded-full p-1.5 hover:bg-stone hover:text-ink"
+              >
                 <InstagramGlyph className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="YouTube" className="rounded-full p-1.5 hover:bg-stone hover:text-ink">
+              <a
+                href={socialLinks.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="rounded-full p-1.5 hover:bg-stone hover:text-ink"
+              >
                 <YoutubeGlyph className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="LinkedIn" className="rounded-full p-1.5 hover:bg-stone hover:text-ink">
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="rounded-full p-1.5 hover:bg-stone hover:text-ink"
+              >
                 <LinkedinGlyph className="h-4 w-4" />
               </a>
             </div>

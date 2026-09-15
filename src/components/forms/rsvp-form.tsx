@@ -14,9 +14,13 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
 
 export function RsvpForm({
   eventTitle,
+  eventSlug,
+  site,
   accent = "church",
 }: {
   eventTitle: string;
+  eventSlug: string;
+  site: "church" | "school";
   accent?: "church" | "school";
 }) {
   const [state, formAction, pending] = useActionState(registerForEvent, initialState);
@@ -37,6 +41,8 @@ export function RsvpForm({
         ) : (
           <motion.form key="form" action={formAction} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col gap-4">
             <input type="hidden" name="eventTitle" value={eventTitle} />
+            <input type="hidden" name="eventSlug" value={eventSlug} />
+            <input type="hidden" name="site" value={site} />
             <p className="font-display text-lg">Register for {eventTitle}</p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>

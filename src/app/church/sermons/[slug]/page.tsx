@@ -2,10 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowLeft, Play, Download, Share2 } from "lucide-react";
-import { sermons } from "@/lib/sample-data";
+import { sermons as sampleSermons } from "@/lib/sample-data";
+import { getSermonBySlug, getSermons } from "@/lib/data/content";
+
+export const revalidate = 60; // re-fetch DB content at most once a minute
 
 export function generateStaticParams() {
-  return sermons.map((s) => ({ slug: s.slug }));
+  return sampleSermons.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -14,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const sermon = sermons.find((s) => s.slug === slug);
+  const sermon = await getSermonBySlug(slug);
   return { title: sermon ? sermon.title : "Sermon" };
 }
 
@@ -24,10 +27,11 @@ export default async function SermonDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const sermon = sermons.find((s) => s.slug === slug);
+  const sermon = await getSermonBySlug(slug);
   if (!sermon) notFound();
 
-  const related = sermons.filter((s) => s.slug !== slug).slice(0, 3);
+  const allSermons = await getSermons();
+  const related = allSermons.filter((s) => s.slug !== slug).slice(0, 3);
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-12 lg:px-8">
@@ -65,26 +69,26 @@ export default async function SermonDetailPage({
       </div>
 
       <p className="mt-6 max-w-2xl text-[1.05rem] leading-relaxed text-slate">
-        Discover the transformative power of prayer and how it can change
-        your life, your family, and your community. This message walks
-        through what it looks like to bring the whole of ordinary life
-        honestly before God.
+        {sermon.description ||
+          "Discover the transformative power of this message and how it can change your life, your family, and your community."}
       </p>
 
-      <div className="mt-12 border-t border-line pt-8">
-        <p className="mb-4 font-display text-lg">Related sermons</p>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {related.map((s) => (
-            <Link key={s.slug} href={`/church/sermons/${s.slug}`} className="group block">
-              <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-stone to-paper-dim">
-                <Play className="h-5 w-5 text-ink/60" fill="currentColor" />
-              </div>
-              <p className="mt-2 text-sm font-medium leading-snug">{s.title}</p>
-              <p className="text-xs text-slate">{s.date}</p>
-            </Link>
-          ))}
+      {related.length > 0 && (
+        <div className="mt-12 border-t border-line pt-8">
+          <p className="mb-4 font-display text-lg">Related sermons</p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {related.map((s) => (
+              <Link key={s.slug} href={`/church/sermons/${s.slug}`} className="group block">
+                <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-stone to-paper-dim">
+                  <Play className="h-5 w-5 text-ink/60" fill="currentColor" />
+                </div>
+                <p className="mt-2 text-sm font-medium leading-snug">{s.title}</p>
+                <p className="text-xs text-slate">{s.date}</p>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

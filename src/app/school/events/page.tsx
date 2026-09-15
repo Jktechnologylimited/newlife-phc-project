@@ -1,11 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Reveal } from "@/components/motion/reveal";
-import { schoolEvents } from "@/lib/sample-data";
+import { getEvents } from "@/lib/data/content";
+
+export const revalidate = 60; // re-fetch DB content at most once a minute
 
 export const metadata: Metadata = { title: "Events" };
 
-export default function SchoolEventsPage() {
+export default async function SchoolEventsPage() {
+  const schoolEvents = await getEvents("school");
+
   return (
     <div className="mx-auto max-w-4xl px-5 py-16 lg:px-8">
       <p className="text-sm font-medium text-school-deep">Events</p>

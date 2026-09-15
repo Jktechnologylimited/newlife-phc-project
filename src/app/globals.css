@@ -89,3 +89,20 @@ body {
   height: 1px;
   background: linear-gradient(to right, var(--color-line), transparent);
 }
+
+/* a gentle breathing pulse for the loading-state logo — softer and more
+   "alive" than a flat opacity fade */
+@keyframes logo-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.75;
+  }
+}
+.animate-logo-pulse {
+  animation: logo-pulse 1.6s ease-in-out infinite;
+}

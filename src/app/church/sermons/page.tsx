@@ -2,19 +2,38 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Play } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { sermons } from "@/lib/sample-data";
+import { getSermons } from "@/lib/data/content";
+import { socialLinks } from "@/lib/social";
+import { YoutubeGlyph } from "@/components/icons/social";
+
+export const revalidate = 60; // re-fetch DB content at most once a minute
 
 export const metadata: Metadata = { title: "Sermons" };
 
-export default function SermonsPage() {
+export default async function SermonsPage() {
+  const sermons = await getSermons();
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 lg:px-8">
-      <p className="text-sm font-medium text-church-deep">Sermons</p>
-      <h1 className="mt-2 font-display text-4xl">Listen, watch, or read</h1>
-      <p className="mt-3 max-w-lg text-[1.05rem] leading-relaxed text-slate">
-        Every message from Sunday mornings, going back through our full
-        library — organized by series, speaker, and topic.
-      </p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-medium text-church-deep">Sermons</p>
+          <h1 className="mt-2 font-display text-4xl">Listen, watch, or read</h1>
+          <p className="mt-3 max-w-lg text-[1.05rem] leading-relaxed text-slate">
+            Every message from Sunday mornings, going back through our full
+            library — organized by series, speaker, and topic.
+          </p>
+        </div>
+        <a
+          href={socialLinks.youtube}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex shrink-0 items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink"
+        >
+          <YoutubeGlyph className="h-4 w-4 text-[#FF0000]" />
+          Watch on YouTube
+        </a>
+      </div>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-3">
         {sermons.map((s, i) => (

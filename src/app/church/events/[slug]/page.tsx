@@ -2,11 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowLeft, MapPin, Clock, CalendarPlus } from "lucide-react";
-import { churchEvents } from "@/lib/sample-data";
+import { churchEvents as sampleChurchEvents } from "@/lib/sample-data";
+import { getEventBySlug } from "@/lib/data/content";
 import { RsvpForm } from "@/components/forms/rsvp-form";
 
+export const revalidate = 60; // re-fetch DB content at most once a minute
+
 export function generateStaticParams() {
-  return churchEvents.map((e) => ({ slug: e.slug }));
+  return sampleChurchEvents.map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata({
@@ -15,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const event = churchEvents.find((e) => e.slug === slug);
+  const event = await getEventBySlug("church", slug);
   return { title: event ? event.title : "Event" };
 }
 
@@ -25,7 +28,7 @@ export default async function ChurchEventDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const event = churchEvents.find((e) => e.slug === slug);
+  const event = await getEventBySlug("church", slug);
   if (!event) notFound();
 
   return (
@@ -64,7 +67,7 @@ export default async function ChurchEventDetailPage({
           </div>
         </div>
 
-        <RsvpForm eventTitle={event.title} />
+        <RsvpForm eventTitle={event.title} eventSlug={slug} site="church" />
       </div>
     </div>
   );

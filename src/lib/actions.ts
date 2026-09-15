@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { getResend, isEmailConfigured, FROM_EMAIL, OFFICE_EMAIL } from "@/lib/resend";
+import { getDb } from "@/lib/db";
 
 export type FormState = { status: "idle" | "success" | "error"; message: string };
 
@@ -21,6 +22,8 @@ export type AdmissionsState = FormState & { reference?: string };
 
 const rsvpSchema = z.object({
   eventTitle: z.string().trim().min(1),
+  eventSlug: z.string().trim().min(1),
+  site: z.enum(["church", "school"]),
   fullName: z.string().trim().min(2, "Enter your full name."),
   email: z.string().trim().email("Enter a valid email address."),
   phone: z.string().trim().optional(),
@@ -33,6 +36,8 @@ export async function registerForEvent(
 ): Promise<FormState> {
   const parsed = rsvpSchema.safeParse({
     eventTitle: formData.get("eventTitle"),
+    eventSlug: formData.get("eventSlug"),
+    site: formData.get("site"),
     fullName: formData.get("fullName"),
     email: formData.get("email"),
     phone: formData.get("phone"),
@@ -44,8 +49,28 @@ export async function registerForEvent(
   }
   const data = parsed.data;
 
-  // Phase 2: persist to the `event_registrations` table already defined
-  // in the Neon schema, linked to the matching `events.id`.
+  // Persist the registration when the database is connected, so it shows
+  // up for real in the admin dashboard's recent activity.
+  const db = getDb();
+  if (db) {
+    try {
+      const eventRows = (await db`
+        SELECT id FROM events WHERE site = ${data.site} AND slug = ${data.eventSlug}
+      `) as { id: number }[];
+      const eventId = eventRows[0]?.id;
+      if (eventId) {
+        await db`
+          INSERT INTO event_registrations (event_id, full_name, email, phone, attendee_count)
+          VALUES (${eventId}, ${data.fullName}, ${data.email}, ${data.phone ?? null}, ${Number(data.attendeeCount)})
+        `;
+      }
+    } catch (err) {
+      // Don't fail the whole RSVP just because persistence hiccuped —
+      // the person still gets their confirmation email below.
+      console.error("[rsvp] db error", err);
+    }
+  }
+
   if (!isEmailConfigured()) {
     console.info("[rsvp] would register:", data);
     return { status: "success", message: "You're registered! (Demo mode — connect Resend to send real email.)" };

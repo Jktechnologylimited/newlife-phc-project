@@ -51,3 +51,16 @@ export function LinkedinGlyph(props: SVGProps<SVGSVGElement>) {
     </Base>
   );
 }
+
+export function WhatsappGlyph(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Base {...props} strokeLinejoin="round">
+      <path d="M4 20.5 5.2 16.3A8.5 8.5 0 1 1 8.4 19.4Z" />
+      <path
+        d="M8.7 8.6c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .5.4.2.5.6 1.6.7 1.7.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.5.8 1 1.4 1.7 1.9.6.4.9.5 1.1.4.2-.1.7-.6.9-.9.2-.2.4-.2.6-.1l1.5.7c.2.1.4.2.4.4 0 .2 0 1-.4 1.4-.4.4-1.2.8-2 .8-1.7 0-3.4-1-4.6-2.1-1.2-1.2-2.1-2.9-2.1-4.6 0-.8.3-1.6.7-2Z"
+        fill="currentColor"
+        stroke="none"
+      />
+    </Base>
+  );
+}

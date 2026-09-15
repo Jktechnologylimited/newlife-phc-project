@@ -63,12 +63,119 @@ export const prayerRequestsSample = [
   { name: "Brother Tunde", request: "Peace in my family", status: "Praying", date: "Apr 15, 2025" },
 ];
 
-export const leadership = [
-  { name: "Pastor John Doe", role: "Senior Pastor", initials: "JD" },
-  { name: "Pastor Sarah Doe", role: "Associate Pastor", initials: "SD" },
-  { name: "Elder Michael Brooks", role: "Elder", initials: "MB" },
-  { name: "Elder Grace Adeyemi", role: "Elder", initials: "GA" },
+export const pastors = [
+  {
+    name: "Pastor Emmanuel Briggs",
+    role: "Senior Pastor",
+    initials: "EB",
+    whatsapp: "2348031234567",
+  },
+  {
+    name: "Pastor Joy Wokoma",
+    role: "Associate Pastor",
+    initials: "JW",
+    whatsapp: "2348031234568",
+  },
 ];
+
+export const elders = [
+  { name: "Elder Samuel Amadi", role: "Elder", initials: "SA" },
+  { name: "Elder Comfort Pepple", role: "Elder", initials: "CP" },
+];
+
+export const deacons = [
+  { name: "Deacon Friday Nwosu", role: "Deacon", initials: "FN" },
+  { name: "Deacon Blessing Amachree", role: "Deacon", initials: "BA" },
+  { name: "Deacon Ibrahim Sokari", role: "Deacon", initials: "IS" },
+  { name: "Deacon Patience Wokocha", role: "Deacon", initials: "PW" },
+];
+
+// Public-domain hymns only (pre-1900, well outside copyright) — a real
+// church can add any hymn they hold rights or a license (e.g. CCLI) for
+// via the database; this sample set is intentionally limited to texts
+// that are unambiguously free to reproduce.
+export const hymns = [
+  {
+    slug: "amazing-grace",
+    title: "Amazing Grace",
+    author: "John Newton",
+    year: 1779,
+    hymnNumber: "202",
+    scripture: "Ephesians 2:8",
+    verses: [
+      "Amazing grace! How sweet the sound\nThat saved a wretch like me!\nI once was lost, but now am found;\nWas blind, but now I see.",
+      "'Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed.",
+      "Through many dangers, toils, and snares,\nI have already come;\n'Tis grace hath brought me safe thus far,\nAnd grace will lead me home.",
+    ],
+    chorus: null as string | null,
+  },
+  {
+    slug: "it-is-well-with-my-soul",
+    title: "It Is Well with My Soul",
+    author: "Horatio Spafford",
+    year: 1873,
+    hymnNumber: "410",
+    scripture: "Philippians 4:7",
+    verses: [
+      "When peace, like a river, attendeth my way,\nWhen sorrows like sea billows roll;\nWhatever my lot, Thou hast taught me to say,\nIt is well, it is well with my soul.",
+      "Though Satan should buffet, though trials should come,\nLet this blest assurance control,\nThat Christ has regarded my helpless estate,\nAnd hath shed His own blood for my soul.",
+    ],
+    chorus: "It is well (it is well),\nWith my soul (with my soul),\nIt is well, it is well with my soul.",
+  },
+  {
+    slug: "holy-holy-holy",
+    title: "Holy, Holy, Holy",
+    author: "Reginald Heber",
+    year: 1826,
+    hymnNumber: "1",
+    scripture: "Revelation 4:8",
+    verses: [
+      "Holy, holy, holy! Lord God Almighty!\nEarly in the morning our song shall rise to Thee;\nHoly, holy, holy! Merciful and mighty!\nGod in three Persons, blessed Trinity!",
+      "Holy, holy, holy! All the saints adore Thee,\nCasting down their golden crowns around the glassy sea;\nCherubim and seraphim falling down before Thee,\nWhich wert, and art, and evermore shalt be.",
+    ],
+    chorus: null as string | null,
+  },
+  {
+    slug: "what-a-friend-we-have-in-jesus",
+    title: "What a Friend We Have in Jesus",
+    author: "Joseph Scriven",
+    year: 1855,
+    hymnNumber: "484",
+    scripture: "1 Peter 5:7",
+    verses: [
+      "What a friend we have in Jesus,\nAll our sins and griefs to bear!\nWhat a privilege to carry\nEverything to God in prayer!\nO what peace we often forfeit,\nO what needless pain we bear,\nAll because we do not carry\nEverything to God in prayer!",
+      "Have we trials and temptations?\nIs there trouble anywhere?\nWe should never be discouraged;\nTake it to the Lord in prayer.\nCan we find a friend so faithful\nWho will all our sorrows share?\nJesus knows our every weakness;\nTake it to the Lord in prayer!",
+    ],
+    chorus: null as string | null,
+  },
+];
+
+export const bulletin = {
+  serviceDate: "2026-09-20",
+  theme: "A Life of Prayer",
+  scripture: "Philippians 4:6-7",
+  sermonTitle: "The Power of Prayer",
+  sermonSpeaker: "Pastor Emmanuel Briggs",
+  orderOfService: [
+    { title: "Call to Worship", detail: "" },
+    { title: "Opening Hymn", detail: "Holy, Holy, Holy" },
+    { title: "Opening Prayer", detail: "" },
+    { title: "Welcome & Announcements", detail: "" },
+    { title: "Worship in Song", detail: "" },
+    { title: "Scripture Reading", detail: "Philippians 4:6-7" },
+    { title: "Sermon", detail: "The Power of Prayer — Pastor Emmanuel Briggs" },
+    { title: "Hymn of Response", detail: "It Is Well with My Soul" },
+    { title: "Offering", detail: "" },
+    { title: "Closing Hymn", detail: "Amazing Grace" },
+    { title: "Benediction", detail: "" },
+  ],
+  hymnSlugs: ["holy-holy-holy", "it-is-well-with-my-soul", "amazing-grace"],
+  announcements: [
+    { title: "Women's Conference", detail: "November 14, 9:00 AM – 4:00 PM, Newlife Fellowship Hall." },
+    { title: "Youth Retreat", detail: "November 21, all day, Newlife Retreat Camp — registration closing soon." },
+    { title: "New Members Class", detail: "Starts next Sunday after the 11:00 AM service. All welcome." },
+  ],
+};
 
 export const departments = [
   {
@@ -149,9 +256,9 @@ export const resources = [
 ];
 
 export const tuition = [
-  { level: "Early Years", annual: "$4,900" },
-  { level: "Primary", annual: "$6,400" },
-  { level: "Secondary", annual: "$8,600" },
+  { level: "Early Years", annual: "₦450,000" },
+  { level: "Primary", annual: "₦650,000" },
+  { level: "Secondary", annual: "₦850,000" },
 ];
 
 export const admissionsFaq = [
@@ -177,27 +284,95 @@ export const studentLeadership = [
   "Alumni Network",
 ];
 
+/* ------------------------------ Portal demo data ------------------------------ */
+export const studentDashboard = {
+  name: "David Chinedu",
+  gradeLevel: "Primary 5",
+  upcomingClasses: [
+    { subject: "Mathematics", time: "8:00 – 9:00 AM", room: "Room 5" },
+    { subject: "English", time: "9:30 – 10:30 AM", room: "Room 5" },
+    { subject: "Science", time: "11:00 AM – 12:00 PM", room: "Lab 2" },
+  ],
+  pendingAssignments: [
+    { title: "Mathematics — Fractions worksheet", due: "Due in 2 days" },
+    { title: "English — Book report", due: "Due in 5 days" },
+  ],
+  recentResults: [
+    { subject: "Mathematics", score: 88, maxScore: 100, term: "Term 2" },
+    { subject: "English", score: 76, maxScore: 100, term: "Term 2" },
+    { subject: "Science", score: 91, maxScore: 100, term: "Term 2" },
+  ],
+  messages: [
+    { from: "Mrs. Adaeze — Class Teacher", preview: "Great work on your project this week!", time: "2h ago" },
+    { from: "School Office", preview: "Reminder: Parent-Teacher meeting on Friday.", time: "1d ago" },
+  ],
+  attendance: "95%",
+};
+
+export const parentDashboard = {
+  name: "Mrs. Ngozi Chinedu",
+  children: [
+    { name: "David Chinedu", gradeLevel: "Primary 5", progress: "On track", attendance: "95%", fees: "Paid" },
+    { name: "Grace Chinedu", gradeLevel: "Primary 3", progress: "On track", attendance: "98%", fees: "₦0 owed" },
+  ],
+  recentUpdates: [
+    { text: "David scored 88% in Mathematics", time: "Today, 10:24 AM" },
+    { text: "School fees payment received", time: "Apr 26, 2025" },
+    { text: "Grace's attendance is 100% this week", time: "Apr 22, 2025" },
+  ],
+};
+
+export const staffDashboard = {
+  name: "Mr. Emeka Wosu",
+  myClasses: ["Primary 5 — Mathematics", "Primary 5 — English", "Primary 6 — Science"],
+  studentCount: 96,
+  todaySchedule: [
+    { subject: "Primary 5 — Mathematics", time: "8:00 – 9:00 AM" },
+    { subject: "Primary 5 — English", time: "9:30 – 10:30 AM" },
+    { subject: "Primary 6 — Science", time: "11:00 AM – 12:00 PM" },
+  ],
+};
+
+export const adminDashboard = {
+  totalStudents: 842,
+  totalStaff: 68,
+  totalClasses: 24,
+  pendingAdmissions: 32,
+  recentActivity: [
+    { text: "New page published: Admissions", time: "2 hours ago" },
+    { text: "Event updated: Annual School Fair", time: "4 hours ago" },
+    { text: "User role changed: Tunde B. → Staff", time: "6 hours ago" },
+    { text: "New admissions inquiry received", time: "8 hours ago" },
+  ],
+};
+
 export const sermons = [
   {
     slug: "the-power-of-prayer",
     title: "The Power of Prayer",
-    speaker: "Pastor John Doe",
+    speaker: "Pastor Emmanuel Briggs",
     date: "Mar 16, 2025",
     duration: "43:36",
+    description:
+      "Discover the transformative power of prayer and how it can change your life, your family, and your community. This message walks through what it looks like to bring the whole of ordinary life honestly before God.",
   },
   {
     slug: "walking-in-faith",
     title: "Walking in Faith",
-    speaker: "Pastor John Doe",
+    speaker: "Pastor Emmanuel Briggs",
     date: "Mar 9, 2025",
     duration: "38:12",
+    description:
+      "Faith isn't the absence of doubt — it's choosing to take the next step anyway. A message on trusting God when the way forward isn't clear.",
   },
   {
     slug: "grace-changes-everything",
     title: "Grace Changes Everything",
-    speaker: "Pastor John Doe",
+    speaker: "Pastor Emmanuel Briggs",
     date: "Mar 2, 2025",
     duration: "41:07",
+    description:
+      "None of us earn our way to God — and that's the whole point. A look at what changes when grace, not performance, becomes the foundation.",
   },
 ];
 

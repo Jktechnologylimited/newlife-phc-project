@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Church, BookOpen, Search, X, ArrowRightLeft } from "lucide-react";
+import { Church, BookOpen, Search, X, ArrowRightLeft, UserRound } from "lucide-react";
 import { churchNav, schoolNav } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { Wordmark } from "@/components/brand/mark";
@@ -133,6 +133,14 @@ export function MobileNav({
                 <Search className="h-4 w-4" />
                 Search…
               </button>
+              <Link
+                href="/login"
+                onClick={onClose}
+                className="mt-2 flex w-full items-center gap-2.5 rounded-xl bg-ink px-4 py-3 text-sm font-medium text-paper"
+              >
+                <UserRound className="h-4 w-4" />
+                Sign in to your portal
+              </Link>
             </div>
           </motion.div>
         </>

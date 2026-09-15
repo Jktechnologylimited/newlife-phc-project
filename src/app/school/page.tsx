@@ -4,7 +4,9 @@ import { Baby, BookOpen, GraduationCap, Building2, CheckCircle2, ArrowRight } fr
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/reveal";
 import { PhotoHero } from "@/components/patterns/photo-hero";
 import { photoUrl, photoAlt } from "@/lib/photos";
-import { schoolEvents } from "@/lib/sample-data";
+import { getEvents } from "@/lib/data/content";
+
+export const revalidate = 60; // re-fetch DB content at most once a minute
 
 export const metadata: Metadata = { title: "School" };
 
@@ -22,7 +24,9 @@ const reasons = [
   "Strong academic outcomes without losing the human scale",
 ];
 
-export default function SchoolHome() {
+export default async function SchoolHome() {
+  const schoolEvents = (await getEvents("school")).slice(0, 3);
+
   return (
     <div>
       <PhotoHero src={photoUrl("schoolExterior")} alt={photoAlt("schoolExterior")}>

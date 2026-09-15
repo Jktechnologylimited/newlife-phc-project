@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Church, BookOpen, Search, Menu } from "lucide-react";
+import { Church, BookOpen, Search, Menu, UserRound } from "lucide-react";
 import { churchNav, schoolNav } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { Wordmark } from "@/components/brand/mark";
@@ -49,6 +49,15 @@ export function SiteHeader() {
       : experience === "school"
         ? { label: "Apply", href: "/school/admissions", cls: "bg-school text-paper hover:bg-school-deep" }
         : null;
+
+  // Auth screens and the portals have their own focused chrome — no
+  // marketing header there.
+  const isBareRoute =
+    pathname.startsWith("/portal") ||
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/forgot-password";
+  if (isBareRoute) return null;
 
   return (
     <>
@@ -117,6 +126,14 @@ export function SiteHeader() {
                 {cta.label}
               </Link>
             )}
+
+            <Link
+              href="/login"
+              aria-label="Sign in to your portal"
+              className="hidden items-center gap-1.5 rounded-full p-2 text-ink/80 transition-colors hover:bg-stone hover:text-ink sm:flex"
+            >
+              <UserRound className="h-[18px] w-[18px]" />
+            </Link>
 
             <button
               onClick={() => setSearchOpen(true)}
