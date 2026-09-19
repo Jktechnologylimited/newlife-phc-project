@@ -52,32 +52,6 @@ export default function GatewayPage() {
       <section className="mx-auto max-w-6xl px-5 pb-6 pt-4 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2">
           <Reveal>
-            <div className="flex h-full flex-col rounded-2xl border-l-[3px] border-l-church bg-church-tint/40 p-7">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-church text-ink">
-                <Church className="h-5 w-5" />
-              </span>
-              <h2 className="mt-5 font-display text-2xl">The Church</h2>
-              <p className="mt-2 text-[0.95rem] leading-relaxed text-slate">
-                Worship, community, and a place to bring your whole self on
-                Sunday morning — and any day after.
-              </p>
-              <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-ink/70">
-                <li>Service times</li>
-                <li>Ministries</li>
-                <li>Sermons</li>
-                <li>Give</li>
-              </ul>
-              <Link
-                href="/church"
-                className="group mt-7 inline-flex w-fit items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5"
-              >
-                Visit the church
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
             <div className="flex h-full flex-col rounded-2xl border-l-[3px] border-l-school bg-school-tint/40 p-7">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-school text-paper">
                 <BookOpen className="h-5 w-5" />
@@ -98,6 +72,32 @@ export default function GatewayPage() {
                 className="group mt-7 inline-flex w-fit items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5"
               >
                 Visit the school
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="flex h-full flex-col rounded-2xl border-l-[3px] border-l-church bg-church-tint/40 p-7">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-church text-ink">
+                <Church className="h-5 w-5" />
+              </span>
+              <h2 className="mt-5 font-display text-2xl">The Church</h2>
+              <p className="mt-2 text-[0.95rem] leading-relaxed text-slate">
+                Worship, community, and a place to bring your whole self on
+                Sunday morning — and any day after.
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-ink/70">
+                <li>Service times</li>
+                <li>Ministries</li>
+                <li>Sermons</li>
+                <li>Give</li>
+              </ul>
+              <Link
+                href="/church"
+                className="group mt-7 inline-flex w-fit items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5"
+              >
+                Visit the church
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
@@ -129,16 +129,16 @@ export default function GatewayPage() {
           </div>
           <div className="flex shrink-0 gap-3">
             <Link
-              href="/church"
-              className="rounded-full bg-church px-5 py-2.5 text-sm font-medium text-ink transition-opacity hover:opacity-90"
-            >
-              Plan a visit
-            </Link>
-            <Link
               href="/school/admissions"
-              className="rounded-full border border-paper/30 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-paper/10"
+              className="rounded-full bg-school px-5 py-2.5 text-sm font-medium text-paper transition-opacity hover:opacity-90"
             >
               Book a tour
+            </Link>
+            <Link
+              href="/church"
+              className="rounded-full border border-paper/30 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-paper/10"
+            >
+              Plan a visit
             </Link>
           </div>
         </Reveal>

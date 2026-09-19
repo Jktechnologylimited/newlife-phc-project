@@ -98,20 +98,20 @@ export function SiteHeader() {
               <span
                 className={cn(
                   "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors",
-                  experience === "church" ? "bg-ink text-paper" : "text-slate",
-                )}
-              >
-                <Church className="h-3.5 w-3.5" />
-                Church
-              </span>
-              <span
-                className={cn(
-                  "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors",
                   experience === "school" ? "bg-ink text-paper" : "text-slate",
                 )}
               >
                 <BookOpen className="h-3.5 w-3.5" />
                 School
+              </span>
+              <span
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors",
+                  experience === "church" ? "bg-ink text-paper" : "text-slate",
+                )}
+              >
+                <Church className="h-3.5 w-3.5" />
+                Church
               </span>
             </button>
 

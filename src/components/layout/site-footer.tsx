@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MapPin, Phone, Mail } from "lucide-react";
-import { churchFooterNav, schoolFooterNav } from "@/lib/nav";
+import { schoolFooterNav, churchFooterNav } from "@/lib/nav";
 import { socialLinks } from "@/lib/social";
 import { subscribeNewsletter, type FormState } from "@/lib/actions";
 import { Wordmark } from "@/components/brand/mark";
@@ -90,11 +90,11 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {(experience === "church" || experience === null) && (
+          {(experience === "school" || experience === null) && (
             <div>
-              <p className="mb-3 font-display text-[0.95rem]">Church</p>
+              <p className="mb-3 font-display text-[0.95rem]">School</p>
               <ul className="space-y-2.5 text-sm text-slate">
-                {churchFooterNav.map((l) => (
+                {schoolFooterNav.map((l) => (
                   <li key={l.href}>
                     <Link href={l.href} className="transition-colors hover:text-ink">
                       {l.label}
@@ -105,11 +105,11 @@ export function SiteFooter() {
             </div>
           )}
 
-          {(experience === "school" || experience === null) && (
+          {(experience === "church" || experience === null) && (
             <div>
-              <p className="mb-3 font-display text-[0.95rem]">School</p>
+              <p className="mb-3 font-display text-[0.95rem]">Church</p>
               <ul className="space-y-2.5 text-sm text-slate">
-                {schoolFooterNav.map((l) => (
+                {churchFooterNav.map((l) => (
                   <li key={l.href}>
                     <Link href={l.href} className="transition-colors hover:text-ink">
                       {l.label}

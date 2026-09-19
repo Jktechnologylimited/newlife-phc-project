@@ -64,16 +64,6 @@ export function MobileNav({
                 // "current" section to show links for — offer both.
                 <div className="flex flex-col gap-2">
                   <Link
-                    href="/church"
-                    onClick={onClose}
-                    className="flex items-center gap-3 rounded-xl bg-church-tint/40 p-4 transition-colors hover:bg-church-tint/70"
-                  >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-church-tint text-church">
-                      <Church className="h-4 w-4" />
-                    </span>
-                    <span className="font-display text-base">Church</span>
-                  </Link>
-                  <Link
                     href="/school"
                     onClick={onClose}
                     className="flex items-center gap-3 rounded-xl bg-school-tint/40 p-4 transition-colors hover:bg-school-tint/70"
@@ -82,6 +72,16 @@ export function MobileNav({
                       <BookOpen className="h-4 w-4" />
                     </span>
                     <span className="font-display text-base">School</span>
+                  </Link>
+                  <Link
+                    href="/church"
+                    onClick={onClose}
+                    className="flex items-center gap-3 rounded-xl bg-church-tint/40 p-4 transition-colors hover:bg-church-tint/70"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-church-tint text-church">
+                      <Church className="h-4 w-4" />
+                    </span>
+                    <span className="font-display text-base">Church</span>
                   </Link>
                 </div>
               ) : (

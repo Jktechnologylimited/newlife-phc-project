@@ -16,15 +16,6 @@ export function ExperienceSwitcher({
 }) {
   const options = [
     {
-      key: "church" as const,
-      href: "/church",
-      label: "Church",
-      blurb: "Worship, community, faith",
-      Icon: Church,
-      tint: "group-hover:bg-church-tint",
-      ring: "focus-visible:ring-church",
-    },
-    {
       key: "school" as const,
       href: "/school",
       label: "School",
@@ -32,6 +23,15 @@ export function ExperienceSwitcher({
       Icon: BookOpen,
       tint: "group-hover:bg-school-tint",
       ring: "focus-visible:ring-school",
+    },
+    {
+      key: "church" as const,
+      href: "/church",
+      label: "Church",
+      blurb: "Worship, community, faith",
+      Icon: Church,
+      tint: "group-hover:bg-church-tint",
+      ring: "focus-visible:ring-church",
     },
   ];
 
