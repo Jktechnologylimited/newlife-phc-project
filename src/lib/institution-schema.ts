@@ -25,6 +25,9 @@ export function institutionSchema(kind: "school" | "church") {
           parentOrganization: { "@type": "Church", name: church.name },
         }
       : {}),
+    ...(productionOrigin && institution.logo
+      ? { logo: new URL(institution.logo.src, productionOrigin).toString() }
+      : {}),
     ...(productionOrigin && institution.hero
       ? { image: new URL(institution.hero.src, productionOrigin).toString() }
       : {}),

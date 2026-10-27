@@ -9,6 +9,7 @@ import { socialCards } from "../src/lib/social-cards";
 async function main() {
   const photo = `data:image/jpeg;base64,${(await readFile(resolve("public/images/school/school-exterior-wide.jpg"))).toString("base64")}`;
   const crest = `data:image/png;base64,${(await readFile(resolve("public/newlife-logo-256.png"))).toString("base64")}`;
+  const schoolCrest = `data:image/png;base64,${(await readFile(resolve("public/images/school/school-logo.png"))).toString("base64")}`;
   const font = await readFile(
     resolve("node_modules/next/dist/compiled/@vercel/og/Geist-Regular.ttf"),
   );
@@ -101,6 +102,23 @@ async function main() {
               : "Rumueme, Port Harcourt · Since 1994"}
           </div>
         </div>
+        {!card.church && (
+          <div
+            style={{
+              display: "flex",
+              position: "absolute",
+              right: 64,
+              top: 56,
+              width: 112,
+              height: 112,
+              padding: 10,
+              borderRadius: 4,
+              background: "#ffffff",
+            }}
+          >
+            <img src={schoolCrest} alt="" width={92} height={92} />
+          </div>
+        )}
         {card.church && (
           <div
             style={{

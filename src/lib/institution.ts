@@ -24,6 +24,7 @@ export type Institution = {
   address?: string;
   mapUrl?: string;
   hero?: InstitutionPhoto;
+  logo?: InstitutionPhoto;
   photos: InstitutionPhoto[];
 };
 export const school: Institution & {
@@ -31,6 +32,12 @@ export const school: Institution & {
 } = {
   name: "Newlife Baptist School",
   shortName: "the school",
+  logo: {
+    src: "/images/school/school-logo.png",
+    alt: "Newlife Baptist School crest — Learning and Growing in God",
+    width: 512,
+    height: 512,
+  },
   introduction:
     "Learning and growing in God since 1994. Discover the story of a school that began with four children in the Newlife Baptist Church building.",
   motto: "Learning and Growing in God",
@@ -77,6 +84,12 @@ export const church: Institution & {
 } = {
   name: "Newlife Baptist Church",
   shortName: "the church",
+  logo: {
+    src: "/newlife-logo-256.png",
+    alt: "Newlife Baptist Church crest",
+    width: 256,
+    height: 256,
+  },
   introduction:
     "A church and a school, connected through a shared story of faith and education.",
   story: [

@@ -1,20 +1,23 @@
 import Image from "next/image";
+import { school, church } from "@/lib/institution";
 import { cn } from "@/lib/utils";
 
-/** The supplied church crest is used only for the church identity.
- * The school uses a typographic wordmark until its original crest is available.
- */
+/** Keep the supplied school and church crests distinct. */
 export function BrandMark({
   className,
   size = 36,
+  experience = "church",
 }: {
   className?: string;
   size?: number;
+  experience?: "school" | "church";
 }) {
+  const logo = experience === "school" ? school.logo : church.logo;
+  if (!logo) return null;
   return (
     <Image
-      src="/newlife-logo-256.png"
-      alt="Newlife Baptist Church crest"
+      src={logo.src}
+      alt={logo.alt}
       width={size}
       height={size}
       className={cn("shrink-0 object-contain", className)}
@@ -34,7 +37,7 @@ export function Wordmark({
 }) {
   return (
     <span className={cn("brand-wordmark", className)}>
-      {experience !== "school" && <BrandMark size={size} />}
+      <BrandMark size={size} experience={experience ?? "church"} />
       <span className="brand-wordmark-type">
         <span className="brand-name">
           Newlife<span className="brand-period">.</span>

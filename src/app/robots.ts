@@ -18,6 +18,8 @@ export default function robots(): MetadataRoute.Robots {
         "/_next/image",
         "/newlife-logo-256.png",
         "/icon.png",
+        "/favicon.ico",
+        "/apple-icon.png",
       ],
       disallow: "/",
     },

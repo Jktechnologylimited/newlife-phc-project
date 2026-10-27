@@ -24,7 +24,7 @@ No credentials are needed for the current public website. Do not create a worktr
 
 ## Content and publication
 
-Edit `src/lib/institution.ts` to maintain school/church information, separate contacts, programmes and permitted photographs. The client-supplied school history is integrated, along with the motto and locality visible on the school crest. Three client-supplied school exterior photographs and the confirmed school telephone/WhatsApp (+234 814 082 3524) are integrated. The school uses a typographic wordmark until its downloadable official crest is supplied; the existing church crest is reserved for the church. Both identities retain the established green, gold, cream and editorial typography. The footer consistently displays “Powered by Newlife Baptist Church Technical Team”. Read [the client checklist](docs/CLIENT-CONTENT.md) for the exact missing items and image entry format.
+Edit `src/lib/institution.ts` to maintain school/church information, separate contacts, programmes and permitted photographs. The client-supplied school history is integrated, along with the motto and locality visible on the school crest. Three client-supplied school exterior photographs and the confirmed school telephone/WhatsApp (+234 814 082 3524) are integrated. The supplied school crest appears in the school header, navigation and footer, and in school sharing images. The school crest also supplies the browser favicon and Apple touch icon. Church pages retain the original church crest. Both identities retain the established green, gold, cream and editorial typography. The footer consistently displays “Powered by Newlife Baptist Church Technical Team”. Read [the client checklist](docs/CLIENT-CONTENT.md) for the exact missing items and image entry format.
 
 The production domain is unconfirmed. Canonicals and indexing remain disabled, and the sitemap is empty, until `productionOrigin` is confirmed and `publicationReady` is explicitly enabled after content approval. Unique titles/descriptions, Open Graph and large Twitter cards are implemented. Eight local 1200×630 social images are ready in `public/social/`; absolute image/canonical URLs are emitted only after the domain is confirmed. School/Church JSON-LD includes only verified facts, with no invented street address, service times, ratings or church contact number.
 
@@ -74,3 +74,17 @@ python tests/check-site-guide.py
 ```
 
 Set `NEWLIFE_BASE_URL` to test another local server port. The browser smoke test checks layouts, actual responses, source navigation, keyboard focus, clearing pending responses, plain-text rendering, church/school separation and the encoded human-handoff message. It does not send a WhatsApp message.
+
+
+## School branding assets
+
+The original uploaded crest is preserved unchanged in `public/images/school/school-logo-original.jpg`. `school.logo` and `church.logo` in `src/lib/institution.ts` select the separate institutional marks. Web and tab icons preserve the entire school crest without cropping or redrawing it.
+
+Regenerate the optimized 512px school mark, 256px icon, 180px Apple icon and multi-size 16/32/48px favicon from the repository root:
+
+```sh
+node scripts/generate-school-branding.mjs
+npx tsx scripts/generate-social-images.tsx
+```
+
+The icon generator uses the Sharp installation already supplied by Next.js. No dependency declarations or lockfile changes are needed. Next.js discovers `src/app/favicon.ico`, `icon.png` and `apple-icon.png` automatically.

@@ -95,3 +95,13 @@ Executed validation:
 - The footer still displays exactly “Powered by Newlife Baptist Church Technical Team”.
 
 The user additionally requested the green school crest for school branding and the favicon. That portion remains blocked: only the inline chat rendition is available, with no original downloadable logo image. Attachment inspection confirmed the available DOCX and three-photo ZIP contain no crest. An original PNG/JPG is needed; the crest/favicon have not been approximated or replaced with the church logo.
+
+## School crest and favicon completed, 27 October 2026
+
+The client supplied the original school JPEG in `WhatsApp Image 2026-10-15 at 18.21.59.jpeg.zip`. The JPEG is preserved byte-for-byte in `public/images/school/school-logo-original.jpg` (SHA-256 `51d022c22439b6afe4f0cf170ca16125064b0a40c99f58abfb43bb37f9b83de2`). The school header/footer/mobile navigation now render the actual school crest. Church headers, footers and church social images retain their separate crest. Five school social images now include the school crest.
+
+A reproducible local script generates the complete, uncropped crest on a white square background for the 512px web mark, 256px app icon, 180px Apple touch icon and multi-size 16/32/48px ICO favicon. ICO PNG entries use RGBA encoding for compatibility with the Next.js image decoder. No image was redrawn and no dependency declaration or lockfile changed.
+
+Validation passed: production build including TypeScript and 84 static entries; ESLint; all 15 existing automated tests; original-file byte comparison; PNG/Apple-icon dimensions and ICO directory/sizes. Chromium verified actual school crest loading in the header/footer on `/`, `/school/about` and `/school/contact`, the separate church crest on `/church`, favicon/Apple-icon links and served bytes, exact footer attribution, and no horizontal overflow at 320/375/768/1440px. A mobile screenshot was visually reviewed. The exact attribution remains “Powered by Newlife Baptist Church Technical Team”.
+
+The earlier school-logo/favicon blocker is resolved. Production-domain and other institutional-content prerequisites remain independent of this branding change.
