@@ -35,12 +35,12 @@ The existing portals, authentication, database schema/scripts, server actions an
 ```sh
 npm run lint
 npx tsc --noEmit
-npx tsx --test tests/institution.test.tsx
+npx tsx --test tests/institution.test.tsx tests/site-guide.test.ts
 npm run build
 npm run start
 ```
 
-Eight automated tests verify international call/WhatsApp destinations, hidden missing contacts, separation of school/church details, safe prepublication metadata, verified structured data and canonical/social URL generation with a synthetic test origin.
+Fifteen automated tests verify international call/WhatsApp destinations, hidden missing contacts, separation of school/church details, safe prepublication metadata, verified structured data and canonical/social URL generation with a synthetic test origin.
 
 For browser/route checks in the cloud environment (Python Playwright and `/usr/bin/chromium` are already available):
 
@@ -59,3 +59,18 @@ npx tsx scripts/generate-social-images.tsx
 ```
 
 No external image service, new dependency, additional database or credentials are required. See [the validation record](docs/QA.md) and [client publication checklist](docs/CLIENT-CONTENT.md).
+
+
+## Automated Newlife site guide
+
+“Ask Newlife” opens a responsive, keyboard-accessible site guide on public pages. It reuses the institutional content in `src/lib/institution.ts` and structured guide topics in `src/lib/faq.ts`. It provides sourced page links, suggested questions, basic follow-up context, a reset action, and honest answers when current details have not been confirmed. Legacy demonstration fees, service times and staff identities are excluded from its knowledge.
+
+This is a local chatbot simulator: no remote AI model, API key, chat database, new dependency or account is needed. Conversations remain in the current tab’s React state and can be cleared. A clearly labelled school-team WhatsApp handoff uses the confirmed school number. Only the latest question is included in the editable WhatsApp message; nothing is sent automatically. Church questions explicitly distinguish this school contact from a church office.
+
+```sh
+npx tsx --test tests/site-guide.test.ts tests/institution.test.tsx
+# With the production server on port 3107:
+python tests/check-site-guide.py
+```
+
+Set `NEWLIFE_BASE_URL` to test another local server port. The browser smoke test checks layouts, actual responses, source navigation, keyboard focus, clearing pending responses, plain-text rendering, church/school separation and the encoded human-handoff message. It does not send a WhatsApp message.

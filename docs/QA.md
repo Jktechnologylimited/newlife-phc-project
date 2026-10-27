@@ -77,3 +77,21 @@ The production domain remains unconfirmed. Canonical URLs and absolute Open Grap
 The downloadable school crest, current academic details, exact school address/map/email if used, and church-specific photographs, services and contacts are still needed. Preserved legacy routes contain sample material and need a separate retain/rewrite/retire decision before production. Reference sites were blocked by network-proxy HTTP 403; their pages were not viewed or copied.
 
 Git author identity was set for this repository only to `JK Technology Limited <engineering@jktl.com.ng>`. This did not change the website attribution or rewrite existing commits.
+
+## Automated site guide, 27 October 2026
+
+Implemented a branded “Ask Newlife” chatbot simulator on public pages, replacing the unused old chat widget and its unverified FAQ answers. The guide uses the approved central institutional content, relevant page links, scoped school/church topics, suggested questions, basic follow-up context, conversation reset and a persistent human-handoff action. Current fees, academic levels, worship times and missing contacts are never invented. The handoff targets the confirmed school WhatsApp number, explicitly distinguished from church office contact details.
+
+Conversations remain in this tab’s React state. No remote AI API, new dependency, account or chat database was added. The latest question is encoded into an editable WhatsApp message only when the visitor chooses that link; tests did not send any message. The guide is labelled automated and makes no human-online or response-time claims. Existing account/portal entry screens keep their focused layout without the widget.
+
+Executed validation:
+
+- Production build including TypeScript: passed; 82 static entries generated.
+- ESLint and standalone `npx tsc --noEmit`: passed.
+- `npx tsx --test tests/site-guide.test.ts tests/institution.test.tsx`: 15 passed, 0 failed/skipped.
+- Guide Chromium checks: responsive dialog bounds at 320×568, 375×812, 768×1024 and 1440×1000; visible input/handoff; actual suggested replies and fee fallback; correct source links; encoded WhatsApp question; focus containment, Escape/focus restoration; reset cancellation of pending replies; plain-text user content; no stored conversation; source navigation; church/school contact distinction; hidden widget on login/signup/password screens; no remote browser AI requests or browser errors. All passed.
+- Reply scrolling and initial welcome position were refined during visual review. Desktop and mobile screenshots were captured under `/tmp/newlife-guide-qa`.
+- Existing public-site regression checks passed across 8 main pages at 5 widths, 48 public/entry HTTP routes and exact footer attribution on all 47 HTML pages. The school/church pages, photographs and existing portal protection remain intact.
+- The footer still displays exactly “Powered by Newlife Baptist Church Technical Team”.
+
+The user additionally requested the green school crest for school branding and the favicon. That portion remains blocked: only the inline chat rendition is available, with no original downloadable logo image. Attachment inspection confirmed the available DOCX and three-photo ZIP contain no crest. An original PNG/JPG is needed; the crest/favicon have not been approximated or replaced with the church logo.

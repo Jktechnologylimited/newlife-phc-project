@@ -1,302 +1,378 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { pastors } from "@/lib/sample-data";
-import { whatsappLink } from "@/lib/whatsapp";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BookOpen,
+  Church,
+  Clock,
+  Images,
+  Compass,
+  MapPin,
+  MessageCircle,
+  RotateCcw,
+  Send,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { WhatsappGlyph } from "@/components/icons/social";
-import { photoUrl, photoAlt } from "@/lib/photos";
-import { faqEntries, matchFaq } from "@/lib/faq";
+import { containDialogFocus } from "@/lib/dialog-keyboard";
+import {
+  getGuideAnswer,
+  humanWhatsappHref,
+  MAX_GUIDE_QUESTION,
+  suggestedQuestions,
+  type GuideAnswer,
+  type GuideScope,
+} from "@/lib/faq";
 
-type ChatMessage = { role: "user" | "assistant"; content: string };
-
-const GREETING_DELAY = 2200;
-const GREETING_AUTO_HIDE = 10000;
-const THINK_DELAY = 450; // a brief pause so replies don't feel instant/robotic
+// Conversations stay in this tab's React state. No account, storage or remote AI API.
+type ChatMessage =
+  | { id: number; role: "user"; text: string }
+  | { id: number; role: "assistant"; answer: GuideAnswer };
+const quickIcons = {
+  school: [BookOpen, Compass, MapPin, Images],
+  church: [Church, BookOpen, Clock, MessageCircle],
+};
 
 export function ChatWidget() {
   const pathname = usePathname();
-  const experience: "church" | "school" | null = pathname.startsWith("/church")
+  const scope: GuideScope = pathname.startsWith("/church")
     ? "church"
-    : pathname.startsWith("/school")
-      ? "school"
-      : null;
-  const showWhatsapp = experience === "church";
-
-  const [chatOpen, setChatOpen] = useState(false);
-  const [whatsappOpen, setWhatsappOpen] = useState(false);
-  const [greeting, setGreeting] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+    : "school";
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const logRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const nextId = useRef(0);
+  const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const context = useRef<{
+    previousTopic?: string;
+    previousScope?: GuideScope;
+  }>({});
+  const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [thinking, setThinking] = useState(false);
-  const listRef = useRef<HTMLDivElement>(null);
-
-  // Notify once, shortly after the page loads — dismiss automatically if
-  // ignored, or the moment either button is used.
-  useEffect(() => {
-    const showTimer = setTimeout(() => setGreeting(true), GREETING_DELAY);
-    return () => clearTimeout(showTimer);
-  }, []);
-  useEffect(() => {
-    if (!greeting) return;
-    const hideTimer = setTimeout(() => setGreeting(false), GREETING_AUTO_HIDE);
-    return () => clearTimeout(hideTimer);
-  }, [greeting]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, chatOpen, thinking]);
+    dialogRef.current?.close();
+    context.current = {
+      previousScope: pathname.startsWith("/church") ? "church" : "school",
+    };
+  }, [pathname]);
+  useEffect(
+    () => () => {
+      if (replyTimer.current) clearTimeout(replyTimer.current);
+    },
+    [],
+  );
+  useLayoutEffect(() => {
+    const log = logRef.current;
+    if (log) log.scrollTop = messages.length ? log.scrollHeight : 0;
+  }, [messages, busy, open]);
 
-  const isBareRoute =
+  const isBare =
     pathname.startsWith("/portal") ||
-    pathname === "/login" ||
-    pathname === "/signup" ||
-    pathname === "/forgot-password";
+    ["/login", "/signup", "/forgot-password"].includes(pathname);
+  if (isBare) return null;
 
-  const accent = experience === "church" ? "bg-church text-ink" : experience === "school" ? "bg-school text-paper" : "bg-ink text-paper";
-  const accentSoft = experience === "church" ? "bg-church-tint text-church-deep" : experience === "school" ? "bg-school-tint text-school-deep" : "bg-stone text-ink";
+  const lastQuestion = [...messages]
+    .reverse()
+    .find((message) => message.role === "user");
+  const lastAnswer = [...messages]
+    .reverse()
+    .find((message) => message.role === "assistant");
+  const handoffScope =
+    scope === "church"
+      ? "church"
+      : lastAnswer?.role === "assistant"
+        ? lastAnswer.answer.scope
+        : scope;
+  const handoff = humanWhatsappHref(
+    lastQuestion?.role === "user" ? lastQuestion.text : "",
+    handoffScope,
+  );
+  const needsHuman =
+    lastAnswer?.role === "assistant" && lastAnswer.answer.handoff;
 
-  function send(text: string) {
-    const question = text.trim();
-    if (!question || thinking) return;
-
-    setMessages((prev) => [...prev, { role: "user", content: question }]);
-    setInput("");
-    setThinking(true);
-
-    setTimeout(() => {
-      const answer = matchFaq(question);
-      setMessages((prev) => [...prev, { role: "assistant", content: answer }]);
-      setThinking(false);
-    }, THINK_DELAY);
+  function close() {
+    dialogRef.current?.close();
   }
-
-  if (isBareRoute) return null;
-
-  const panelBottomClass = showWhatsapp ? "bottom-[9.5rem] sm:bottom-[10rem]" : "bottom-24 sm:bottom-28";
+  function reset() {
+    if (replyTimer.current) clearTimeout(replyTimer.current);
+    replyTimer.current = null;
+    setMessages([]);
+    setInput("");
+    setBusy(false);
+    context.current = { previousScope: scope };
+    inputRef.current?.focus();
+  }
+  function send(raw: string) {
+    const question = raw.trim().slice(0, MAX_GUIDE_QUESTION);
+    if (!question || replyTimer.current) return;
+    const answer = getGuideAnswer(question, {
+      path: pathname,
+      ...context.current,
+    });
+    setMessages((previous) => [
+      ...previous.slice(-38),
+      { id: ++nextId.current, role: "user", text: question },
+    ]);
+    setInput("");
+    setBusy(true);
+    // A brief visual response state; answers are retrieved locally from site facts.
+    replyTimer.current = setTimeout(() => {
+      context.current = {
+        previousTopic: answer.topic,
+        previousScope: answer.scope,
+      };
+      setMessages((previous) => [
+        ...previous,
+        { id: ++nextId.current, role: "assistant", answer },
+      ]);
+      replyTimer.current = null;
+      setBusy(false);
+    }, 280);
+  }
 
   return (
     <>
-      {/* Greeting bubble */}
-      <AnimatePresence>
-        {greeting && !chatOpen && !whatsappOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.97 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className={cn(
-              "fixed right-5 z-40 w-64 rounded-2xl bg-paper p-4 shadow-2xl sm:right-6",
-              showWhatsapp ? "bottom-[9.75rem] sm:bottom-[10.25rem]" : "bottom-24 sm:bottom-28",
-            )}
-          >
-            <button
-              onClick={() => setGreeting(false)}
-              aria-label="Dismiss"
-              className="absolute right-2 top-2 rounded-full p-1 text-slate hover:bg-stone hover:text-ink"
-            >
-              <X className="h-3.5 w-3.5" />
-            </button>
-            <p className="pr-4 text-sm leading-relaxed text-ink">
-              👋 Hi! Need help, or want to{" "}
-              {showWhatsapp ? "chat with a pastor on WhatsApp" : "ask a quick question"}?
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Button stack */}
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
-        {showWhatsapp && (
-          <motion.button
-            onClick={() => {
-              setWhatsappOpen((v) => !v);
-              setGreeting(false);
-            }}
-            aria-label={whatsappOpen ? "Close WhatsApp options" : "Chat on WhatsApp"}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:-translate-y-0.5"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {whatsappOpen ? (
-                <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-                  <X className="h-5 w-5" />
-                </motion.span>
-              ) : (
-                <motion.span key="wa" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-                  <WhatsappGlyph className="h-6 w-6" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
-        )}
-
-        <motion.button
-          onClick={() => {
-            setChatOpen((v) => !v);
-            setGreeting(false);
-          }}
-          aria-label={chatOpen ? "Close chat" : "Open chat"}
-          className={cn("flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:-translate-y-0.5", accent)}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {chatOpen ? (
-              <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-                <X className="h-5 w-5" />
-              </motion.span>
-            ) : (
-              <motion.span key="chat" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-                <MessageCircle className="h-5 w-5" />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
-      </div>
-
-      {/* WhatsApp popover */}
-      <AnimatePresence>
-        {whatsappOpen && (
-          <motion.div
-            role="dialog"
-            aria-label="Chat with a pastor on WhatsApp"
-            initial={{ opacity: 0, y: 12, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-24 right-5 z-40 w-72 rounded-2xl bg-paper p-2 shadow-2xl sm:bottom-28 sm:right-6"
-          >
-            <p className="px-3 pb-1 pt-2.5 text-sm font-medium text-ink">Chat with a pastor</p>
-            <p className="px-3 pb-2 text-xs text-slate">Opens a WhatsApp conversation, directly with them.</p>
-            <div className="flex flex-col gap-1">
-              {pastors.map((p) => (
-                <a
-                  key={p.name}
-                  href={whatsappLink(p.whatsapp, `Hi ${p.name.split(" ").slice(-1)[0]}, I'd like to reach out through the New Life website.`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setWhatsappOpen(false)}
-                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors hover:bg-paper-dim"
+      <button
+        className="guide-launcher"
+        type="button"
+        aria-label="Open Newlife site guide"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-controls="newlife-site-guide"
+        onClick={() => {
+          dialogRef.current?.showModal();
+          setOpen(true);
+        }}
+      >
+        <span className="guide-launcher-icon">
+          <MessageCircle size={19} aria-hidden="true" />
+        </span>
+        <span>Ask Newlife</span>
+        <Sparkles size={13} aria-hidden="true" />
+      </button>
+      <dialog
+        id="newlife-site-guide"
+        ref={dialogRef}
+        className="guide-dialog"
+        aria-labelledby="guide-title"
+        aria-describedby="guide-description"
+        onKeyDown={containDialogFocus}
+        onClose={() => setOpen(false)}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          const rect = event.currentTarget.getBoundingClientRect();
+          if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+          )
+            close();
+        }}
+      >
+        <div className="guide-shell">
+          <header className="guide-header">
+            <span className="guide-brand-icon">
+              <Sparkles size={21} strokeWidth={1.5} aria-hidden="true" />
+            </span>
+            <div>
+              <h2 id="guide-title">
+                Newlife guide<span>.</span>
+              </h2>
+              <p id="guide-description">
+                School &amp; Church · Automated site guide
+              </p>
+            </div>
+            <div className="guide-header-actions">
+              <button
+                type="button"
+                onClick={reset}
+                disabled={!messages.length && !busy}
+                aria-label="Start a new conversation"
+                title="Start a new conversation"
+              >
+                <RotateCcw size={17} />
+              </button>
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Close Newlife site guide"
+              >
+                <X size={21} />
+              </button>
+            </div>
+          </header>
+          <div className="guide-reading-area" ref={logRef}>
+            {!messages.length ? (
+              <div className="guide-welcome">
+                <span className="guide-welcome-label">
+                  A little guidance. A warm welcome.
+                </span>
+                <h3>How can we help?</h3>
+                <p>
+                  Ask about Newlife’s story, school enquiries, photographs or
+                  church information. I’ll help you find your way.
+                </p>
+                <div
+                  className="guide-suggestions"
+                  aria-label="Suggested questions"
                 >
-                  <span className="relative shrink-0">
-                    <span className="relative flex h-11 w-11 overflow-hidden rounded-full bg-stone">
-                      <Image src={photoUrl(p.photoKey, 150)} alt={photoAlt(p.photoKey)} fill className="object-cover" />
-                    </span>
-                    <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full bg-[#25D366] ring-2 ring-paper" />
-                  </span>
-                  <span className="flex-1">
-                    <span className="block font-medium leading-tight">{p.name}</span>
-                    <span className="mt-0.5 flex items-center gap-1 text-xs text-[#1DA851]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
-                      Available — start a conversation
-                    </span>
-                  </span>
-                </a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Chat panel */}
-      <AnimatePresence>
-        {chatOpen && (
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Newlife Assistant chat"
-            initial={{ opacity: 0, y: 16, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className={cn(
-              "fixed right-5 z-40 flex h-[min(32rem,70vh)] w-[92vw] max-w-sm flex-col overflow-hidden rounded-2xl bg-paper shadow-2xl sm:right-6",
-              panelBottomClass,
-            )}
-          >
-            <div className={cn("flex items-center gap-2.5 px-5 py-4", accent)}>
-              <Sparkles className="h-4 w-4" />
-              <div>
-                <p className="font-display text-base leading-tight">Newlife Assistant</p>
-                <p className="text-xs opacity-80">Quick answers about the church or school</p>
-              </div>
-            </div>
-
-            <div ref={listRef} className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
-              {messages.length === 0 ? (
-                <div>
-                  <p className="text-sm leading-relaxed text-slate">
-                    Hi! Tap a question below, or type your own.
-                  </p>
-                  <div className="mt-4 flex flex-col gap-2">
-                    {faqEntries.slice(0, 4).map(({ question }) => (
+                  {suggestedQuestions[scope].map((question, index) => {
+                    const Icon = quickIcons[scope][index];
+                    return (
                       <button
                         key={question}
+                        type="button"
+                        disabled={busy}
                         onClick={() => send(question)}
-                        className="rounded-lg bg-paper-dim px-3.5 py-2.5 text-left text-sm text-ink transition-colors hover:bg-stone/60"
                       >
-                        {question}
+                        <Icon size={18} strokeWidth={1.5} aria-hidden="true" />
+                        <span>{question}</span>
+                        <ArrowUpRight size={14} aria-hidden="true" />
                       </button>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
-              ) : (
-                <>
-                  {messages.map((m, i) => (
-                    <div key={i} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
+              </div>
+            ) : null}
+            <div
+              className="guide-log"
+              role="log"
+              aria-label="Conversation"
+              aria-live="polite"
+              aria-relevant="additions text"
+              aria-busy={busy}
+            >
+              {messages.map((message) =>
+                message.role === "user" ? (
+                  <div key={message.id} className="guide-user-message">
+                    <span className="sr-only">You: </span>
+                    <p>{message.text}</p>
+                  </div>
+                ) : (
+                  <article key={message.id} className="guide-answer">
+                    <div className="guide-answer-label">
+                      <Sparkles size={12} aria-hidden="true" />
+                      <span>Newlife guide</span>
+                    </div>
+                    <h3>{message.answer.title}</h3>
+                    {message.answer.paragraphs.map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                    {message.answer.sources.length > 0 && (
                       <div
-                        className={cn(
-                          "max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
-                          m.role === "user" ? accentSoft : "bg-paper-dim text-ink",
-                        )}
+                        className="guide-sources"
+                        aria-label="Related site pages"
                       >
-                        {m.content}
+                        {message.answer.sources.map((source) =>
+                          source.href.startsWith("/") ? (
+                            <Link
+                              href={source.href}
+                              key={source.href}
+                              onClick={close}
+                            >
+                              {source.label}
+                              <ArrowRight size={14} aria-hidden="true" />
+                            </Link>
+                          ) : (
+                            <a href={source.href} key={source.href}>
+                              {source.label}
+                              <ArrowUpRight size={14} aria-hidden="true" />
+                            </a>
+                          ),
+                        )}
                       </div>
-                    </div>
-                  ))}
-                  {thinking && (
-                    <div className="flex justify-start">
-                      <div className="max-w-[85%] rounded-2xl bg-paper-dim px-3.5 py-2.5 text-sm text-ink">…</div>
-                    </div>
-                  )}
-                </>
+                    )}
+                    {message.answer.handoff && (
+                      <span className="guide-confirm-note">
+                        For the latest or more specific details, continue with a
+                        person.
+                      </span>
+                    )}
+                  </article>
+                ),
+              )}
+              {busy && (
+                <div className="guide-typing" role="status">
+                  <span />
+                  <span />
+                  <span />
+                  <span className="sr-only">Finding site information</span>
+                </div>
               )}
             </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                send(input);
-              }}
-              className="flex items-center gap-2 border-t border-line p-3"
+          </div>
+          {handoff && (
+            <aside
+              className={`guide-handoff${needsHuman ? " guide-handoff-highlight" : ""}`}
             >
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask a question…"
-                disabled={thinking}
-                className="w-full rounded-full border border-line bg-paper px-4 py-2.5 text-sm text-ink placeholder:text-slate/70 focus:outline-none focus:ring-2 focus:ring-ink/15 disabled:opacity-60"
-              />
-              <button
-                type="submit"
-                disabled={thinking || !input.trim()}
-                aria-label="Send message"
-                className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-opacity disabled:opacity-40", accent)}
+              <div className="guide-handoff-heading">
+                <span>Prefer a conversation with a person?</span>
+                <span>School team</span>
+              </div>
+              <a
+                href={handoff}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Talk to the school team on WhatsApp"
               >
-                <Send className="h-4 w-4" />
-              </button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <WhatsappGlyph className="h-5 w-5" />
+                <span>Talk to the school team</span>
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </a>
+              {handoffScope === "church" && (
+                <p>
+                  This is the school’s contact, not a verified church office
+                  number.
+                </p>
+              )}
+              <p>
+                Your latest question opens as an editable message. Nothing is
+                sent automatically.
+              </p>
+            </aside>
+          )}
+          <form
+            className="guide-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              send(input);
+            }}
+          >
+            <label className="sr-only" htmlFor="guide-question">
+              Your question about Newlife
+            </label>
+            <input
+              id="guide-question"
+              ref={inputRef}
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              maxLength={MAX_GUIDE_QUESTION}
+              placeholder="Ask a question about Newlife…"
+              autoComplete="off"
+              enterKeyHint="send"
+            />
+            <button
+              type="submit"
+              disabled={busy || !input.trim()}
+              aria-label="Send question"
+            >
+              <Send size={18} aria-hidden="true" />
+            </button>
+          </form>
+          <p className="guide-footnote">
+            Automated guidance · No account needed
+          </p>
+        </div>
+      </dialog>
     </>
   );
 }

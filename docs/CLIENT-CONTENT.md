@@ -48,3 +48,9 @@ The supplied school photographs, school story and confirmed telephone/WhatsApp a
 Eight static 1200×630 social images are generated locally using authentic supplied imagery. Set the confirmed `productionOrigin` in `src/lib/institution.ts` to enable absolute canonicals and social image URLs; keep `publicationReady` false until institutional publication review is complete. The prepublication robots policy and empty sitemap remain intentional. Once published, robots allows curated pages plus their static/image/social assets, and legacy sample-content routes remain excluded.
 
 The reference sites in the premium brief returned network-proxy HTTP 403 during inspection. The implementation follows the brief’s visual direction without claiming those sites were viewed or importing their assets.
+
+## Automated guide and requested school crest/favicon
+
+The automated site guide now covers the verified main-page information. Answers derive from `institution.ts`, with topic aliases and source links in `faq.ts`. Keep guide topics updated when verified new pages/facts are added. Do not restore the old sample fees, Sunday times, pastor names or presumed email addresses.
+
+The user requested the previously shown green school crest on school pages and as the favicon, with the church crest kept for church pages. The inline crest is visible in chat, but the original image file is not accessible in the workspace or downloadable attachments. Inspection found the story DOCX (no embedded media) and the school photograph ZIP (three exterior JPEGs, no logo). An original PNG/JPG of the school crest is required to complete the exact logo/favicon replacement; it has not been approximated or generated. The exact footer attribution remains “Powered by Newlife Baptist Church Technical Team”.

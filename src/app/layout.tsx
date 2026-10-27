@@ -3,7 +3,7 @@ import "@fontsource-variable/fraunces/full.css";
 import "@fontsource-variable/public-sans/index.css";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
-import { SchoolEnquiry } from "@/components/institution/school-enquiry";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { SiteFooter } from "@/components/layout/site-footer";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
-        <SchoolEnquiry />
+        <ChatWidget />
       </body>
     </html>
   );
