@@ -1,50 +1,92 @@
 import Link from "next/link";
-import { school } from "@/lib/institution";
-import { PageIntro } from "@/components/institution/sections";
+import { ArrowUpRight, BookOpen } from "lucide-react";
+import { school, whatsappHref } from "@/lib/institution";
+import { PageIntro, EnquirySection } from "@/components/institution/sections";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
-  "Academics",
-  "Academic information and programme enquiries for Newlife Baptist School.",
+  "Learning at Newlife",
+  "Learning and Growing in God. Explore the educational foundation of Newlife Baptist School and enquire about current academic levels, curriculum and admissions.",
   "/school/academics",
 );
 export default function AcademicsPage() {
   return (
     <>
-      <PageIntro eyebrow="Learning at Newlife" title="Academic information">
-        <p>Find out about the school’s educational programmes.</p>
+      <PageIntro
+        eyebrow="The educational experience"
+        title="Learning. Growing. In God."
+      >
+        <p>
+          Our school’s motto brings together education and faith. It is a simple
+          expression of Newlife’s identity.
+        </p>
       </PageIntro>
-      <section className="institution-wrap pb-24">
-        {school.programmes.length ? (
-          <div className="grid gap-6 md:grid-cols-2">
-            {school.programmes.map((p) => (
-              <article
-                key={p.title}
-                className="rounded-2xl border border-line p-8"
-              >
-                <h2 className="font-display text-2xl">{p.title}</h2>
-                <p className="mt-4 leading-relaxed text-slate">
-                  {p.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="max-w-2xl">
-            <h2 className="font-display text-2xl">Ask the school</h2>
-            <p className="mt-5 leading-relaxed text-slate">
-              Please confirm available academic levels, curriculum and entry
-              requirements directly with the school. Programme details will be
-              published once the school has approved them.
+      <section className="section-space">
+        <div className="institution-wrap academic-grid">
+          <div>
+            <p className="eyebrow">Our foundation</p>
+            <h2 className="section-title">
+              A school with
+              <br />
+              <em>a meaningful beginning.</em>
+            </h2>
+            <p className="section-copy">
+              Newlife began as a nursery and primary school in 1994, established
+              by Sister Doris Abili with the support of Newlife Baptist Church.
             </p>
+            <p className="section-copy">
+              Looking for the right next step for your child? Contact the school
+              for current academic levels, curriculum information and entry
+              requirements.
+            </p>
+            {school.programmes.length > 0 ? (
+              <div className="mt-8">
+                {school.programmes.map((p) => (
+                  <article key={p.title} className="programme-line">
+                    <h3>{p.title}</h3>
+                    <p>{p.description}</p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <ul
+                className="academic-enquiries"
+                aria-label="Topics to discuss with the school"
+              >
+                <li>
+                  Current academic levels <span>Enquire with us</span>
+                </li>
+                <li>
+                  Curriculum &amp; learning <span>Enquire with us</span>
+                </li>
+                <li>
+                  Entry requirements <span>Enquire with us</span>
+                </li>
+              </ul>
+            )}
+            <Link href="/school/contact" className="text-link">
+              Speak with the school{" "}
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
           </div>
-        )}
-        <Link
-          href="/school/contact"
-          className="site-button mt-8 bg-ink text-paper"
-        >
-          Contact the School
-        </Link>
+          <aside className="academic-motto">
+            <BookOpen size={38} strokeWidth={1} aria-hidden="true" />
+            <p className="section-title">“{school.motto}”</p>
+            <p className="section-copy">The Newlife Baptist School motto.</p>
+            {school.whatsapp && (
+              <a
+                href={whatsappHref(school.whatsapp, school.name)}
+                className="text-link light"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Make a school enquiry{" "}
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+            )}
+          </aside>
+        </div>
       </section>
+      <EnquirySection institution={school} href="/school/contact" />
     </>
   );
 }

@@ -10,7 +10,15 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: publicPaths.map((path) => `${path}$`),
+      allow: [
+        ...publicPaths.map((path) => `${path}$`),
+        "/images/",
+        "/social/",
+        "/_next/static/",
+        "/_next/image",
+        "/newlife-logo-256.png",
+        "/icon.png",
+      ],
       disallow: "/",
     },
     sitemap: `${productionOrigin}/sitemap.xml`,

@@ -1,33 +1,68 @@
-import { school } from "@/lib/institution";
-import { PageIntro, ContactLinks } from "@/components/institution/sections";
+import { Phone, ArrowUpRight } from "lucide-react";
+import { school, telephoneHref, whatsappHref } from "@/lib/institution";
+import {
+  PageIntro,
+  ContactLinks,
+  InstitutionImage,
+} from "@/components/institution/sections";
+import { WhatsappGlyph } from "@/components/icons/social";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
-  "Contact the School",
-  "Contact information and enquiries for Newlife Baptist School.",
+  "School Contact & Enquiries",
+  "Contact Newlife Baptist School in Rumueme, Port Harcourt. Call or WhatsApp +234 814 082 3524 for school enquiries.",
   "/school/contact",
 );
 export default function ContactPage() {
   return (
     <>
-      <PageIntro eyebrow="Enquiries" title="Contact the School">
-        <p>{school.name}</p>
+      <PageIntro
+        eyebrow="We would love to hear from you"
+        title="Let’s begin a conversation."
+      >
+        <p>
+          Have a question about Newlife Baptist School? A call or a message is a
+          good place to start.
+        </p>
       </PageIntro>
-      <section className="institution-wrap grid gap-10 pb-24 md:grid-cols-2">
-        <div className="rounded-2xl border border-line bg-paper-dim p-7 sm:p-10">
-          <h2 className="mb-6 font-display text-2xl">Get in touch</h2>
-          <ContactLinks institution={school} />
-        </div>
-        <div className="py-4">
-          <h2 className="font-display text-2xl">
-            {school.shortName === "the school"
-              ? "School enquiries"
-              : "Planning a visit?"}
-          </h2>
-          <p className="mt-5 max-w-lg leading-relaxed text-slate">
-            For questions about academic levels, admissions and visiting the
-            school, please include the information you would like to discuss
-            when contacting the school.
-          </p>
+      <section className="section-space">
+        <div className="institution-wrap contact-page-grid">
+          <div>
+            <p className="eyebrow">School enquiries</p>
+            <h2 className="section-title">Get in touch.</h2>
+            <div className="contact-actions">
+              {school.telephone && (
+                <a
+                  href={telephoneHref(school.telephone)}
+                  className="button-primary"
+                >
+                  <Phone size={18} aria-hidden="true" />
+                  Call the school
+                </a>
+              )}
+              {school.whatsapp && (
+                <a
+                  href={whatsappHref(school.whatsapp, school.name)}
+                  className="button-outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <WhatsappGlyph className="h-5 w-5" />
+                  WhatsApp
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              )}
+            </div>
+            <ContactLinks institution={school} />
+            <div className="visit-note">
+              <h2>Planning a school visit?</h2>
+              <p>
+                Please call or WhatsApp the school to confirm the exact location
+                and arrange your visit before travelling. Our school number is
+                for school enquiries.
+              </p>
+            </div>
+          </div>
+          <InstitutionImage photo={school.photos[2]} />
         </div>
       </section>
     </>

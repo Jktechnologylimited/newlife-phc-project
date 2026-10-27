@@ -41,3 +41,39 @@ Integrated all three client-uploaded school exterior JPEGs unchanged. The landsc
 Revalidation passed: production build including TypeScript, lint, five automated tests, and Chromium checks on homepage/contact/gallery at 375/768/1440px. Visible images loaded, the call/WhatsApp destinations matched the confirmed number, and all three gallery photographs opened, loaded and closed with Escape. Browser checks confirmed the school number does not appear in church contact links. Hidden dialog images are intentionally lazy-loaded and are checked when their dialog opens. No real call or WhatsApp message was sent.
 
 Remaining material gaps: downloadable school crest, school email if applicable, full address/map, current programme information, church-specific materials, and confirmed production domain. Earlier notes that school photographs and telephone/WhatsApp were unavailable are superseded by this update.
+
+## Premium editorial redesign, 27 October 2026 — latest validation
+
+### Implemented
+
+- Full-width, authentic school-photo hero, school-first navigation, serif editorial headings, established pine/gold/cream colours and calmer section spacing.
+- Two-column welcome with real school photography; verified motto-based educational introduction; staggered gallery; historical storytelling; secondary church introduction; direct school call/WhatsApp enquiries.
+- Refined school About, Academics, Gallery and Contact pages, plus church home/About/Contact pages. Only supplied facts are presented. No new academic programmes, church service times, street address, testimonials or achievements were inferred.
+- Typographic school wordmark while the official downloadable school crest is unavailable. The existing church crest is used for the church identity. No JKTL corporate branding was introduced.
+- Accessible mobile navigation with native dialog, focus containment, Escape and route-change closure, scroll lock and desktop-resize handling; gallery enlargement and mobile WhatsApp action.
+- Exact attribution on public pages and preserved account-entry screens: “Powered by Newlife Baptist Church Technical Team”.
+- School and Church JSON-LD from verified facts, unique page metadata and eight branded 1200×630 PNG sharing images. All sharing images are generated locally using the supplied school photograph or church crest. No third-party graphics or external image service was used.
+
+### Executed checks
+
+- `npm run build`: passed, including TypeScript and 82 generated static entries.
+- `npm run lint`: passed.
+- `npx tsc --noEmit`: passed.
+- `npx tsx --test tests/institution.test.tsx`: 8 passed, 0 failed/skipped. Includes metadata generation with a synthetic approved origin; this test URL is not published.
+- `python tests/check-public-site.py`: passed against the production server on port 3105.
+- All 8 curated pages checked in Chromium at 320, 375, 768, 1024 and 1440px: no horizontal overflow, one H1, unique title, description, Open Graph/Twitter configuration, exact attribution, real visible-image loading and correct contact separation.
+- School-first hero and CTA destinations, hero spacing, keyboard focus/Tab containment, Escape/focus restoration, route navigation, desktop-resize menu dismissal, body scroll locking, all 3 gallery enlargements and reduced-motion behaviour passed. No browser page errors occurred.
+- All 8 unique internal destinations returned successful HTTP responses.
+- HTTP checks passed for 48 public/entry routes, including exact attribution on all 47 HTML responses. The remaining response was an image asset. This is HTTP coverage, not verification of retained legacy sample content.
+- All 8 sharing-image URLs served valid 1200×630 PNGs below 1MB each.
+- Prepublication robots/empty sitemap, `/school` HTTP 308 redirect, unauthenticated admin HTTP 307 redirect and unknown-route HTTP 404 passed.
+- Desktop/mobile screenshots were generated under `/tmp/newlife-premium-qa` and visually reviewed, including the homepage, church and social card composition.
+- `git diff --check`: clean. Dependency declarations/lockfile, databases/schema/scripts, portal logic and authentication remain unchanged.
+
+### Publication limitations
+
+The production domain remains unconfirmed. Canonical URLs and absolute Open Graph/Twitter image URLs are intentionally absent; sharing assets are ready, but live sharing is not yet validated. Robots and noindex metadata remain restrictive, and sitemap URLs remain empty. Once the client confirms the origin and content approval, the configuration emits absolute URLs; the publication-ready robots policy allows curated pages and their supporting static/image/social assets.
+
+The downloadable school crest, current academic details, exact school address/map/email if used, and church-specific photographs, services and contacts are still needed. Preserved legacy routes contain sample material and need a separate retain/rewrite/retire decision before production. Reference sites were blocked by network-proxy HTTP 403; their pages were not viewed or copied.
+
+Git author identity was set for this repository only to `JK Technology Limited <engineering@jktl.com.ng>`. This did not change the website attribution or rewrite existing commits.

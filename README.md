@@ -1,6 +1,6 @@
 # Newlife Baptist School & Church
 
-A school-first public website built with the existing Next.js 16 App Router, React 19 and Tailwind CSS 4 stack. The school homepage is `/`; `/school` redirects there. The church has a dedicated `/church` section and shared navigation, typography and footer.
+A photography-led, school-first public website built with the existing Next.js 16 App Router, React 19 and Tailwind CSS 4 stack. The school homepage is `/`; `/school` redirects there. The church has a dedicated `/church` section and shared navigation, typography and footer.
 
 ## Development
 
@@ -15,18 +15,18 @@ No credentials are needed for the current public website. Do not create a worktr
 
 ## Current public pages
 
-- `/`: school homepage with school contact and About actions, plus a secondary church introduction.
-- `/school/about`: official school story, mission and vision when supplied.
-- `/school/academics`: approved programmes when supplied; hidden from navigation until populated.
-- `/school/gallery`: approved local photographs and accessible enlargement; hidden from navigation until populated.
-- `/school/contact`: verified school contact links when supplied.
+- `/`: full-width school photograph, editorial welcome, educational identity, staggered gallery, school history, church introduction and contact actions.
+- `/school/about`: official school story, real school photography and a 1994/1996/1999 history timeline.
+- `/school/academics`: verified educational identity and historical foundation, with direct enquiries for current levels and curriculum. Approved programme details can be added centrally.
+- `/school/gallery`: three client-supplied exterior photographs with keyboard-accessible enlargement.
+- `/school/contact`: confirmed school call/WhatsApp actions and locality; exact directions are requested directly from the school.
 - `/church`, `/church/about`, `/church/contact`: dedicated church information and separate contact details.
 
 ## Content and publication
 
-Edit `src/lib/institution.ts` to maintain school/church information, separate contacts, programmes and permitted photographs. The client-supplied school history is integrated, along with the motto and locality visible on the school crest. Three client-supplied school exterior photographs and the confirmed school telephone/WhatsApp (+234 814 082 3524) are integrated. The downloadable school crest file is still needed to replace the existing church crest. The site deliberately does not fabricate them. Read [the client checklist](docs/CLIENT-CONTENT.md) for the exact missing items and image entry format.
+Edit `src/lib/institution.ts` to maintain school/church information, separate contacts, programmes and permitted photographs. The client-supplied school history is integrated, along with the motto and locality visible on the school crest. Three client-supplied school exterior photographs and the confirmed school telephone/WhatsApp (+234 814 082 3524) are integrated. The school uses a typographic wordmark until its downloadable official crest is supplied; the existing church crest is reserved for the church. Both identities retain the established green, gold, cream and editorial typography. The footer consistently displays “Powered by Newlife Baptist Church Technical Team”. Read [the client checklist](docs/CLIENT-CONTENT.md) for the exact missing items and image entry format.
 
-The production domain is unconfirmed. Canonicals and indexing remain disabled, and the sitemap is empty, until `productionOrigin` is confirmed and `publicationReady` is explicitly enabled after content approval. Unique titles, descriptions and Open Graph metadata are implemented. Structured data is deferred until institutional facts and production identity are verified.
+The production domain is unconfirmed. Canonicals and indexing remain disabled, and the sitemap is empty, until `productionOrigin` is confirmed and `publicationReady` is explicitly enabled after content approval. Unique titles/descriptions, Open Graph and large Twitter cards are implemented. Eight local 1200×630 social images are ready in `public/social/`; absolute image/canonical URLs are emitted only after the domain is confirmed. School/Church JSON-LD includes only verified facts, with no invented street address, service times, ratings or church contact number.
 
 The existing portals, authentication, database schema/scripts, server actions and legacy marketing routes are preserved. Legacy sample content is not linked from the main public website and must be reviewed before publication. No database migrations or seed commands are needed for this task. The previous README is retained in [archived implementation notes](docs/LEGACY-README.md); its sample facts are not approved institutional copy.
 
@@ -40,4 +40,22 @@ npm run build
 npm run start
 ```
 
-The contact tests use synthetic fixtures only. They verify international call/WhatsApp destinations, hidden missing contacts, separation of school/church details, and safe prepublication metadata. Real photograph quality, contact ownership, worship times, academic claims and production deployment still require client materials and review.
+Eight automated tests verify international call/WhatsApp destinations, hidden missing contacts, separation of school/church details, safe prepublication metadata, verified structured data and canonical/social URL generation with a synthetic test origin.
+
+For browser/route checks in the cloud environment (Python Playwright and `/usr/bin/chromium` are already available):
+
+```sh
+npm run start -- --port 3105
+# In another terminal, from the repository root:
+python tests/check-public-site.py
+```
+
+`NEWLIFE_BASE_URL` overrides the default server URL. `NEWLIFE_QA_DIR` selects a screenshot directory (default `/tmp/newlife-premium-qa`). The check covers five viewport widths, real image loading, mobile keyboard navigation, lightboxes, school/church contact separation, attribution across public HTML routes, social-image dimensions and redirects. It does not send calls/messages or verify legacy sample claims.
+
+To regenerate sharing images using local assets and the installed Next.js image renderer:
+
+```sh
+npx tsx scripts/generate-social-images.tsx
+```
+
+No external image service, new dependency, additional database or credentials are required. See [the validation record](docs/QA.md) and [client publication checklist](docs/CLIENT-CONTENT.md).

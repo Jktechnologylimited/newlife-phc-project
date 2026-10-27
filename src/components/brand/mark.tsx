@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/** The real Newlife Baptist Church crest — used as the site's universal
- * mark in the header, footer, and anywhere else the brand needs to show
- * up as an actual seal rather than a color swatch. */
+/** The supplied church crest is used only for the church identity.
+ * The school uses a typographic wordmark until its original crest is available.
+ */
 export function BrandMark({
   className,
   size = 36,
@@ -18,30 +18,34 @@ export function BrandMark({
       width={size}
       height={size}
       className={cn("shrink-0 object-contain", className)}
-      priority
     />
   );
 }
-
 export function Wordmark({
   className,
   tagline = true,
   size = 36,
+  experience,
 }: {
   className?: string;
   tagline?: boolean;
   size?: number;
+  experience?: "school" | "church";
 }) {
   return (
-    <span className={cn("flex items-center gap-2.5", className)}>
-      <BrandMark size={size} />
-      <span className="flex flex-col leading-none">
-        <span className="font-display text-[1.05rem] tracking-tight">
-          Newlife
+    <span className={cn("brand-wordmark", className)}>
+      {experience !== "school" && <BrandMark size={size} />}
+      <span className="brand-wordmark-type">
+        <span className="brand-name">
+          Newlife<span className="brand-period">.</span>
         </span>
         {tagline && (
-          <span className="mt-0.5 text-[0.7rem] tracking-wide text-slate">
-            Baptist School &amp; Church
+          <span className="brand-subtitle">
+            {experience === "school"
+              ? "Baptist School"
+              : experience === "church"
+                ? "Baptist Church"
+                : "Baptist School & Church"}
           </span>
         )}
       </span>

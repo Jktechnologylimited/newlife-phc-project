@@ -77,7 +77,13 @@ export const church: Institution & {
 } = {
   name: "Newlife Baptist Church",
   shortName: "the church",
-  story: [],
+  introduction:
+    "A church and a school, connected through a shared story of faith and education.",
+  story: [
+    "In 1994, Newlife Baptist Church gave Sister Doris Abili permission to use its name and premises to establish a nursery and primary school. The school began in the small church building with four children.",
+    "In 1996, under the leadership of Bro. G. A. Apapa, the church formally took ownership of the school. The head teacher and staff reapplied for their positions and were employed by the church.",
+    "This connection is part of the history of Newlife Baptist School and the church’s role in its beginnings.",
+  ],
   photos: [],
   services: [],
   beliefs: [],
@@ -101,4 +107,22 @@ export const publicPaths = [
   "/church",
   "/church/about",
   "/church/contact",
+];
+
+export const schoolMilestones = [
+  {
+    year: "1994",
+    description:
+      "Sister Doris Abili’s vision. Four children in the small church building.",
+  },
+  {
+    year: "1996",
+    description:
+      "Newlife Baptist Church formally takes ownership of the school.",
+  },
+  {
+    year: "1999",
+    description:
+      "The Parent–Teacher Association is formed, with Mr. Stephen Ajibare as its first chairman.",
+  },
 ];

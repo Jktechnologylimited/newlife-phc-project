@@ -8,6 +8,8 @@ import {
   telephoneHref,
   whatsappHref,
 } from "../src/lib/institution";
+import { institutionSchema } from "../src/lib/institution-schema";
+import { socialCardFor } from "../src/lib/social-cards";
 import { pageMetadata } from "../src/lib/site-metadata";
 
 // Synthetic numbers exercise formatting; they are never published as contacts.
@@ -39,7 +41,7 @@ test("unverified institutional contacts cannot render fake destinations", () => 
       />,
     );
     assert.doesNotMatch(html, /href="(?:tel:|mailto:|https:\/\/wa.me\/)/);
-    assert.match(html, /Official contact details have not yet been published/);
+    assert.doesNotMatch(html, /not yet been published|coming soon/i);
   }
 });
 
@@ -76,4 +78,46 @@ test("confirmed school contact is available without assigning it to the church",
     renderToStaticMarkup(<ContactLinks institution={church} />),
     /2348140823524/,
   );
+});
+
+test("structured data describes verified school facts without inventing church contacts", () => {
+  const schoolData = institutionSchema("school");
+  const churchData = institutionSchema("church");
+  assert.equal(schoolData["@type"], "School");
+  assert.equal(schoolData.foundingDate, "1994");
+  assert.equal(schoolData.telephone, "+234 814 082 3524");
+  assert.equal(schoolData.url, undefined);
+  assert.equal(churchData["@type"], "Church");
+  assert.equal(churchData.telephone, undefined);
+  assert.equal(churchData.address, undefined);
+});
+
+test("social cards separate school and church assets without a guessed domain", () => {
+  assert.equal(socialCardFor("/school/gallery").file, "school-gallery");
+  assert.equal(socialCardFor("/church").church, true);
+  const metadata = pageMetadata("Church", "Church information", "/church");
+  assert.equal(metadata.openGraph?.images, undefined);
+  assert.ok(metadata.twitter && "card" in metadata.twitter);
+  assert.equal(metadata.twitter.card, "summary_large_image");
+});
+
+test("an approved origin produces matching canonical and absolute social image URLs", () => {
+  const metadata = pageMetadata(
+    "Our story",
+    "School history",
+    "/school/about",
+    { origin: "https://school.example.invalid", ready: true },
+  );
+  assert.deepEqual(metadata.alternates, {
+    canonical: "https://school.example.invalid/school/about",
+  });
+  assert.deepEqual(metadata.robots, { index: true, follow: true });
+  assert.deepEqual(metadata.openGraph?.images, [
+    {
+      url: "https://school.example.invalid/social/school-story.png",
+      width: 1200,
+      height: 630,
+      alt: "Small beginnings. A meaningful story.",
+    },
+  ]);
 });

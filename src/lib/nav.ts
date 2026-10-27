@@ -3,9 +3,7 @@ export type NavLink = { label: string; href: string };
 export const schoolNav: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/school/about" },
-  ...(school.programmes.length
-    ? [{ label: "Academics", href: "/school/academics" }]
-    : []),
+  { label: "Academics", href: "/school/academics" },
   ...(school.photos.length
     ? [{ label: "Gallery", href: "/school/gallery" }]
     : []),

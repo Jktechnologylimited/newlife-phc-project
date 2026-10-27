@@ -8,7 +8,7 @@ The client brief confirms the school/church names and the school as the primary 
 - School telephone with country code, WhatsApp with country code, and email if used. Confirm these separately from church contacts.
 - School physical address and approved map/directions URL.
 - Authentic school hero photograph and gallery images, with permission to publish (including consent for identifiable children), accurate alt descriptions and optional factual captions.
-- Confirmed academic levels/programmes, curriculum, entry requirements and approved descriptions. Academics is omitted from navigation until programmes exist.
+- Confirmed academic levels/programmes, curriculum, entry requirements and approved descriptions. Academics is now linked in navigation and describes the verified motto/historical foundation; current academic details are handled through enquiries until supplied.
 - Official school mission and vision, if intended for publication.
 - Church introduction/history, beliefs if approved, worship times and location, separate telephone/WhatsApp/email, and permitted church photographs.
 - Confirmed production origin, domain ownership and hosting target.
@@ -40,3 +40,11 @@ The client confirmed +234 814 082 3524 as both the school telephone and official
 The uploaded WhatsApp ZIP contains three school exterior photographs, inspected and copied unchanged into `public/images/school/`. The landscape image is the homepage hero; all three appear in the gallery with visual descriptions rather than invented facility claims. Gallery navigation is now enabled. The ZIP contains no logo, document, email, map URL or additional contact information. The current school-name spelling remains as requested in the brief, while the building and crest use “Schools”; confirm the preferred public spelling before publication.
 
 These updates supersede earlier checklist entries describing missing school telephone/WhatsApp and photographs. School email (if used), full address/map, current academic programmes, downloadable school crest, church-specific materials and production domain remain outstanding. Client confirmation of photograph publication permissions remains part of final publication review.
+
+## Premium design refinement
+
+The supplied school photographs, school story and confirmed telephone/WhatsApp are integrated in the editorial design. The school now uses a text wordmark so the church crest is not presented as a school crest. Supply the original school crest to add the official school mark; the church retains its existing crest. The school About page includes verified historical milestones; Academics uses the verified motto and historical founding context, with current academic details handled through direct enquiries. Main church content describes only the church/school connection supported by the supplied school history. Unverified mission, service times, church photographs and church contacts are omitted rather than shown as unfinished sections.
+
+Eight static 1200×630 social images are generated locally using authentic supplied imagery. Set the confirmed `productionOrigin` in `src/lib/institution.ts` to enable absolute canonicals and social image URLs; keep `publicationReady` false until institutional publication review is complete. The prepublication robots policy and empty sitemap remain intentional. Once published, robots allows curated pages plus their static/image/social assets, and legacy sample-content routes remain excluded.
+
+The reference sites in the premium brief returned network-proxy HTTP 403 during inspection. The implementation follows the brief’s visual direction without claiming those sites were viewed or importing their assets.
