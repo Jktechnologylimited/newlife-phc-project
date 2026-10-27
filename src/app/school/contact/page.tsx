@@ -1,51 +1,35 @@
-import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { ContactForm } from "@/components/forms/contact-form";
-
-export const metadata: Metadata = { title: "Contact" };
-
-export default function SchoolContactPage() {
+import { school } from "@/lib/institution";
+import { PageIntro, ContactLinks } from "@/components/institution/sections";
+import { pageMetadata } from "@/lib/site-metadata";
+export const metadata = pageMetadata(
+  "Contact the School",
+  "Contact information and enquiries for Newlife Baptist School.",
+  "/school/contact",
+);
+export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16 lg:px-8">
-      <p className="text-sm font-medium text-school-deep">Contact</p>
-      <h1 className="mt-2 font-display text-4xl">Get in touch with the school office</h1>
-      <p className="mt-3 max-w-lg text-[1.05rem] leading-relaxed text-slate">
-        Questions about admissions, academics, or anything else — we&apos;re happy to help.
-      </p>
-
-      <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.3fr]">
-        <div className="space-y-5">
-          <div className="flex gap-3">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
-            <div>
-              <p className="text-sm font-medium">Visit us</p>
-              <p className="text-sm text-slate">Port Harcourt, Rivers State, Nigeria</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Phone className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
-            <div>
-              <p className="text-sm font-medium">Call us</p>
-              <p className="text-sm text-slate">+234 803 123 4580</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
-            <div>
-              <p className="text-sm font-medium">Email us</p>
-              <p className="text-sm text-slate">admissions@newlifebaptistchurch.org</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Clock className="mt-0.5 h-4 w-4 shrink-0 text-school-deep" />
-            <div>
-              <p className="text-sm font-medium">Office hours</p>
-              <p className="text-sm text-slate">Mon–Fri · 8:00 AM – 4:00 PM</p>
-            </div>
-          </div>
+    <>
+      <PageIntro eyebrow="Enquiries" title="Contact the School">
+        <p>{school.name}</p>
+      </PageIntro>
+      <section className="institution-wrap grid gap-10 pb-24 md:grid-cols-2">
+        <div className="rounded-2xl border border-line bg-paper-dim p-7 sm:p-10">
+          <h2 className="mb-6 font-display text-2xl">Get in touch</h2>
+          <ContactLinks institution={school} />
         </div>
-        <ContactForm site="school" />
-      </div>
-    </div>
+        <div className="py-4">
+          <h2 className="font-display text-2xl">
+            {school.shortName === "the school"
+              ? "School enquiries"
+              : "Planning a visit?"}
+          </h2>
+          <p className="mt-5 max-w-lg leading-relaxed text-slate">
+            For questions about academic levels, admissions and visiting the
+            school, please include the information you would like to discuss
+            when contacting the school.
+          </p>
+        </div>
+      </section>
+    </>
   );
 }
