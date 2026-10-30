@@ -2,7 +2,7 @@ export const socialCards = {
   "/": {
     file: "school",
     title: "Learning. Growing. In God.",
-    label: "Newlife Baptist School",
+    label: "Newlife Baptist Schools",
     church: false,
   },
   "/school/about": {
@@ -26,7 +26,7 @@ export const socialCards = {
   "/school/contact": {
     file: "school-contact",
     title: "Let’s begin a conversation.",
-    label: "Newlife Baptist School · Enquiries",
+    label: "Newlife Baptist Schools · Enquiries",
     church: false,
   },
   "/church": {

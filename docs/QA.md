@@ -105,3 +105,9 @@ A reproducible local script generates the complete, uncropped crest on a white s
 Validation passed: production build including TypeScript and 84 static entries; ESLint; all 15 existing automated tests; original-file byte comparison; PNG/Apple-icon dimensions and ICO directory/sizes. Chromium verified actual school crest loading in the header/footer on `/`, `/school/about` and `/school/contact`, the separate church crest on `/church`, favicon/Apple-icon links and served bytes, exact footer attribution, and no horizontal overflow at 320/375/768/1440px. A mobile screenshot was visually reviewed. The exact attribution remains “Powered by Newlife Baptist Church Technical Team”.
 
 The earlier school-logo/favicon blocker is resolved. Production-domain and other institutional-content prerequisites remain independent of this branding change.
+
+## Official plural name correction, 30 October 2026
+
+The client confirmed the institution name is **Newlife Baptist Schools**. Updated the school identity, public pages, shared header/footer, accessible logo descriptions, metadata/site name, structured-data name, email text and sharing-card labels. The chatbot and WhatsApp messages inherit the corrected central name. Regenerated the affected school sharing images. Generic “the school” references, existing routes, original crest artwork, church name and exact Technical Team attribution are preserved.
+
+Validation: production build including TypeScript and 84 static entries passed; ESLint passed; all 15 existing automated tests passed; active source scan found no remaining proper-name singular “Baptist School” in website/scripts/tests. Chromium verified the plural identity and metadata on all 8 main public pages, the school structured-data name on the root page, and no horizontal overflow at 320px and 1440px. `git diff --check` was clean.

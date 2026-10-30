@@ -4,7 +4,7 @@ import { Gallery } from "@/components/institution/gallery";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
   "Around Our School",
-  "Explore photographs of Newlife Baptist School’s buildings, entrance and courtyard in Rumueme, Port Harcourt.",
+  "Explore photographs of Newlife Baptist Schools’ buildings, entrance and courtyard in Rumueme, Port Harcourt.",
   "/school/gallery",
 );
 export default function GalleryPage() {

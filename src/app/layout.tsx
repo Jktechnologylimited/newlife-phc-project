@@ -8,11 +8,11 @@ import { SiteFooter } from "@/components/layout/site-footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Newlife Baptist School & Church",
+    default: "Newlife Baptist Schools & Church",
     template: "%s · Newlife",
   },
   description:
-    "Welcome to Newlife Baptist School and Newlife Baptist Church. School information, church information and enquiries.",
+    "Welcome to Newlife Baptist Schools and Newlife Baptist Church. School information, church information and enquiries.",
   robots: { index: false, follow: false },
 };
 

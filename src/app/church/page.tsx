@@ -10,7 +10,7 @@ import { StructuredData } from "@/components/institution/structured-data";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
   "Newlife Baptist Church",
-  "Discover Newlife Baptist Church and its connection with Newlife Baptist School: a shared story of faith and education.",
+  "Discover Newlife Baptist Church and its connection with Newlife Baptist Schools: a shared story of faith and education.",
   "/church",
 );
 export default function ChurchPage() {
@@ -30,7 +30,7 @@ export default function ChurchPage() {
             <p className="section-copy">
               The school’s story began in the church’s small building. With the
               church’s permission, Sister Doris Abili established Newlife
-              Baptist School in 1994.
+              Baptist Schools in 1994.
             </p>
             <p className="section-copy">
               In 1996, Newlife Baptist Church formally took ownership of the
@@ -90,7 +90,7 @@ export default function ChurchPage() {
             </p>
           </div>
           <Link href="/" className="button-primary">
-            Visit Newlife Baptist School{" "}
+            Visit Newlife Baptist Schools{" "}
             <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </div>

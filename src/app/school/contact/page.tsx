@@ -9,7 +9,7 @@ import { WhatsappGlyph } from "@/components/icons/social";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
   "School Contact & Enquiries",
-  "Contact Newlife Baptist School in Rumueme, Port Harcourt. Call or WhatsApp +234 814 082 3524 for school enquiries.",
+  "Contact Newlife Baptist Schools in Rumueme, Port Harcourt. Call or WhatsApp +234 814 082 3524 for school enquiries.",
   "/school/contact",
 );
 export default function ContactPage() {
@@ -20,7 +20,7 @@ export default function ContactPage() {
         title="Let’s begin a conversation."
       >
         <p>
-          Have a question about Newlife Baptist School? A call or a message is a
+          Have a question about Newlife Baptist Schools? A call or a message is a
           good place to start.
         </p>
       </PageIntro>

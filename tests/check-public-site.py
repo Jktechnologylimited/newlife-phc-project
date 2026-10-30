@@ -71,7 +71,7 @@ with sync_playwright() as p:
     # The school controls the root hero and has priority over the church section.
     page.goto(BASE, wait_until='networkidle')
     assert page.locator('.premium-hero').count() == 1
-    assert page.locator('.premium-hero img').get_attribute('alt').startswith('Wide view of the Newlife Baptist School')
+    assert page.locator('.premium-hero img').get_attribute('alt').startswith('Wide view of the Newlife Baptist Schools')
     assert page.get_by_role('link', name='Enquire About the School', exact=True).get_attribute('href') == '/school/contact'
     assert page.get_by_role('link', name='Explore Our Church', exact=True).get_attribute('href') == '/church'
     for width in [320, 375, 768, 1440]:

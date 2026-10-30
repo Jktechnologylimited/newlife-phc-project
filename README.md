@@ -1,4 +1,4 @@
-# Newlife Baptist School & Church
+# Newlife Baptist Schools & Church
 
 A photography-led, school-first public website built with the existing Next.js 16 App Router, React 19 and Tailwind CSS 4 stack. The school homepage is `/`; `/school` redirects there. The church has a dedicated `/church` section and shared navigation, typography and footer.
 

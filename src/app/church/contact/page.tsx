@@ -43,7 +43,7 @@ export default function ChurchContact() {
             <p className="eyebrow light">Looking for the school?</p>
             <h2 className="section-title">School enquiries.</h2>
             <p className="section-copy">
-              If your question is about Newlife Baptist School, its academic
+              If your question is about Newlife Baptist Schools, its academic
               levels or a school visit, contact the school team.
             </p>
             <Link href="/school/contact" className="text-link light">

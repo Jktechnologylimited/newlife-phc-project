@@ -37,7 +37,7 @@ export function SiteHeader() {
         <div className="institution-wrap header-topline-inner">
           <span>
             {isChurch
-              ? "Newlife Baptist Church & School"
+              ? "Newlife Baptist Church & Schools"
               : "Learning and Growing in God"}
           </span>
           <span className="header-topline-right">
@@ -67,7 +67,7 @@ export function SiteHeader() {
           aria-label={
             isChurch
               ? "Newlife Baptist Church home"
-              : "Newlife Baptist School home"
+              : "Newlife Baptist Schools home"
           }
         >
           <Wordmark experience={experience} size={44} />

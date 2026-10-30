@@ -5,7 +5,7 @@ import { PageIntro, EnquirySection } from "@/components/institution/sections";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
   "Learning at Newlife",
-  "Learning and Growing in God. Explore the educational foundation of Newlife Baptist School and enquire about current academic levels, curriculum and admissions.",
+  "Learning and Growing in God. Explore the educational foundation of Newlife Baptist Schools and enquire about current academic levels, curriculum and admissions.",
   "/school/academics",
 );
 export default function AcademicsPage() {
@@ -71,7 +71,7 @@ export default function AcademicsPage() {
           <aside className="academic-motto">
             <BookOpen size={38} strokeWidth={1} aria-hidden="true" />
             <p className="section-title">“{school.motto}”</p>
-            <p className="section-copy">The Newlife Baptist School motto.</p>
+            <p className="section-copy">The Newlife Baptist Schools motto.</p>
             {school.whatsapp && (
               <a
                 href={whatsappHref(school.whatsapp, school.name)}

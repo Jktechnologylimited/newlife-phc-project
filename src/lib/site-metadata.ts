@@ -28,7 +28,7 @@ export function pageMetadata(
       title,
       description,
       type: "website",
-      siteName: "Newlife Baptist School & Church",
+      siteName: "Newlife Baptist Schools & Church",
       locale: "en_NG",
       ...(url ? { url } : {}),
       ...(image

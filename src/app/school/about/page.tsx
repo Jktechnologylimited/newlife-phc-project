@@ -7,7 +7,7 @@ import {
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
   "Our School Story",
-  "The story of Newlife Baptist School, Rumueme: Sister Doris Abili’s vision in 1994, four first children and a lasting connection with Newlife Baptist Church.",
+  "The story of Newlife Baptist Schools, Rumueme: Sister Doris Abili’s vision in 1994, four first children and a lasting connection with Newlife Baptist Church.",
   "/school/about",
 );
 export default function AboutPage() {
@@ -18,7 +18,7 @@ export default function AboutPage() {
         title="A small beginning. A lasting connection."
       >
         <p>
-          The story of Newlife Baptist School, Rumueme, Port Harcourt. Learning
+          The story of Newlife Baptist Schools, Rumueme, Port Harcourt. Learning
           and growing in God since 1994.
         </p>
       </PageIntro>

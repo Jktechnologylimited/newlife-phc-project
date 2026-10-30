@@ -92,7 +92,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           <p>
-            © {new Date().getFullYear()} Newlife Baptist School &amp; Church.
+            © {new Date().getFullYear()} Newlife Baptist Schools &amp; Church.
           </p>
           <p>Powered by Newlife Baptist Church Technical Team</p>
         </div>

@@ -4,7 +4,7 @@ The client brief confirms the school/church names and the school as the primary 
 
 ## Required from the client
 
-- Confirm whether the official public name uses “School” or “Schools” (the new crest says “Schools”; the brief uses “School”). History and church ownership are now supplied. Confirm spellings before publishing a detailed list of historic staff: the source contains variants such as Nyanabe/Nyanabo and unclear teacher-name spellings; these names were not guessed in the public summary.
+- Official public name confirmed by the client on 30 October 2026: **Newlife Baptist Schools**. History and church ownership are supplied. Confirm spellings before publishing a detailed list of historic staff: the source contains variants such as Nyanabe/Nyanabo and unclear teacher-name spellings; these names were not guessed in the public summary.
 - School telephone with country code, WhatsApp with country code, and email if used. Confirm these separately from church contacts.
 - School physical address and approved map/directions URL.
 - Authentic school hero photograph and gallery images, with permission to publish (including consent for identifiable children), accurate alt descriptions and optional factual captions.
@@ -60,3 +60,7 @@ The user requested the previously shown green school crest on school pages and a
 The client supplied `WhatsApp Image 2026-10-15 at 18.21.59.jpeg.zip`. Its original JPEG is preserved byte-for-byte at `public/images/school/school-logo-original.jpg`. The school header/footer/mobile navigation use the school crest, and the church header/footer continue to use the original church crest. The root browser favicon, 256px icon and 180px Apple touch icon now use the school crest. The five school social cards include the school crest; the church cards retain the church crest.
 
 The full artwork and motto are retained. Square derivatives fit the complete image onto a white background rather than cropping its ribbons or redrawing the mark. `scripts/generate-school-branding.mjs` reproduces all web/icon variants from the original, using the existing Next.js Sharp dependency. The exact footer attribution remains unchanged. Original school-logo availability is resolved; confirmed production domain, current academic details and the other institutional-content gaps remain separate publication items.
+
+## Official name confirmed, 30 October 2026
+
+The client confirmed the name is **Newlife Baptist Schools**, with a final “s”. Public copy, the wordmark, accessibility labels, metadata, structured data, school email copy, chatbot-derived answers, WhatsApp enquiry text and sharing-card labels use that name. Generic references such as “the school” describe the institution and remain singular. Existing routes, logos, favicon and the exact church Technical Team attribution are retained. Earlier naming questions in the historical notes are resolved.

@@ -30,11 +30,11 @@ export type Institution = {
 export const school: Institution & {
   programmes: { title: string; description: string }[];
 } = {
-  name: "Newlife Baptist School",
+  name: "Newlife Baptist Schools",
   shortName: "the school",
   logo: {
     src: "/images/school/school-logo.png",
-    alt: "Newlife Baptist School crest — Learning and Growing in God",
+    alt: "Newlife Baptist Schools crest — Learning and Growing in God",
     width: 512,
     height: 512,
   },
@@ -45,21 +45,21 @@ export const school: Institution & {
   telephone: "+234 814 082 3524",
   whatsapp: "+234 814 082 3524",
   story: [
-    "The vision for Newlife Baptist School began in 1994 with Sister Doris Abili, then a lecturer at a tertiary institution in northern Nigeria. With the approval of Newlife Baptist Church, she established a nursery and primary school using the church’s name and premises, with the intention of moving to a permanent site in the future.",
+    "The vision for Newlife Baptist Schools began in 1994 with Sister Doris Abili, then a lecturer at a tertiary institution in northern Nigeria. With the approval of Newlife Baptist Church, she established a nursery and primary school using the church’s name and premises, with the intention of moving to a permanent site in the future.",
     "The school opened in the small church building with four children. Sister Doris Abili appointed Mrs. Stella Dodo to administer the school when she returned to her teaching post outside Port Harcourt. Together with the pioneer teachers, Mrs. Dodo guided the school through its early years.",
     "In 1996, Newlife Baptist Church formally took ownership of the school under the leadership of Bro. G. A. Apapa. The head teacher and other staff reapplied for their positions and were employed by the church. As the school grew, more teachers and support staff joined its community.",
     "Mrs. Dodo served under successive school management committees. In 1999, parents’ concerns about safety, including the absence of a perimeter fence at that time, and other school matters led to the formation of the Parent–Teacher Association. Its first chairman was Mr. Stephen Ajibare, who was later succeeded by Mr. Lebari.",
   ],
   hero: {
     src: "/images/school/school-exterior-wide.jpg",
-    alt: "Wide view of the Newlife Baptist School buildings and courtyard",
+    alt: "Wide view of the Newlife Baptist Schools buildings and courtyard",
     width: 1080,
     height: 813,
   },
   photos: [
     {
       src: "/images/school/school-exterior-wide.jpg",
-      alt: "Wide view of the Newlife Baptist School buildings and courtyard",
+      alt: "Wide view of the Newlife Baptist Schools buildings and courtyard",
       width: 1080,
       height: 813,
     },
@@ -95,7 +95,7 @@ export const church: Institution & {
   story: [
     "In 1994, Newlife Baptist Church gave Sister Doris Abili permission to use its name and premises to establish a nursery and primary school. The school began in the small church building with four children.",
     "In 1996, under the leadership of Bro. G. A. Apapa, the church formally took ownership of the school. The head teacher and staff reapplied for their positions and were employed by the church.",
-    "This connection is part of the history of Newlife Baptist School and the church’s role in its beginnings.",
+    "This connection is part of the history of Newlife Baptist Schools and the church’s role in its beginnings.",
   ],
   photos: [],
   services: [],

@@ -32,7 +32,7 @@ export function SchoolHome() {
             </p>
             <p className="section-copy">
               Four children, a small church building, and a dedicated team of
-              teachers marked the beginning of Newlife Baptist School in
+              teachers marked the beginning of Newlife Baptist Schools in
               Rumueme, Port Harcourt.
             </p>
             <Link className="text-link" href="/school/about">

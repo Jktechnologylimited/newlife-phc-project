@@ -240,8 +240,8 @@ export async function submitAdmissionsInquiry(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: data.email,
-      subject: "We received your inquiry — Newlife Baptist Church School",
-      text: `Hi ${data.parentName},\n\nThanks for reaching out about ${data.studentName}'s education. Your reference number is ${reference}. Our admissions team will follow up within two business days.\n\n— Newlife Baptist Church School`,
+      subject: "We received your inquiry — Newlife Baptist Schools",
+      text: `Hi ${data.parentName},\n\nThanks for reaching out about ${data.studentName}'s education. Your reference number is ${reference}. Our admissions team will follow up within two business days.\n\n— Newlife Baptist Schools`,
     });
     return {
       status: "success",

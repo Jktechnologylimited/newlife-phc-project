@@ -45,10 +45,10 @@ export function Wordmark({
         {tagline && (
           <span className="brand-subtitle">
             {experience === "school"
-              ? "Baptist School"
+              ? "Baptist Schools"
               : experience === "church"
                 ? "Baptist Church"
-                : "Baptist School & Church"}
+                : "Baptist Schools & Church"}
           </span>
         )}
       </span>

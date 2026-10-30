@@ -6,7 +6,7 @@ import { BrandMark } from "@/components/brand/mark";
 import { pageMetadata } from "@/lib/site-metadata";
 export const metadata = pageMetadata(
   "Our Church & School Story",
-  "Learn how Newlife Baptist Church supported the beginnings of Newlife Baptist School in 1994 and took ownership in 1996.",
+  "Learn how Newlife Baptist Church supported the beginnings of Newlife Baptist Schools in 1994 and took ownership in 1996.",
   "/church/about",
 );
 export default function ChurchAbout() {
