@@ -88,3 +88,8 @@ npx tsx scripts/generate-social-images.tsx
 ```
 
 The icon generator uses the Sharp installation already supplied by Next.js. No dependency declarations or lockfile changes are needed. Next.js discovers `src/app/favicon.ico`, `icon.png` and `apple-icon.png` automatically.
+
+
+## Logo-derived green palette
+
+The website uses the dominant school-crest green, `#1B954C`. Shared CSS variables at the top of `src/app/globals.css` define the primary green, readable deep `#14723A`, dark `#0D4B26`, and matching pale tints. These feed the website and automated guide. The social-image renderer uses the corresponding deep/dark shades; regenerate sharing images after palette updates with `npx tsx scripts/generate-social-images.tsx`.

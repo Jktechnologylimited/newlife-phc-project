@@ -21,7 +21,7 @@ async function main() {
           display: "flex",
           width: "100%",
           height: "100%",
-          background: "#1d4a37",
+          background: "#14723a",
           color: "#f7f4ee",
           position: "relative",
           fontFamily: "Geist",
@@ -51,8 +51,8 @@ async function main() {
             width: "100%",
             height: "100%",
             backgroundImage: card.church
-              ? "linear-gradient(90deg, #122c23, #1d4a37)"
-              : "linear-gradient(90deg, #122c23 5%, #122c23f5 38%, #122c2380 72%, #122c2320 100%)",
+              ? "linear-gradient(90deg, #0d4b26, #14723a)"
+              : "linear-gradient(90deg, #0d4b26 5%, #0d4b26f5 38%, #0d4b2680 72%, #0d4b2620 100%)",
           }}
         />
         <div

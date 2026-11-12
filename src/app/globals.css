@@ -8,6 +8,16 @@
    feeling like the same family.
 --------------------------------------------------------------------- */
 
+:root {
+  /* Dominant green sampled from the client-supplied school crest. */
+  --brand-green: #1b954c;
+  --brand-green-deep: #14723a;
+  --brand-green-dark: #0d4b26;
+  --brand-green-tint: #e8f5ed;
+  --brand-green-soft: #ddf0e4;
+  --brand-green-muted: #8dcaa6;
+}
+
 @theme inline {
   /* neutrals */
   --color-ink: #1b2733;
@@ -18,10 +28,10 @@
   --color-line: #d9d2c0;
   --color-slate: #5c6672;
 
-  /* church — from the real crest: deep pine green */
-  --color-church: #2f6b52;
-  --color-church-deep: #1d4a37;
-  --color-church-tint: #e1ece5;
+  /* Shared greens follow the official school crest. */
+  --color-church: var(--brand-green);
+  --color-church-deep: var(--brand-green-deep);
+  --color-church-tint: var(--brand-green-tint);
 
   /* school — from the crest's crown: warm gold */
   --color-school: #d99a2e;
@@ -135,7 +145,7 @@ body {
     background: currentColor;
   }
   .eyebrow.light {
-    color: #e2bd74;
+    color: #f5e8c7;
   }
   .display-title {
     font-family: var(--font-display);
@@ -217,7 +227,7 @@ body {
   }
   .button-gold {
     background: #e3b461;
-    color: #172a24;
+    color: var(--brand-green-dark);
   }
   .button-gold:hover {
     background: #f1ce8d;
@@ -274,7 +284,7 @@ body {
   }
   .header-topline {
     background: var(--color-church-deep);
-    color: #f7f4eecf;
+    color: #f7f4ee;
     font-size: 0.65rem;
     letter-spacing: 0.04em;
   }
@@ -370,7 +380,7 @@ body {
     color: var(--color-ink);
   }
   .navigation-dialog::backdrop {
-    background: #10291fd9;
+    background: #062d16d9;
   }
   .navigation-dialog-top {
     display: flex;
@@ -410,7 +420,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: #142e26;
+    background: var(--brand-green-dark);
   }
   .premium-hero-photo {
     object-fit: cover;
@@ -424,11 +434,11 @@ body {
     background:
       linear-gradient(
         90deg,
-        rgba(10, 29, 24, 0.88) 0%,
-        rgba(10, 29, 24, 0.68) 42%,
-        rgba(10, 29, 24, 0.1) 100%
+        rgba(6, 45, 22, 0.88) 0%,
+        rgba(6, 45, 22, 0.68) 42%,
+        rgba(6, 45, 22, 0.1) 100%
       ),
-      linear-gradient(0deg, rgba(10, 29, 24, 0.6), transparent 30%);
+      linear-gradient(0deg, rgba(6, 45, 22, 0.6), transparent 30%);
   }
   .premium-hero-content {
     padding-block: 4rem 7rem;
@@ -447,7 +457,7 @@ body {
     margin-top: 1.8rem;
     font-size: clamp(0.95rem, 1.3vw, 1.1rem);
     line-height: 1.8;
-    color: #f7f4eee0;
+    color: #f7f4ee;
     max-width: 32rem;
   }
   .hero-actions {
@@ -531,7 +541,7 @@ body {
     text-transform: uppercase;
     font-size: 0.6rem;
     letter-spacing: 0.16em;
-    color: #f7f4eebc;
+    color: #f7f4ee;
   }
   .photo-year strong {
     font: 3.3rem var(--font-display);
@@ -550,7 +560,7 @@ body {
     color: #e2bd74;
   }
   .education-section .section-copy {
-    color: #f7f4eec2;
+    color: #f7f4ee;
   }
   .education-icon {
     color: #e2bd74;
@@ -679,7 +689,7 @@ body {
     font-size: clamp(2rem, 3vw, 3rem);
   }
   .church-introduction .section-copy {
-    color: #f7f4eebf;
+    color: #f7f4ee;
   }
   .enquiry-section {
     padding-block: 6.5rem;
@@ -726,7 +736,7 @@ body {
     color: var(--color-church);
   }
   .site-footer {
-    background: #122c23;
+    background: var(--brand-green-dark);
     color: var(--color-paper);
     padding-top: 4rem;
     padding-bottom: 6rem;
@@ -761,12 +771,12 @@ body {
   .footer-church-copy {
     font-size: 0.8rem;
     line-height: 1.9;
-    color: #f7f4eebf;
+    color: #f7f4ee;
   }
   .footer-grid nav li {
     margin-bottom: 0.8rem;
     font-size: 0.8rem;
-    color: #f7f4eed6;
+    color: #f7f4ee;
   }
   .footer-grid nav a {
     display: inline-block;
@@ -787,7 +797,7 @@ body {
     gap: 0.75rem;
   }
   .site-footer .contact-detail-label {
-    color: #f7f4eea8;
+    color: #f7f4ee;
     font-size: 0.55rem;
   }
   .site-footer .contact-detail svg {
@@ -803,7 +813,7 @@ body {
     font-size: 0.7rem;
     line-height: 1.8;
     letter-spacing: 0.025em;
-    color: #f7f4eeac;
+    color: #f7f4ee;
   }
   .bare-attribution {
     padding: 1rem;
@@ -824,10 +834,10 @@ body {
     padding: 0.95rem 1.1rem;
     color: white;
     font-size: 0.75rem;
-    box-shadow: 0 4px 20px #10291f20;
+    box-shadow: 0 4px 20px #062d1620;
   }
   .whatsapp-enquiry:hover {
-    background: #122c23;
+    background: var(--brand-green-dark);
   }
   .page-intro {
     background: var(--color-paper-dim);
@@ -921,7 +931,7 @@ body {
     font-size: 2.6rem;
   }
   .academic-motto .section-copy {
-    color: #f7f4eec2;
+    color: #f7f4ee;
   }
   .contact-page-grid {
     display: grid;
@@ -992,7 +1002,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.16em;
     font-size: 0.6rem;
-    color: #f7f4eebf;
+    color: #f7f4ee;
   }
   .church-story-grid {
     display: grid;
@@ -1054,8 +1064,8 @@ body {
     }
     .premium-hero-shade {
       background:
-        linear-gradient(90deg, #0a1d18e6, #0a1d1860),
-        linear-gradient(0deg, #0a1d1880, transparent);
+        linear-gradient(90deg, #062d16e6, #062d1660),
+        linear-gradient(0deg, #062d1680, transparent);
     }
     .premium-hero .display-title {
       font-size: clamp(3.4rem, 12.5vw, 5rem);
@@ -1290,19 +1300,19 @@ body {
     gap: 0.7rem;
     min-height: 52px;
     padding: 0.6rem 0.95rem 0.6rem 0.6rem;
-    background: #1d4a37;
+    background: var(--brand-green-deep);
     border: 1px solid #f7f4ee80;
     border-radius: 999px;
     color: #f7f4ee;
     font-size: 0.875rem;
     font-weight: 500;
-    box-shadow: 0 4px 22px #10291f25;
+    box-shadow: 0 4px 22px #062d1625;
     transition:
       background 0.2s,
       transform 0.2s;
   }
   .guide-launcher:hover {
-    background: #122c23;
+    background: var(--brand-green-dark);
     transform: translateY(-2px);
   }
   .guide-launcher-icon {
@@ -1330,10 +1340,10 @@ body {
     overflow: hidden;
     background: #f7f4ee;
     color: #1b2733;
-    box-shadow: 0 24px 100px #10291f40;
+    box-shadow: 0 24px 100px #062d1640;
   }
   .guide-dialog::backdrop {
-    background: #10291f35;
+    background: #062d1635;
   }
   .guide-shell {
     display: flex;
@@ -1347,7 +1357,7 @@ body {
     gap: 0.8rem;
     flex-shrink: 0;
     padding: 1.15rem 1rem 1.15rem 1.2rem;
-    background: #1d4a37;
+    background: var(--brand-green-deep);
     color: #f7f4ee;
   }
   .guide-brand-icon {
@@ -1373,7 +1383,7 @@ body {
     margin-top: 0.35rem;
     font-size: 0.65rem;
     line-height: 1.6;
-    color: #f7f4eecf;
+    color: #f7f4ee;
   }
   .guide-header-actions {
     display: flex;
@@ -1408,7 +1418,7 @@ body {
     font-size: 0.56rem;
     text-transform: uppercase;
     letter-spacing: 0.13em;
-    color: #506756;
+    color: var(--brand-green-deep);
     font-weight: 600;
   }
   .guide-welcome h3 {
@@ -1418,7 +1428,7 @@ body {
     line-height: 1.12;
     letter-spacing: -0.045em;
     margin-top: 0.85rem;
-    color: #1d4a37;
+    color: var(--brand-green-deep);
   }
   .guide-welcome > p {
     font-size: 0.875rem;
@@ -1450,7 +1460,7 @@ body {
       border-color 0.2s;
   }
   .guide-suggestions button > svg:first-child {
-    color: #2f6b52;
+    color: var(--brand-green);
   }
   .guide-suggestions button > svg:last-child {
     position: absolute;
@@ -1460,7 +1470,7 @@ body {
   }
   .guide-suggestions button:hover {
     background: #efeade;
-    border-color: #99b09e;
+    border-color: var(--brand-green-muted);
   }
   .guide-welcome-note {
     display: flex;
@@ -1471,7 +1481,7 @@ body {
   }
   .guide-welcome-note svg {
     flex-shrink: 0;
-    color: #2f6b52;
+    color: var(--brand-green);
     margin-top: 0.15rem;
   }
   .guide-welcome-note p {
@@ -1488,7 +1498,7 @@ body {
     max-width: 90%;
     padding: 0.75rem 1rem;
     border-radius: 13px 13px 3px 13px;
-    background: #1d4a37;
+    background: var(--brand-green-deep);
     color: #f7f4ee;
     font-size: 0.875rem;
     line-height: 1.8;
@@ -1506,7 +1516,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    color: #596c5e;
+    color: var(--brand-green-deep);
     text-transform: uppercase;
     font-size: 0.53rem;
     letter-spacing: 0.1em;
@@ -1519,7 +1529,7 @@ body {
     font-family: var(--font-display);
     font-size: 1.15rem;
     line-height: 1.4;
-    color: #1d4a37;
+    color: var(--brand-green-deep);
     margin-top: 0.65rem;
   }
   .guide-answer > p {
@@ -1542,15 +1552,15 @@ body {
     gap: 0.8rem;
     min-height: 38px;
     padding: 0.5rem 0.7rem;
-    border: 1px solid #d4dece;
+    border: 1px solid var(--brand-green-muted);
     border-radius: 6px;
-    background: #eaf0e7;
-    color: #1d4a37;
+    background: var(--brand-green-tint);
+    color: var(--brand-green-deep);
     font-size: 0.75rem;
     font-weight: 500;
   }
   .guide-sources a:hover {
-    background: #dce8d7;
+    background: var(--brand-green-soft);
   }
   .guide-sources svg {
     flex-shrink: 0;
@@ -1577,7 +1587,7 @@ body {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #51695a;
+    background: var(--brand-green-deep);
     animation: guide-dot 1s ease-in-out infinite;
   }
   .guide-typing > span:nth-child(2) {
@@ -1600,11 +1610,11 @@ body {
     font-size: 0.65rem;
     line-height: 1.6;
     margin-bottom: 0.55rem;
-    color: #56635a;
+    color: var(--brand-green-deep);
   }
   .guide-handoff-heading > span:last-child {
     font-weight: 600;
-    color: #1d4a37;
+    color: var(--brand-green-deep);
     white-space: nowrap;
   }
   .guide-handoff > a {
@@ -1613,10 +1623,10 @@ body {
     justify-content: center;
     gap: 0.65rem;
     min-height: 44px;
-    border: 1px solid #b9cbb7;
+    border: 1px solid var(--brand-green-muted);
     border-radius: 8px;
-    background: #e1ece0;
-    color: #1d4a37;
+    background: var(--brand-green-tint);
+    color: var(--brand-green-deep);
     font-size: 0.73rem;
     font-weight: 600;
   }
@@ -1630,21 +1640,21 @@ body {
     padding-inline: 0.8rem;
   }
   .guide-handoff > a:hover {
-    background: #d3e3cf;
+    background: var(--brand-green-soft);
   }
   .guide-handoff-highlight > a {
-    background: #1d4a37;
-    border-color: #1d4a37;
+    background: var(--brand-green-deep);
+    border-color: var(--brand-green-deep);
     color: #f7f4ee;
   }
   .guide-handoff-highlight > a:hover {
-    background: #122c23;
+    background: var(--brand-green-dark);
   }
   .guide-handoff > p {
     font-size: 0.6875rem;
     line-height: 1.65;
     margin-top: 0.45rem;
-    color: #56635a;
+    color: var(--brand-green-deep);
   }
   .guide-form {
     display: flex;
@@ -1674,18 +1684,18 @@ body {
     width: 46px;
     height: 46px;
     border-radius: 9px;
-    background: #1d4a37;
+    background: var(--brand-green-deep);
     color: #f7f4ee;
   }
   .guide-form > button:disabled {
-    background: #dce2d9;
-    color: #71806f;
+    background: var(--brand-green-soft);
+    color: var(--brand-green-deep);
     cursor: default;
   }
   .guide-footnote {
     flex-shrink: 0;
     padding: 0.25rem 1.2rem 0.65rem;
-    color: #647064;
+    color: var(--brand-green-deep);
     text-align: center;
     font-size: 0.53rem;
     letter-spacing: 0.025em;

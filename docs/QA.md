@@ -111,3 +111,11 @@ The earlier school-logo/favicon blocker is resolved. Production-domain and other
 The client confirmed the institution name is **Newlife Baptist Schools**. Updated the school identity, public pages, shared header/footer, accessible logo descriptions, metadata/site name, structured-data name, email text and sharing-card labels. The chatbot and WhatsApp messages inherit the corrected central name. Regenerated the affected school sharing images. Generic “the school” references, existing routes, original crest artwork, church name and exact Technical Team attribution are preserved.
 
 Validation: production build including TypeScript and 84 static entries passed; ESLint passed; all 15 existing automated tests passed; active source scan found no remaining proper-name singular “Baptist School” in website/scripts/tests. Chromium verified the plural identity and metadata on all 8 main public pages, the school structured-data name on the root page, and no horizontal overflow at 320px and 1440px. `git diff --check` was clean.
+
+## School-logo green palette, 12 November 2026
+
+Sampled the original school crest and selected its dominant green, `#1B954C`, as the shared primary green. Replaced the old pine greens with logo-derived primary, deep `#14723A`, dark `#0D4B26`, pale backgrounds and borders across the public site and automated guide. Updated hero overlays and all eight rendered social-sharing images to the same green family. Shared CSS variables centralize the palette. Supplied logo artwork, factual content and the footer attribution were not changed.
+
+Cream text on the deep green measures 5.47:1 contrast; small pale-gold labels measure 4.93:1; deep-green text on the pale tint measures 5.35:1. The exact primary green is used for larger accents and icons; darker shades support normal-size text readability.
+
+Validation passed: production build including TypeScript and 84 static entries; ESLint; `git diff --check`; Chromium checks on the school home/About/Contact and church home at 320/375/768/1440px. Computed header, footer and chatbot colours match the new palette, no horizontal overflow occurred, and the guide opens/closes normally. All eight sharing images returned valid 1200×630 PNGs. Mobile and chatbot screenshots were captured and visually reviewed. No new dependencies or unrelated application features were added.
